@@ -1,0 +1,2029 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_AORTIC_DISSECTION_ADULT",
+  "file_name": "aortic_dissection.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Aortic Dissection.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "AORTIC_DISSECTION",
+  "disease_name_en": "Aortic Dissection",
+  "aliases": [
+    "Acute aortic dissection",
+    "Acute aortic syndrome",
+    "Stanford type A dissection",
+    "Stanford type B dissection"
+  ],
+  "disease_category": "vascular",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [
+      "ACUTE_AORTIC_SYNDROME"
+    ],
+    "overlaps_with": [],
+    "commonly_mimics": [
+      "ACUTE_CORONARY_SYNDROME",
+      "STROKE",
+      "PULMONARY_EMBOLISM"
+    ],
+    "upstream_of": [],
+    "distinctions": [],
+    "boundary_note": "",
+    "safety_notes": [
+      "Misclassification as ACS can lead to harmful antithrombotic or thrombolytic exposure."
+    ],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Aortic dissection is a tear in the aortic intima with blood entering the media, creating a false lumen; it is an acute aortic syndrome when presenting abruptly.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Symptoms can mimic ACS, PE, stroke, abdominal emergencies, or musculoskeletal pain.",
+      "Pain can be chest, back, abdominal, migrating, or absent in some patients.",
+      "Neurologic symptoms, syncope, limb ischemia, or myocardial ischemia may dominate the presentation.",
+      "Delay in imaging and surgical referral for type A dissection is life-threatening."
+    ],
+    "clinical_priority": "emergency",
+    "time_sensitivity": "Suspected acute aortic dissection requires immediate risk assessment, blood pressure/heart-rate control when appropriate, and urgent aortic imaging and surgical/endovascular consultation based on location.",
+    "do_not_use_as": [
+      "a D-dimer-only rule-out pathway",
+      "a substitute for CTA/TEE/MRI interpretation"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_abrupt_severe_chest_pain",
+        "input_terms": [
+          "abrupt severe chest pain",
+          "sudden severe chest pain",
+          "acute tearing chest pain",
+          "severe chest pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "abrupt_severe_chest_pain",
+        "normalized_node_id": "symptom_abrupt_severe_chest_pain",
+        "normalized_node": "Abrupt severe chest pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_abrupt_severe_back_pain",
+        "input_terms": [
+          "abrupt severe back pain",
+          "sudden severe back pain",
+          "interscapular pain",
+          "tearing back pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "abrupt_severe_back_pain",
+        "normalized_node_id": "symptom_abrupt_severe_back_pain",
+        "normalized_node": "Abrupt severe back pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_tearing_ripping_pain",
+        "input_terms": [
+          "tearing pain",
+          "ripping pain",
+          "sharp tearing pain",
+          "ripping chest pain",
+          "tearing back pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "tearing_ripping_pain",
+        "normalized_node_id": "symptom_tearing_ripping_or_sharp_pain_quality",
+        "normalized_node": "Tearing, ripping, or sharp pain quality",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_migrating_pain",
+        "input_terms": [
+          "migrating pain",
+          "pain migrated",
+          "chest pain radiating to back",
+          "pain moves to back"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "migrating_pain",
+        "normalized_node_id": "symptom_migrating_pain",
+        "normalized_node": "Migrating pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_syncope",
+        "input_terms": [
+          "syncope",
+          "passed out",
+          "fainted",
+          "collapse"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "syncope",
+        "normalized_node_id": "symptom_syncope",
+        "normalized_node": "Syncope",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_neurologic_deficit",
+        "input_terms": [
+          "neurologic deficit",
+          "stroke symptoms",
+          "aphasia",
+          "weakness",
+          "paralysis",
+          "altered mental status with chest pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "neurologic_deficit",
+        "normalized_node_id": "symptom_neurologic_deficit",
+        "normalized_node": "Neurologic deficit",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_pulse_deficit",
+        "input_terms": [
+          "pulse deficit",
+          "absent pulse",
+          "unequal pulses",
+          "diminished pulse",
+          "pulseless limb"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "pulse_deficit",
+        "normalized_node_id": "sign_pulse_deficit",
+        "normalized_node": "Pulse deficit",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_bp_differential",
+        "input_terms": [
+          "blood pressure differential",
+          "BP differential",
+          "unequal arm blood pressures",
+          "systolic difference between arms"
+        ],
+        "input_variants": [
+          ">20 mmHg difference",
+          "right arm 180 left arm 140"
+        ],
+        "normalized_case_fact": "blood_pressure_differential",
+        "normalized_node_id": "sign_systolic_blood_pressure_differential_between_limbs",
+        "normalized_node": "Systolic blood pressure differential between limbs",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_new_aortic_regurgitation",
+        "input_terms": [
+          "new aortic regurgitation",
+          "diastolic murmur",
+          "new murmur",
+          "aortic insufficiency murmur"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "new_aortic_regurgitation",
+        "normalized_node_id": "sign_new_aortic_regurgitation_murmur",
+        "normalized_node": "New aortic regurgitation murmur",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_hypotension_or_shock",
+        "input_terms": [
+          "hypotension",
+          "hypotensive",
+          "low blood pressure",
+          "low BP",
+          "SBP low",
+          "MAP low",
+          "shock",
+          "hemodynamic instability",
+          "hemodynamically unstable"
+        ],
+        "input_variants": [
+          "SBP <90",
+          "systolic BP <90",
+          "MAP <65",
+          "BP 82/48",
+          "BP 80/40",
+          "blood pressure 82/48"
+        ],
+        "normalized_case_fact": "hypotension",
+        "normalized_node_id": "sign_hypotension_or_shock",
+        "normalized_node": "Hypotension or shock",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_tamponade",
+        "input_terms": [
+          "tamponade",
+          "cardiac tamponade",
+          "pericardial tamponade",
+          "JVD hypotension muffled heart sounds"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "cardiac_tamponade",
+        "normalized_node_id": "sign_cardiac_tamponade_signs",
+        "normalized_node": "Cardiac tamponade signs",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_marfan_heritable_aortic_disease",
+        "input_terms": [
+          "Marfan syndrome",
+          "Loeys-Dietz",
+          "Ehlers-Danlos",
+          "heritable thoracic aortic disease",
+          "connective tissue disease"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "heritable_aortic_disease",
+        "normalized_node_id": "risk_marfan_syndrome_or_heritable_thoracic_aortic_disease",
+        "normalized_node": "Marfan syndrome or heritable thoracic aortic disease",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_013_known_aortic_aneurysm",
+        "input_terms": [
+          "known aortic aneurysm",
+          "thoracic aortic aneurysm",
+          "aortic root dilation"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "known_aortic_aneurysm",
+        "normalized_node_id": "risk_known_thoracic_aortic_aneurysm",
+        "normalized_node": "Known thoracic aortic aneurysm",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_014_cta_dissection",
+        "input_terms": [
+          "intimal flap",
+          "double lumen",
+          "aortic dissection on CTA",
+          "false lumen",
+          "dissection flap"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "intimal_flap_or_double_lumen",
+        "normalized_node_id": "finding_intimal_flap_or_double_lumen_on_aortic_imaging",
+        "normalized_node": "Intimal flap or double lumen on aortic imaging",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_015_mediastinal_widening",
+        "input_terms": [
+          "mediastinal widening",
+          "widened mediastinum",
+          "wide mediastinum"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "mediastinal_widening",
+        "normalized_node_id": "finding_mediastinal_widening",
+        "normalized_node": "Mediastinal widening",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_016_branch_malperfusion",
+        "input_terms": [
+          "branch vessel malperfusion",
+          "renal malperfusion",
+          "mesenteric ischemia",
+          "limb ischemia",
+          "cerebral malperfusion"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "branch_vessel_malperfusion",
+        "normalized_node_id": "finding_branch_vessel_malperfusion",
+        "normalized_node": "Branch vessel malperfusion",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_aortic_dissection",
+      "node_type": "DiseaseCandidate",
+      "name": "Aortic Dissection",
+      "synonyms": [
+        "Acute aortic dissection",
+        "Acute aortic syndrome",
+        "Stanford type A dissection",
+        "Stanford type B dissection"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_acute_aortic_syndrome_suspected",
+      "node_type": "ClinicalContext",
+      "name": "Acute aortic syndrome suspected",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_abrupt_severe_pain_syndrome",
+      "node_type": "ClinicalContext",
+      "name": "Abrupt severe pain syndrome",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_stanford_type_a_type_b_classification_needed",
+      "node_type": "ClinicalContext",
+      "name": "Stanford type A/type B classification needed",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_abrupt_severe_chest_pain",
+      "node_type": "Symptom",
+      "name": "Abrupt severe chest pain",
+      "synonyms": [
+        "abrupt severe chest pain",
+        "sudden severe chest pain",
+        "acute tearing chest pain",
+        "severe chest pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_abrupt_severe_back_pain",
+      "node_type": "Symptom",
+      "name": "Abrupt severe back pain",
+      "synonyms": [
+        "abrupt severe back pain",
+        "sudden severe back pain",
+        "interscapular pain",
+        "tearing back pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_tearing_ripping_or_sharp_pain_quality",
+      "node_type": "Symptom",
+      "name": "Tearing, ripping, or sharp pain quality",
+      "synonyms": [
+        "tearing pain",
+        "ripping pain",
+        "sharp tearing pain",
+        "ripping chest pain",
+        "tearing back pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_migrating_pain",
+      "node_type": "Symptom",
+      "name": "Migrating pain",
+      "synonyms": [
+        "migrating pain",
+        "pain migrated",
+        "chest pain radiating to back",
+        "pain moves to back"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_syncope",
+      "node_type": "Symptom",
+      "name": "Syncope",
+      "synonyms": [
+        "syncope",
+        "passed out",
+        "fainted",
+        "collapse"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_neurologic_deficit",
+      "node_type": "Symptom",
+      "name": "Neurologic deficit",
+      "synonyms": [
+        "neurologic deficit",
+        "stroke symptoms",
+        "aphasia",
+        "weakness",
+        "paralysis",
+        "altered mental status with chest pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_abdominal_pain",
+      "node_type": "Symptom",
+      "name": "Abdominal pain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_limb_pain_or_weakness",
+      "node_type": "Symptom",
+      "name": "Limb pain or weakness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_dyspnea",
+      "node_type": "Symptom",
+      "name": "Dyspnea",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_pulse_deficit",
+      "node_type": "Sign",
+      "name": "Pulse deficit",
+      "synonyms": [
+        "pulse deficit",
+        "absent pulse",
+        "unequal pulses",
+        "diminished pulse",
+        "pulseless limb"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_systolic_blood_pressure_differential_between_limbs",
+      "node_type": "Sign",
+      "name": "Systolic blood pressure differential between limbs",
+      "synonyms": [
+        "blood pressure differential",
+        "BP differential",
+        "unequal arm blood pressures",
+        "systolic difference between arms"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_new_aortic_regurgitation_murmur",
+      "node_type": "Sign",
+      "name": "New aortic regurgitation murmur",
+      "synonyms": [
+        "new aortic regurgitation",
+        "diastolic murmur",
+        "new murmur",
+        "aortic insufficiency murmur"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypotension_or_shock",
+      "node_type": "Sign",
+      "name": "Hypotension or shock",
+      "synonyms": [
+        "hypotension",
+        "hypotensive",
+        "low blood pressure",
+        "low BP",
+        "SBP low",
+        "MAP low",
+        "shock",
+        "hemodynamic instability",
+        "hemodynamically unstable"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_cardiac_tamponade_signs",
+      "node_type": "Sign",
+      "name": "Cardiac tamponade signs",
+      "synonyms": [
+        "tamponade",
+        "cardiac tamponade",
+        "pericardial tamponade",
+        "JVD hypotension muffled heart sounds"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_focal_neurologic_deficit",
+      "node_type": "Sign",
+      "name": "Focal neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_limb_ischemia",
+      "node_type": "Sign",
+      "name": "Limb ischemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_signs_of_malperfusion",
+      "node_type": "Sign",
+      "name": "Signs of malperfusion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hypertension",
+      "node_type": "RiskFactor",
+      "name": "Hypertension",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_thoracic_aortic_aneurysm",
+      "node_type": "RiskFactor",
+      "name": "Known thoracic aortic aneurysm",
+      "synonyms": [
+        "known aortic aneurysm",
+        "thoracic aortic aneurysm",
+        "aortic root dilation"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_marfan_syndrome_or_heritable_thoracic_aortic_disease",
+      "node_type": "RiskFactor",
+      "name": "Marfan syndrome or heritable thoracic aortic disease",
+      "synonyms": [
+        "Marfan syndrome",
+        "Loeys-Dietz",
+        "Ehlers-Danlos",
+        "heritable thoracic aortic disease",
+        "connective tissue disease"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_bicuspid_aortic_valve",
+      "node_type": "RiskFactor",
+      "name": "Bicuspid aortic valve",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_prior_aortic_surgery",
+      "node_type": "RiskFactor",
+      "name": "Prior aortic surgery",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_family_history_of_aortic_dissection",
+      "node_type": "RiskFactor",
+      "name": "Family history of aortic dissection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_cocaine_or_stimulant_use",
+      "node_type": "RiskFactor",
+      "name": "Cocaine or stimulant use",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_pregnancy_or_postpartum_state",
+      "node_type": "RiskFactor",
+      "name": "Pregnancy or postpartum state",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_atherosclerosis",
+      "node_type": "RiskFactor",
+      "name": "Atherosclerosis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_aortic_instrumentation",
+      "node_type": "RiskFactor",
+      "name": "Recent aortic instrumentation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_aortic_dissection_detection_risk_score_or_structured_high_risk_feature_assessmen",
+      "node_type": "DiagnosticData",
+      "name": "Aortic dissection detection risk score or structured high-risk feature assessment",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_cta_chest_abdomen_pelvis_with_aortic_protocol",
+      "node_type": "DiagnosticData",
+      "name": "CTA chest abdomen pelvis with aortic protocol",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_transesophageal_echocardiography_when_cta_unavailable_or_unstable",
+      "node_type": "DiagnosticData",
+      "name": "Transesophageal echocardiography when CTA unavailable or unstable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_mri_mra_when_appropriate_and_stable",
+      "node_type": "DiagnosticData",
+      "name": "MRI/MRA when appropriate and stable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ecg_and_troponin_to_assess_mimics_or_coronary_involvement",
+      "node_type": "DiagnosticData",
+      "name": "ECG and troponin to assess mimics or coronary involvement",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_chest_radiography_as_supportive_not_definitive",
+      "node_type": "DiagnosticData",
+      "name": "Chest radiography as supportive not definitive",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_bedside_echocardiography_for_tamponade_aortic_regurgitation",
+      "node_type": "DiagnosticData",
+      "name": "Bedside echocardiography for tamponade/aortic regurgitation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_intimal_flap_or_double_lumen_on_aortic_imaging",
+      "node_type": "Finding",
+      "name": "Intimal flap or double lumen on aortic imaging",
+      "synonyms": [
+        "intimal flap",
+        "double lumen",
+        "aortic dissection on CTA",
+        "false lumen",
+        "dissection flap"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_ascending_aorta_involvement",
+      "node_type": "Finding",
+      "name": "Ascending aorta involvement",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_branch_vessel_malperfusion",
+      "node_type": "Finding",
+      "name": "Branch vessel malperfusion",
+      "synonyms": [
+        "branch vessel malperfusion",
+        "renal malperfusion",
+        "mesenteric ischemia",
+        "limb ischemia",
+        "cerebral malperfusion"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_pericardial_effusion_or_tamponade",
+      "node_type": "Finding",
+      "name": "Pericardial effusion or tamponade",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_aortic_regurgitation",
+      "node_type": "Finding",
+      "name": "Aortic regurgitation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_mediastinal_widening",
+      "node_type": "Finding",
+      "name": "Mediastinal widening",
+      "synonyms": [
+        "mediastinal widening",
+        "widened mediastinum",
+        "wide mediastinum"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_pulse_or_bp_differential",
+      "node_type": "Finding",
+      "name": "Pulse or BP differential",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_d_dimer_elevation_as_supportive_not_diagnostic",
+      "node_type": "Finding",
+      "name": "D-dimer elevation as supportive not diagnostic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_acute_aortic_syndrome_pathway",
+      "node_type": "ManagementAction",
+      "name": "Activate acute aortic syndrome pathway",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_urgent_cardiothoracic_surgery_consultation_for_type_a_suspicion",
+      "node_type": "ManagementAction",
+      "name": "Urgent cardiothoracic surgery consultation for type A suspicion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_blood_pressure_and_heart_rate_control_when_not_contraindicated",
+      "node_type": "ManagementAction",
+      "name": "Blood pressure and heart rate control when not contraindicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_avoid_inappropriate_anticoagulation_or_thrombolysis_until_dissection_considered",
+      "node_type": "ManagementAction",
+      "name": "Avoid inappropriate anticoagulation or thrombolysis until dissection considered",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_malperfusion_syndromes",
+      "node_type": "ManagementAction",
+      "name": "Evaluate malperfusion syndromes",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_transfer_to_aortic_center_when_needed",
+      "node_type": "ManagementAction",
+      "name": "Transfer to aortic center when needed",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_acute_coronary_syndrome",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Acute coronary syndrome",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pulmonary_embolism",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pulmonary embolism",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_ischemic_stroke",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Ischemic stroke",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_intracranial_hemorrhage",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Intracranial hemorrhage",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pneumothorax",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pneumothorax",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_esophageal_rupture",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Esophageal rupture",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_renal_colic",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Renal colic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_mesenteric_ischemia",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Mesenteric ischemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_aortic_dissection",
+      "relation": "has_clinical_context",
+      "target": "context_acute_aortic_syndrome_suspected",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_aortic_dissection",
+      "relation": "has_clinical_context",
+      "target": "context_abrupt_severe_pain_syndrome",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_aortic_dissection",
+      "relation": "has_clinical_context",
+      "target": "context_stanford_type_a_type_b_classification_needed",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_abrupt_severe_chest_pain",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_abrupt_severe_back_pain",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_tearing_ripping_or_sharp_pain_quality",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_migrating_pain",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_syncope",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_abdominal_pain",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_limb_pain_or_weakness",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_aortic_dissection",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_dyspnea",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Aortic Dissection, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_pulse_deficit",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_systolic_blood_pressure_differential_between_limbs",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_new_aortic_regurgitation_murmur",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hypotension_or_shock",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_cardiac_tamponade_signs",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_focal_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_limb_ischemia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_signs_of_malperfusion",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Aortic Dissection or severity.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "risk_hypertension",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "risk_known_thoracic_aortic_aneurysm",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_marfan_syndrome_or_heritable_thoracic_aortic_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_bicuspid_aortic_valve",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_prior_aortic_surgery",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_family_history_of_aortic_dissection",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_cocaine_or_stimulant_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_pregnancy_or_postpartum_state",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_atherosclerosis",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_recent_aortic_instrumentation",
+      "relation": "increases_suspicion_for",
+      "target": "disease_aortic_dissection",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Aortic Dissection in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_aortic_dissection_detection_risk_score_or_structured_high_risk_feature_assessmen",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_cta_chest_abdomen_pelvis_with_aortic_protocol",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_transesophageal_echocardiography_when_cta_unavailable_or_unstable",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_mri_mra_when_appropriate_and_stable",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ecg_and_troponin_to_assess_mimics_or_coronary_involvement",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_chest_radiography_as_supportive_not_definitive",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_aortic_dissection",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_bedside_echocardiography_for_tamponade_aortic_regurgitation",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Aortic Dissection.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_intimal_flap_or_double_lumen_on_aortic_imaging",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_ascending_aorta_involvement",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_branch_vessel_malperfusion",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_pericardial_effusion_or_tamponade",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_aortic_regurgitation",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_mediastinal_widening",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_pulse_or_bp_differential",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_aortic_dissection",
+      "relation": "has_supporting_finding",
+      "target": "finding_d_dimer_elevation_as_supportive_not_diagnostic",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Aortic Dissection or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_aortic_dissection",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_acute_aortic_syndrome_pathway",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Aortic Dissection is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_aortic_dissection",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_urgent_cardiothoracic_surgery_consultation_for_type_a_suspicion",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Aortic Dissection is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_aortic_dissection",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_blood_pressure_and_heart_rate_control_when_not_contraindicated",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Aortic Dissection is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_aortic_dissection",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_avoid_inappropriate_anticoagulation_or_thrombolysis_until_dissection_considered",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Aortic Dissection is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_aortic_dissection",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_malperfusion_syndromes",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Aortic Dissection is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_aortic_dissection",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_transfer_to_aortic_center_when_needed",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Aortic Dissection is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Abrupt severe chest/back/abdominal pain, syncope, neurologic deficit, pulse/BP differential, malperfusion, or high-risk aortic condition.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "AD_P1_abrupt_pain",
+            "case_features": [
+              "abrupt severe chest/back pain",
+              "tearing/ripping quality"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Classic acute aortic syndrome pain pattern."
+          },
+          {
+            "pattern_id": "AD_P2_pain_neuro",
+            "case_features": [
+              "abrupt pain",
+              "neurologic deficit or syncope"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Possible dissection with cerebral malperfusion."
+          },
+          {
+            "pattern_id": "AD_P3_pulse_deficit",
+            "case_features": [
+              "pain",
+              "pulse deficit or BP differential"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "High-risk exam feature."
+          },
+          {
+            "pattern_id": "AD_P4_high_risk_condition",
+            "case_features": [
+              "known aneurysm or connective tissue disease",
+              "acute pain"
+            ],
+            "candidate_priority": "high",
+            "reason": "High-risk aortic condition."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "AD_W1_back_pain_only",
+            "case_features": [
+              "back pain without abrupt severity or risk features"
+            ],
+            "candidate_priority": "low_to_moderate",
+            "reason": "Back pain is common and nonspecific."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_high_risk_conditions",
+      "step_type": "risk_check",
+      "step_name": "",
+      "check": "Are high-risk aortic conditions present?",
+      "required_case_fields": [
+        "known_aneurysm",
+        "connective_tissue_disease",
+        "bicuspid_valve",
+        "prior_aortic_surgery",
+        "family_history"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Increase acute aortic syndrome suspicion.",
+      "negative_result": "Continue pain/exam assessment.",
+      "if_missing": "Risk context unavailable.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_pain_features",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Are high-risk pain features present: abrupt, severe, tearing/ripping, chest/back/abdominal, or migrating?",
+      "required_case_fields": [
+        "pain_onset",
+        "pain_location",
+        "pain_quality",
+        "severity",
+        "migration"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Increase suspicion and proceed toward urgent imaging.",
+      "negative_result": "Pain pattern less supportive but does not exclude.",
+      "if_missing": "Pain characterization missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_exam_features",
+      "step_type": "exam_check",
+      "step_name": "",
+      "check": "Are pulse deficit, BP differential, neuro deficit, aortic regurgitation, hypotension, shock, or malperfusion present?",
+      "required_case_fields": [
+        "bilateral_BP",
+        "pulse_exam",
+        "neurologic_exam",
+        "cardiac_exam",
+        "perfusion"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Very high-risk; urgent aortic imaging/consult.",
+      "negative_result": "Exam less supportive.",
+      "if_missing": "Exam data missing; cannot down-rank safely.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_imaging",
+      "step_type": "imaging_check",
+      "step_name": "",
+      "check": "Is definitive aortic imaging available?",
+      "required_case_fields": [
+        "CTA_aorta",
+        "TEE",
+        "MRI/MRA"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Classify dissection and aortic involvement.",
+      "negative_result": "If imaging negative and quality adequate, consider alternatives.",
+      "if_missing": "Aortic dissection cannot be confirmed/excluded without appropriate imaging.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_classify_type",
+      "step_type": "classification",
+      "step_name": "",
+      "check": "Is the ascending aorta involved?",
+      "required_case_fields": [
+        "aortic_imaging_report"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Type A pathway; urgent surgical consultation.",
+      "negative_result": "Type B pathway if descending only; evaluate complications.",
+      "if_missing": "Cannot classify without imaging.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_malperfusion_complications",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "Are coronary, cerebral, spinal, visceral, renal, or limb malperfusion features present?",
+      "required_case_fields": [
+        "ECG",
+        "neuro_exam",
+        "creatinine",
+        "lactate",
+        "abdominal_pain",
+        "limb_exam"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Escalate severity and specialty involvement.",
+      "negative_result": "No malperfusion evident.",
+      "if_missing": "Malperfusion assessment incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_mimic_and_harm_screen",
+      "step_type": "safety_check",
+      "step_name": "",
+      "check": "Could the presentation be ACS, PE, stroke, or another emergency, and are treatments potentially harmful if dissection is missed?",
+      "required_case_fields": [
+        "ECG",
+        "troponin",
+        "CTPA",
+        "brain_imaging",
+        "antithrombotic_plan"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report high-risk competing diagnoses and avoid premature closure.",
+      "negative_result": "Proceed with most supported pathway.",
+      "if_missing": "Safety screening incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "ACUTE_CORONARY_SYNDROME",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Chest pain and ECG/troponin abnormalities may occur with coronary malperfusion.",
+        "Pulse/BP differential and abrupt tearing pain favor dissection."
+      ],
+      "critical_tests_or_data": [
+        "ECG",
+        "troponin",
+        "CTA aorta"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PULMONARY_EMBOLISM",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Dyspnea, syncope, chest pain overlap; PE has VTE risk and CTPA findings."
+      ],
+      "critical_tests_or_data": [
+        "CTPA",
+        "D-dimer/probability",
+        "echo"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ISCHEMIC_STROKE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Focal deficits may be due to carotid/aortic dissection extension; chest/back pain or pulse deficit is a clue."
+      ],
+      "critical_tests_or_data": [
+        "CTA head/neck/aorta",
+        "brain imaging"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PNEUMOTHORAX",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Sudden pleuritic pain/dyspnea with unilateral breath findings."
+      ],
+      "critical_tests_or_data": [
+        "CXR",
+        "lung ultrasound"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ESOPHAGEAL_RUPTURE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Chest pain after vomiting, sepsis, mediastinal air."
+      ],
+      "critical_tests_or_data": [
+        "CT chest",
+        "contrast esophagram"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "MESENTERIC_ISCHEMIA",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Severe abdominal pain and lactate; can be caused by dissection malperfusion."
+      ],
+      "critical_tests_or_data": [
+        "CTA abdomen/aorta",
+        "lactate"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "AORTIC_DISSECTION",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_acc_aha_aortic_2022",
+      "source_type": "guideline",
+      "title": "2022 ACC/AHA Guideline for the Diagnosis and Management of Aortic Disease",
+      "publisher": "American College of Cardiology / American Heart Association",
+      "publication_date": "2022",
+      "publication_year": "",
+      "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001106",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Includes diagnosis and management recommendations for acute aortic syndromes.",
+        "Supports high-risk condition, pain, examination-feature assessment and urgent aortic imaging when acute aortic syndrome is suspected."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not treat chest pain as ACS without considering dissection red flags.",
+      "Do not exclude dissection using chest radiograph alone.",
+      "Do not use D-dimer as a standalone rule-out in high-risk presentations."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always assess high-risk condition, high-risk pain, and high-risk exam features.",
+      "Always report whether definitive aortic imaging is available."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 16,
+    "preserved_graph_nodes": 60,
+    "preserved_graph_edges": 51
+  }
+}

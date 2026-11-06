@@ -1,0 +1,2054 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_ENCEPHALITIS_ADULT",
+  "file_name": "encephalitis.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Encephalitis.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "ENCEPHALITIS",
+  "disease_name_en": "Encephalitis",
+  "aliases": [
+    "Viral encephalitis",
+    "HSV encephalitis",
+    "Autoimmune encephalitis mimic",
+    "Meningoencephalitis"
+  ],
+  "disease_category": "infection_neurologic",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "MENINGITIS",
+      "SEPSIS",
+      "INTRACRANIAL_HEMORRHAGE",
+      "AUTOIMMUNE_ENCEPHALITIS"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [],
+    "boundary_note": "This graph focuses on suspected infectious encephalitis; autoimmune, paraneoplastic, toxic-metabolic, and vascular mimics must remain active differentials.",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Encephalitis is inflammation of the brain parenchyma, usually presenting as encephalopathy plus evidence of CNS inflammation; infectious causes such as HSV are time-critical.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Can present as psychiatric change, delirium, seizure, fever, or focal deficit and be mistaken for stroke, intoxication, psychosis, migraine, or metabolic disease.",
+      "CSF may be initially nonspecific and early imaging may be normal.",
+      "HSV encephalitis requires early empiric acyclovir consideration because delays worsen outcomes.",
+      "Meningitis and encephalitis overlap, and both may require urgent empiric treatment."
+    ],
+    "clinical_priority": "emergency_or_urgent",
+    "time_sensitivity": "Suspected encephalitis with altered mental status, seizures, or focal deficits requires urgent neuroinfectious workup and empiric antiviral consideration.",
+    "do_not_use_as": [
+      "a replacement for neurologist/infectious disease review",
+      "a CSF PCR-only rule-out tool",
+      "an antiviral order generator"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_encephalopathy_ams",
+        "input_terms": [
+          "altered mental status",
+          "AMS",
+          "confusion",
+          "confused",
+          "delirium",
+          "acute delirium",
+          "encephalopathy",
+          "drowsy",
+          "somnolent",
+          "reduced level of consciousness",
+          "not acting right",
+          "acute cognitive change"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "altered_mental_status",
+        "normalized_node_id": "symptom_altered_mental_status_or_encephalopathy",
+        "normalized_node": "Altered mental status or encephalopathy",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_fever",
+        "input_terms": [
+          "fever",
+          "febrile",
+          "pyrexia",
+          "high temperature",
+          "chills",
+          "rigors",
+          "shaking chills"
+        ],
+        "input_variants": [
+          "T >38",
+          "temperature >38",
+          "temp 38",
+          "temp 39",
+          "temperature 101",
+          "temperature 102",
+          "febrile to"
+        ],
+        "normalized_case_fact": "fever",
+        "normalized_node_id": "symptom_fever",
+        "normalized_node": "Fever",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_headache",
+        "input_terms": [
+          "headache",
+          "new headache",
+          "severe headache"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "headache",
+        "normalized_node_id": "symptom_headache",
+        "normalized_node": "Headache",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_seizure",
+        "input_terms": [
+          "seizure",
+          "new seizure",
+          "status epilepticus",
+          "convulsion"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "seizure",
+        "normalized_node_id": "symptom_seizure",
+        "normalized_node": "Seizure",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_behavior_personality_change",
+        "input_terms": [
+          "behavioral change",
+          "personality change",
+          "psychiatric symptoms",
+          "psychosis",
+          "hallucinations",
+          "agitation"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "behavioral_or_personality_change",
+        "normalized_node_id": "symptom_behavioral_or_personality_change",
+        "normalized_node": "Behavioral or personality change",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_memory_disturbance",
+        "input_terms": [
+          "memory disturbance",
+          "short-term memory loss",
+          "amnesia",
+          "confusion with memory loss"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "memory_disturbance",
+        "normalized_node_id": "symptom_memory_disturbance",
+        "normalized_node": "Memory disturbance",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_focal_neurologic_deficit",
+        "input_terms": [
+          "focal neurologic deficit",
+          "aphasia",
+          "hemiparesis",
+          "cranial nerve deficit",
+          "focal weakness"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "focal_neurologic_deficit",
+        "normalized_node_id": "symptom_focal_neurologic_deficit",
+        "normalized_node": "Focal neurologic deficit",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_meningism",
+        "input_terms": [
+          "meningism",
+          "neck stiffness",
+          "nuchal rigidity",
+          "photophobia"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "meningism",
+        "normalized_node_id": "sign_meningism",
+        "normalized_node": "Meningism",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_csf_pleocytosis",
+        "input_terms": [
+          "CSF pleocytosis",
+          "lymphocytic pleocytosis",
+          "elevated CSF white cells",
+          "CSF WBC elevated"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "csf_pleocytosis",
+        "normalized_node_id": "finding_csf_pleocytosis",
+        "normalized_node": "CSF pleocytosis",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "csf_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_positive_hsv_pcr",
+        "input_terms": [
+          "positive HSV PCR",
+          "HSV PCR positive",
+          "HSV detected in CSF"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "positive_hsv_pcr",
+        "normalized_node_id": "finding_positive_hsv_pcr",
+        "normalized_node": "Positive HSV PCR",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "csf_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_temporal_lobe_mri",
+        "input_terms": [
+          "temporal lobe abnormality",
+          "temporal lobe MRI abnormality",
+          "medial temporal signal",
+          "HSV temporal lobe"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "temporal_lobe_mri_abnormality",
+        "normalized_node_id": "finding_temporal_lobe_mri_abnormality",
+        "normalized_node": "Temporal lobe MRI abnormality",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_eeg_temporal_abnormality",
+        "input_terms": [
+          "EEG temporal abnormality",
+          "focal temporal slowing",
+          "temporal seizures on EEG",
+          "periodic discharges"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "eeg_focal_temporal_abnormality",
+        "normalized_node_id": "finding_eeg_focal_temporal_abnormalities_or_seizures",
+        "normalized_node": "EEG focal temporal abnormalities or seizures",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "test_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_encephalitis",
+      "node_type": "DiseaseCandidate",
+      "name": "Encephalitis",
+      "synonyms": [
+        "Viral encephalitis",
+        "HSV encephalitis",
+        "Autoimmune encephalitis mimic",
+        "Meningoencephalitis"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_altered_mental_status_with_possible_cns_infection",
+      "node_type": "ClinicalContext",
+      "name": "Altered mental status with possible CNS infection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_suspected_meningoencephalitis",
+      "node_type": "ClinicalContext",
+      "name": "Suspected meningoencephalitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_hsv_encephalitis_must_not_be_missed",
+      "node_type": "ClinicalContext",
+      "name": "HSV encephalitis must not be missed",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_autoimmune_encephalitis_differential",
+      "node_type": "ClinicalContext",
+      "name": "Autoimmune encephalitis differential",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_altered_mental_status_or_encephalopathy",
+      "node_type": "Symptom",
+      "name": "Altered mental status or encephalopathy",
+      "synonyms": [
+        "altered mental status",
+        "AMS",
+        "confusion",
+        "confused",
+        "delirium",
+        "acute delirium",
+        "encephalopathy",
+        "drowsy",
+        "somnolent",
+        "reduced level of consciousness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_fever",
+      "node_type": "Symptom",
+      "name": "Fever",
+      "synonyms": [
+        "fever",
+        "febrile",
+        "pyrexia",
+        "high temperature",
+        "chills",
+        "rigors",
+        "shaking chills"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_headache",
+      "node_type": "Symptom",
+      "name": "Headache",
+      "synonyms": [
+        "headache",
+        "new headache",
+        "severe headache"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_seizure",
+      "node_type": "Symptom",
+      "name": "Seizure",
+      "synonyms": [
+        "seizure",
+        "new seizure",
+        "status epilepticus",
+        "convulsion"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_behavioral_or_personality_change",
+      "node_type": "Symptom",
+      "name": "Behavioral or personality change",
+      "synonyms": [
+        "behavioral change",
+        "personality change",
+        "psychiatric symptoms",
+        "psychosis",
+        "hallucinations",
+        "agitation"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_memory_disturbance",
+      "node_type": "Symptom",
+      "name": "Memory disturbance",
+      "synonyms": [
+        "memory disturbance",
+        "short-term memory loss",
+        "amnesia",
+        "confusion with memory loss"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_focal_neurologic_deficit",
+      "node_type": "Symptom",
+      "name": "Focal neurologic deficit",
+      "synonyms": [
+        "focal neurologic deficit",
+        "aphasia",
+        "hemiparesis",
+        "cranial nerve deficit",
+        "focal weakness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_speech_disturbance",
+      "node_type": "Symptom",
+      "name": "Speech disturbance",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_photophobia_or_neck_stiffness",
+      "node_type": "Symptom",
+      "name": "Photophobia or neck stiffness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_hallucinations_or_psychosis_like_symptoms",
+      "node_type": "Symptom",
+      "name": "Hallucinations or psychosis-like symptoms",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_reduced_level_of_consciousness",
+      "node_type": "Sign",
+      "name": "Reduced level of consciousness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_new_seizure_or_status_epilepticus",
+      "node_type": "Sign",
+      "name": "New seizure or status epilepticus",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_focal_neurologic_sign",
+      "node_type": "Sign",
+      "name": "Focal neurologic sign",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_meningism",
+      "node_type": "Sign",
+      "name": "Meningism",
+      "synonyms": [
+        "meningism",
+        "neck stiffness",
+        "nuchal rigidity",
+        "photophobia"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_autonomic_instability",
+      "node_type": "Sign",
+      "name": "Autonomic instability",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_abnormal_movement_disorder",
+      "node_type": "Sign",
+      "name": "Abnormal movement disorder",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_papilledema_or_raised_intracranial_pressure_signs",
+      "node_type": "Sign",
+      "name": "Papilledema or raised intracranial pressure signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_rash_or_vesicular_lesions",
+      "node_type": "Sign",
+      "name": "Rash or vesicular lesions",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_immunosuppression",
+      "node_type": "RiskFactor",
+      "name": "Immunosuppression",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hsv_exposure_or_prior_hsv",
+      "node_type": "RiskFactor",
+      "name": "HSV exposure or prior HSV",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_viral_illness",
+      "node_type": "RiskFactor",
+      "name": "Recent viral illness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_travel_or_arboviral_exposure",
+      "node_type": "RiskFactor",
+      "name": "Travel or arboviral exposure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_tick_or_mosquito_exposure",
+      "node_type": "RiskFactor",
+      "name": "Tick or mosquito exposure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_animal_exposure",
+      "node_type": "RiskFactor",
+      "name": "Animal exposure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hiv_risk_or_known_hiv",
+      "node_type": "RiskFactor",
+      "name": "HIV risk or known HIV",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_transplant_or_biologic_therapy",
+      "node_type": "RiskFactor",
+      "name": "Transplant or biologic therapy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_vaccination_or_immune_trigger_context",
+      "node_type": "RiskFactor",
+      "name": "Recent vaccination or immune trigger context",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_mri_brain_with_appropriate_sequences",
+      "node_type": "DiagnosticData",
+      "name": "MRI brain with appropriate sequences",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_lumbar_puncture_when_safe",
+      "node_type": "DiagnosticData",
+      "name": "Lumbar puncture when safe",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_cell_count_and_differential",
+      "node_type": "DiagnosticData",
+      "name": "CSF cell count and differential",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_protein_and_glucose",
+      "node_type": "DiagnosticData",
+      "name": "CSF protein and glucose",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_hsv_pcr",
+      "node_type": "DiagnosticData",
+      "name": "CSF HSV PCR",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_vzv_enterovirus_arbovirus_testing_as_indicated",
+      "node_type": "DiagnosticData",
+      "name": "CSF VZV/enterovirus/arbovirus testing as indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_eeg",
+      "node_type": "DiagnosticData",
+      "name": "EEG",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_blood_cultures_and_infection_labs_when_febrile_septic",
+      "node_type": "DiagnosticData",
+      "name": "Blood cultures and infection labs when febrile/septic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_autoimmune_encephalitis_testing_when_indicated",
+      "node_type": "DiagnosticData",
+      "name": "Autoimmune encephalitis testing when indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ct_head_before_lp_when_contraindication_features_present",
+      "node_type": "DiagnosticData",
+      "name": "CT head before LP when contraindication features present",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_csf_pleocytosis",
+      "node_type": "Finding",
+      "name": "CSF pleocytosis",
+      "synonyms": [
+        "CSF pleocytosis",
+        "lymphocytic pleocytosis",
+        "elevated CSF white cells",
+        "CSF WBC elevated"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_positive_hsv_pcr",
+      "node_type": "Finding",
+      "name": "Positive HSV PCR",
+      "synonyms": [
+        "positive HSV PCR",
+        "HSV PCR positive",
+        "HSV detected in CSF"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_temporal_lobe_mri_abnormality",
+      "node_type": "Finding",
+      "name": "Temporal lobe MRI abnormality",
+      "synonyms": [
+        "temporal lobe abnormality",
+        "temporal lobe MRI abnormality",
+        "medial temporal signal",
+        "HSV temporal lobe"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_eeg_focal_temporal_abnormalities_or_seizures",
+      "node_type": "Finding",
+      "name": "EEG focal temporal abnormalities or seizures",
+      "synonyms": [
+        "EEG temporal abnormality",
+        "focal temporal slowing",
+        "temporal seizures on EEG",
+        "periodic discharges"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_fever_with_encephalopathy",
+      "node_type": "Finding",
+      "name": "Fever with encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_seizures_with_encephalopathy",
+      "node_type": "Finding",
+      "name": "Seizures with encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_abnormal_csf_protein",
+      "node_type": "Finding",
+      "name": "Abnormal CSF protein",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_mri_limbic_or_multifocal_inflammatory_lesions",
+      "node_type": "Finding",
+      "name": "MRI limbic or multifocal inflammatory lesions",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_encephalitis_pathway",
+      "node_type": "ManagementAction",
+      "name": "Activate encephalitis pathway",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_consider_empiric_acyclovir_urgently_when_hsv_encephalitis_is_possible",
+      "node_type": "ManagementAction",
+      "name": "Consider empiric acyclovir urgently when HSV encephalitis is possible",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_do_not_delay_therapy_for_complete_testing_in_high_risk_cases",
+      "node_type": "ManagementAction",
+      "name": "Do not delay therapy for complete testing in high-risk cases",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_manage_seizures_status_epilepticus",
+      "node_type": "ManagementAction",
+      "name": "Manage seizures/status epilepticus",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_lp_safety_and_raised_icp",
+      "node_type": "ManagementAction",
+      "name": "Assess LP safety and raised ICP",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_consult_neurology_infectious_diseases",
+      "node_type": "ManagementAction",
+      "name": "Consult neurology/infectious diseases",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_autoimmune_and_vascular_mimics",
+      "node_type": "ManagementAction",
+      "name": "Evaluate autoimmune and vascular mimics",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_meningitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Meningitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_ischemic_stroke",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Ischemic stroke",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_intracranial_hemorrhage",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Intracranial hemorrhage",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_seizure_postictal_state",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Seizure/postictal state",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_autoimmune_encephalitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Autoimmune encephalitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_toxic_metabolic_encephalopathy",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Toxic-metabolic encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_sepsis_associated_encephalopathy",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Sepsis-associated encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_brain_abscess_or_tumor",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Brain abscess or tumor",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_psychiatric_disorder",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Psychiatric disorder",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_encephalitis",
+      "relation": "has_clinical_context",
+      "target": "context_altered_mental_status_with_possible_cns_infection",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_encephalitis",
+      "relation": "has_clinical_context",
+      "target": "context_suspected_meningoencephalitis",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_encephalitis",
+      "relation": "has_clinical_context",
+      "target": "context_hsv_encephalitis_must_not_be_missed",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_encephalitis",
+      "relation": "has_clinical_context",
+      "target": "context_autoimmune_encephalitis_differential",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_altered_mental_status_or_encephalopathy",
+      "strength": "critical",
+      "weight": 0.95,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_fever",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_headache",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_seizure",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_behavioral_or_personality_change",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_memory_disturbance",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_focal_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_speech_disturbance",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_photophobia_or_neck_stiffness",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_encephalitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_hallucinations_or_psychosis_like_symptoms",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Encephalitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_reduced_level_of_consciousness",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_new_seizure_or_status_epilepticus",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_focal_neurologic_sign",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_meningism",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_autonomic_instability",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_abnormal_movement_disorder",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_papilledema_or_raised_intracranial_pressure_signs",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_rash_or_vesicular_lesions",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Encephalitis or severity.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_immunosuppression",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_hsv_exposure_or_prior_hsv",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_recent_viral_illness",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_travel_or_arboviral_exposure",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_tick_or_mosquito_exposure",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_animal_exposure",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_hiv_risk_or_known_hiv",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_transplant_or_biologic_therapy",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "risk_recent_vaccination_or_immune_trigger_context",
+      "relation": "increases_suspicion_for",
+      "target": "disease_encephalitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Encephalitis in the appropriate clinical context.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_mri_brain_with_appropriate_sequences",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_lumbar_puncture_when_safe",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_cell_count_and_differential",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_protein_and_glucose",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_hsv_pcr",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_vzv_enterovirus_arbovirus_testing_as_indicated",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_eeg",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_blood_cultures_and_infection_labs_when_febrile_septic",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_autoimmune_encephalitis_testing_when_indicated",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_encephalitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ct_head_before_lp_when_contraindication_features_present",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Encephalitis.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_csf_pleocytosis",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_positive_hsv_pcr",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_temporal_lobe_mri_abnormality",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_eeg_focal_temporal_abnormalities_or_seizures",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_fever_with_encephalopathy",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_seizures_with_encephalopathy",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_abnormal_csf_protein",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_encephalitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_mri_limbic_or_multifocal_inflammatory_lesions",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Encephalitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_encephalitis_pathway",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_consider_empiric_acyclovir_urgently_when_hsv_encephalitis_is_possible",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_do_not_delay_therapy_for_complete_testing_in_high_risk_cases",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_manage_seizures_status_epilepticus",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e054",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_lp_safety_and_raised_icp",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e055",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_consult_neurology_infectious_diseases",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "edge_id": "e056",
+      "source": "disease_encephalitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_autoimmune_and_vascular_mimics",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Encephalitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Altered mental status/encephalopathy plus fever, seizure, focal deficit, CSF abnormality, MRI/EEG abnormality, or CNS infection risk.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "ENC_P1_ams_fever",
+            "case_features": [
+              "altered mental status",
+              "fever"
+            ],
+            "candidate_priority": "high",
+            "reason": "Core encephalitis retrieval pattern."
+          },
+          {
+            "pattern_id": "ENC_P2_seizure_ams",
+            "case_features": [
+              "new seizure",
+              "persistent altered mental status"
+            ],
+            "candidate_priority": "high",
+            "reason": "Encephalitis and HSV must be considered."
+          },
+          {
+            "pattern_id": "ENC_P3_temporal_lobe",
+            "case_features": [
+              "encephalopathy",
+              "temporal lobe MRI or focal temporal EEG"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "HSV encephalitis concern."
+          },
+          {
+            "pattern_id": "ENC_P4_meningoencephalitis",
+            "case_features": [
+              "headache/neck stiffness",
+              "altered mental status"
+            ],
+            "candidate_priority": "high",
+            "reason": "Overlap with meningitis."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "ENC_W1_fever_only",
+            "case_features": [
+              "fever without encephalopathy"
+            ],
+            "candidate_priority": "low",
+            "reason": "Fever alone does not suggest encephalitis."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_define_encephalopathy",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Is there altered mental status, behavior change, reduced consciousness, or cognitive dysfunction?",
+      "required_case_fields": [
+        "mental_status",
+        "baseline",
+        "duration"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Continue encephalitis verification.",
+      "negative_result": "Encephalitis less likely without encephalopathy, but focal CNS infection may remain possible.",
+      "if_missing": "Cannot assess core encephalitis criterion.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_identify_inflammatory_or_infectious_support",
+      "step_type": "supporting_evidence_check",
+      "step_name": "",
+      "check": "Are fever, CSF pleocytosis, MRI/EEG abnormalities, seizures, or focal deficits present?",
+      "required_case_fields": [
+        "temperature",
+        "CSF",
+        "MRI",
+        "EEG",
+        "seizure",
+        "neuro_exam"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Raises suspicion for encephalitis.",
+      "negative_result": "If absent, evaluate mimics and autoimmune/metabolic causes.",
+      "if_missing": "Supporting data incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_lp_safety_and_csf",
+      "step_type": "csf_check",
+      "step_name": "",
+      "check": "Is lumbar puncture safe and are CSF tests available?",
+      "required_case_fields": [
+        "LP_safety",
+        "CSF_cell_count",
+        "CSF_protein",
+        "CSF_glucose",
+        "PCR"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use CSF to support etiology; continue therapy if high suspicion.",
+      "negative_result": "Normal/early CSF does not always exclude encephalitis.",
+      "if_missing": "CSF unavailable; diagnosis remains incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_hsv_testing_and_empiric_pathway",
+      "step_type": "etiology_check",
+      "step_name": "",
+      "check": "Is HSV encephalitis possible and has HSV PCR/empiric acyclovir pathway been considered?",
+      "required_case_fields": [
+        "CSF_HSV_PCR",
+        "temporal_MRI",
+        "seizures",
+        "mental_status",
+        "therapy_time"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Flag urgent clinician-led acyclovir consideration.",
+      "negative_result": "If HSV unlikely, consider other infectious/autoimmune etiologies.",
+      "if_missing": "HSV status missing; do not falsely reassure.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_neuroimaging",
+      "step_type": "imaging_check",
+      "step_name": "",
+      "check": "Is MRI brain or CT available to evaluate inflammation, hemorrhage, stroke, mass, or abscess?",
+      "required_case_fields": [
+        "MRI",
+        "CT"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Supports encephalitis or identifies mimic/contraindication.",
+      "negative_result": "If normal early, encephalitis may still be possible.",
+      "if_missing": "Neuroimaging missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_eeg_and_seizure",
+      "step_type": "eeg_check",
+      "step_name": "",
+      "check": "Are seizures, nonconvulsive status epilepticus, or EEG abnormalities possible?",
+      "required_case_fields": [
+        "seizure_history",
+        "EEG",
+        "mental_status"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Manage seizures and support encephalitis verification.",
+      "negative_result": "No seizure evidence.",
+      "if_missing": "EEG unavailable when persistent AMS or seizures suspected.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_differential_meningitis_stroke_toxic",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Could meningitis, stroke, hemorrhage, toxic-metabolic encephalopathy, autoimmune encephalitis, or psychiatric illness explain the case?",
+      "required_case_fields": [
+        "CSF",
+        "imaging",
+        "labs",
+        "medications",
+        "autoimmune_features"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing diagnoses and parallel pathways.",
+      "negative_result": "Encephalitis remains if CNS inflammation evidence is present.",
+      "if_missing": "Differential incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "MENINGITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Meningeal symptoms predominate; altered mental status suggests meningoencephalitis overlap."
+      ],
+      "critical_tests_or_data": [
+        "CSF",
+        "blood cultures",
+        "NICE meningitis pathway"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ISCHEMIC_STROKE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Acute focal deficit; fever/encephalopathy/seizures may be absent in pure stroke."
+      ],
+      "critical_tests_or_data": [
+        "CT/MRI",
+        "CTA"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "INTRACRANIAL_HEMORRHAGE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Sudden headache, vomiting, reduced consciousness, focal deficit."
+      ],
+      "critical_tests_or_data": [
+        "noncontrast CT",
+        "CTA if indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "SEIZURE_POSTICTAL_STATE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Postictal confusion can mimic encephalitis; persistent AMS or fever/CSF/MRI abnormalities increase encephalitis concern."
+      ],
+      "critical_tests_or_data": [
+        "EEG",
+        "CSF",
+        "MRI"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "AUTOIMMUNE_ENCEPHALITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Subacute psychiatric/cognitive symptoms, seizures, movement disorder, autonomic features; may lack fever."
+      ],
+      "critical_tests_or_data": [
+        "autoimmune CSF/serum tests",
+        "MRI",
+        "EEG",
+        "tumor screening"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "TOXIC_METABOLIC_ENCEPHALOPATHY",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Medication/toxin, electrolyte, hepatic, renal, hypoxic, or endocrine causes."
+      ],
+      "critical_tests_or_data": [
+        "metabolic panel",
+        "tox screen",
+        "ABG",
+        "glucose"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "ENCEPHALITIS",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "source_type": "guideline",
+      "title": "IDSA Clinical Practice Guidelines: The Management of Encephalitis",
+      "publisher": "Infectious Diseases Society of America",
+      "publication_date": "2008-08-01",
+      "publication_year": "",
+      "url": "https://www.idsociety.org/practice-guideline/encephalitis/",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Provides diagnostic and treatment guidance for suspected encephalitis and multiple infectious etiologies.",
+        "Used here for encephalopathy-plus-inflammation recognition, CSF testing, neuroimaging, EEG, PCR testing, and empiric acyclovir consideration."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "source_type": "guideline",
+      "title": "NICE NG240: Meningitis (bacterial) and meningococcal disease: recognition, diagnosis and management",
+      "publisher": "National Institute for Health and Care Excellence",
+      "publication_date": "2024-03-19",
+      "publication_year": "",
+      "url": "https://www.nice.org.uk/guidance/ng240",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Covers recognition, diagnosis, and management of bacterial meningitis and meningococcal disease in babies, children, young people, and adults.",
+        "Used here for adult recognition, emergency treatment timing, lumbar puncture considerations, and meningococcal disease red flags."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not exclude HSV encephalitis because early CT is normal.",
+      "Do not dismiss psychiatric symptoms without neurologic/infectious red-flag assessment.",
+      "Do not delay urgent empiric antiviral consideration in high-risk suspected HSV encephalitis."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always determine whether encephalopathy is present.",
+      "Always evaluate seizure/status epilepticus and LP safety.",
+      "Always consider meningitis overlap."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 12,
+    "preserved_graph_nodes": 66,
+    "preserved_graph_edges": 56
+  }
+}

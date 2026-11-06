@@ -1,0 +1,2034 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_INTRACRANIAL_HEMORRHAGE_ADULT",
+  "file_name": "intracranial_hemorrhage.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Intracranial Hemorrhage.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "INTRACRANIAL_HEMORRHAGE",
+  "disease_name_en": "Intracranial Hemorrhage",
+  "aliases": [
+    "ICH",
+    "Intracerebral hemorrhage",
+    "Hemorrhagic stroke",
+    "Subarachnoid hemorrhage",
+    "Subdural hematoma",
+    "Epidural hematoma"
+  ],
+  "disease_category": "neurologic_vascular",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "SPONTANEOUS_INTRACEREBRAL_HEMORRHAGE",
+      "SUBARACHNOID_HEMORRHAGE",
+      "SUBDURAL_HEMATOMA",
+      "EPIDURAL_HEMATOMA"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [
+      {
+        "target_graph": "ISCHEMIC_STROKE",
+        "description": "Clinical symptoms overlap; urgent brain imaging is required."
+      }
+    ],
+    "boundary_note": "This graph is a high-risk intracranial bleeding retrieval graph. Disease-specific subgraphs should be used when ICH/SAH/SDH/EDH subtype is identified.",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Intracranial hemorrhage is bleeding within the cranial vault, including intraparenchymal, subarachnoid, subdural, and epidural compartments.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Can mimic ischemic stroke, migraine, intoxication, seizure, meningitis, or tumor.",
+      "Headache may be absent in some hemorrhages; focal deficits can dominate.",
+      "Anticoagulant/antiplatelet use, trauma, very high blood pressure, or sudden severe headache are high-risk clues.",
+      "Delayed imaging delays reversal, neurosurgical evaluation, and blood-pressure management."
+    ],
+    "clinical_priority": "emergency",
+    "time_sensitivity": "Requires urgent brain imaging, airway/neurologic monitoring, anticoagulation reversal assessment, blood-pressure management, and neurosurgical/stroke consultation when indicated.",
+    "do_not_use_as": [
+      "a subtype-specific surgical guideline",
+      "a substitute for CT interpretation",
+      "a thrombolysis decision tool"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_sudden_severe_headache",
+        "input_terms": [
+          "sudden severe headache",
+          "thunderclap headache",
+          "worst headache of life",
+          "explosive headache",
+          "acute severe headache"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "sudden_severe_headache",
+        "normalized_node_id": "symptom_sudden_severe_headache",
+        "normalized_node": "Sudden severe headache",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_focal_neurologic_deficit",
+        "input_terms": [
+          "focal neurologic deficit",
+          "unilateral weakness",
+          "hemiparesis",
+          "aphasia",
+          "facial droop",
+          "new neurologic deficit"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "focal_neurologic_deficit",
+        "normalized_node_id": "symptom_focal_neurologic_deficit",
+        "normalized_node": "Focal neurologic deficit",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_vomiting",
+        "input_terms": [
+          "vomiting",
+          "emesis",
+          "nausea vomiting"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "vomiting",
+        "normalized_node_id": "symptom_vomiting",
+        "normalized_node": "Vomiting",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_seizure_at_onset",
+        "input_terms": [
+          "seizure at onset",
+          "new seizure",
+          "first seizure",
+          "convulsion"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "seizure",
+        "normalized_node_id": "symptom_seizure_at_onset",
+        "normalized_node": "Seizure at onset",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_anticoagulant_use",
+        "input_terms": [
+          "anticoagulant use",
+          "on anticoagulation",
+          "warfarin",
+          "apixaban",
+          "rivaroxaban",
+          "dabigatran",
+          "heparin",
+          "DOAC"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "anticoagulant_use",
+        "normalized_node_id": "risk_anticoagulant_use",
+        "normalized_node": "Anticoagulant use",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_recent_head_trauma",
+        "input_terms": [
+          "head trauma",
+          "fall with head strike",
+          "recent fall",
+          "traumatic head injury",
+          "hit head"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "recent_head_trauma",
+        "normalized_node_id": "risk_recent_head_trauma",
+        "normalized_node": "Recent head trauma",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_severe_hypertension",
+        "input_terms": [
+          "severe hypertension",
+          "hypertensive emergency",
+          "very high blood pressure",
+          "marked hypertension"
+        ],
+        "input_variants": [
+          "SBP >180",
+          "BP 220/110",
+          "blood pressure 220"
+        ],
+        "normalized_case_fact": "severe_hypertension",
+        "normalized_node_id": "sign_hypertension_or_severe_bp_elevation",
+        "normalized_node": "Hypertension or severe BP elevation",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_acute_blood_on_ct",
+        "input_terms": [
+          "acute blood on head CT",
+          "intracranial blood",
+          "head CT shows blood",
+          "hemorrhage on CT",
+          "brain bleed"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "acute_blood_on_head_ct",
+        "normalized_node_id": "finding_acute_blood_on_head_ct",
+        "normalized_node": "Acute blood on head CT",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_subarachnoid_blood",
+        "input_terms": [
+          "subarachnoid blood",
+          "SAH",
+          "subarachnoid hemorrhage"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "subarachnoid_blood",
+        "normalized_node_id": "finding_subarachnoid_blood",
+        "normalized_node": "Subarachnoid blood",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_subdural_epidural_collection",
+        "input_terms": [
+          "subdural hematoma",
+          "epidural hematoma",
+          "SDH",
+          "EDH",
+          "extra-axial blood"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "subdural_or_epidural_collection",
+        "normalized_node_id": "finding_subdural_or_epidural_collection",
+        "normalized_node": "Subdural or epidural collection",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_mass_effect_midline_shift",
+        "input_terms": [
+          "mass effect",
+          "midline shift",
+          "herniation",
+          "ventricular compression"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "mass_effect_or_midline_shift",
+        "normalized_node_id": "finding_mass_effect_or_midline_shift",
+        "normalized_node": "Mass effect or midline shift",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_intracranial_hemorrhage",
+      "node_type": "DiseaseCandidate",
+      "name": "Intracranial Hemorrhage",
+      "synonyms": [
+        "ICH",
+        "Intracerebral hemorrhage",
+        "Hemorrhagic stroke",
+        "Subarachnoid hemorrhage",
+        "Subdural hematoma",
+        "Epidural hematoma"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_acute_neurologic_deficit",
+      "node_type": "ClinicalContext",
+      "name": "Acute neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_possible_hemorrhagic_stroke",
+      "node_type": "ClinicalContext",
+      "name": "Possible hemorrhagic stroke",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_head_trauma_or_anticoagulation_context",
+      "node_type": "ClinicalContext",
+      "name": "Head trauma or anticoagulation context",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_need_to_distinguish_from_ischemic_stroke",
+      "node_type": "ClinicalContext",
+      "name": "Need to distinguish from ischemic stroke",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_severe_headache",
+      "node_type": "Symptom",
+      "name": "Sudden severe headache",
+      "synonyms": [
+        "sudden severe headache",
+        "thunderclap headache",
+        "worst headache of life",
+        "explosive headache",
+        "acute severe headache"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_focal_neurologic_deficit",
+      "node_type": "Symptom",
+      "name": "Focal neurologic deficit",
+      "synonyms": [
+        "focal neurologic deficit",
+        "unilateral weakness",
+        "hemiparesis",
+        "aphasia",
+        "facial droop",
+        "new neurologic deficit"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_vomiting",
+      "node_type": "Symptom",
+      "name": "Vomiting",
+      "synonyms": [
+        "vomiting",
+        "emesis",
+        "nausea vomiting"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_reduced_level_of_consciousness",
+      "node_type": "Symptom",
+      "name": "Reduced level of consciousness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_seizure_at_onset",
+      "node_type": "Symptom",
+      "name": "Seizure at onset",
+      "synonyms": [
+        "seizure at onset",
+        "new seizure",
+        "first seizure",
+        "convulsion"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_neck_stiffness_or_photophobia",
+      "node_type": "Symptom",
+      "name": "Neck stiffness or photophobia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_acute_confusion",
+      "node_type": "Symptom",
+      "name": "Acute confusion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_dizziness_or_ataxia",
+      "node_type": "Symptom",
+      "name": "Dizziness or ataxia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_visual_disturbance",
+      "node_type": "Symptom",
+      "name": "Visual disturbance",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypertension_or_severe_bp_elevation",
+      "node_type": "Sign",
+      "name": "Hypertension or severe BP elevation",
+      "synonyms": [
+        "severe hypertension",
+        "hypertensive emergency",
+        "very high blood pressure",
+        "marked hypertension"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_focal_neurologic_deficit",
+      "node_type": "Sign",
+      "name": "Focal neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_decreased_glasgow_coma_scale",
+      "node_type": "Sign",
+      "name": "Decreased Glasgow Coma Scale",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_papilledema_or_signs_of_raised_intracranial_pressure",
+      "node_type": "Sign",
+      "name": "Papilledema or signs of raised intracranial pressure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_meningism",
+      "node_type": "Sign",
+      "name": "Meningism",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_anisocoria_or_herniation_signs",
+      "node_type": "Sign",
+      "name": "Anisocoria or herniation signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_trauma_signs",
+      "node_type": "Sign",
+      "name": "Trauma signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_coagulopathy_signs",
+      "node_type": "Sign",
+      "name": "Coagulopathy signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_anticoagulant_use",
+      "node_type": "RiskFactor",
+      "name": "Anticoagulant use",
+      "synonyms": [
+        "anticoagulant use",
+        "on anticoagulation",
+        "warfarin",
+        "apixaban",
+        "rivaroxaban",
+        "dabigatran",
+        "heparin",
+        "DOAC"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_antiplatelet_use",
+      "node_type": "RiskFactor",
+      "name": "Antiplatelet use",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_uncontrolled_hypertension",
+      "node_type": "RiskFactor",
+      "name": "Uncontrolled hypertension",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_cerebral_amyloid_angiopathy_risk",
+      "node_type": "RiskFactor",
+      "name": "Cerebral amyloid angiopathy risk",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_aneurysm_or_vascular_malformation",
+      "node_type": "RiskFactor",
+      "name": "Known aneurysm or vascular malformation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_head_trauma",
+      "node_type": "RiskFactor",
+      "name": "Recent head trauma",
+      "synonyms": [
+        "head trauma",
+        "fall with head strike",
+        "recent fall",
+        "traumatic head injury",
+        "hit head"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_thrombocytopenia",
+      "node_type": "RiskFactor",
+      "name": "Thrombocytopenia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_liver_disease_or_coagulopathy",
+      "node_type": "RiskFactor",
+      "name": "Liver disease or coagulopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_cocaine_or_stimulant_use",
+      "node_type": "RiskFactor",
+      "name": "Cocaine or stimulant use",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_heavy_alcohol_use",
+      "node_type": "RiskFactor",
+      "name": "Heavy alcohol use",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_noncontrast_head_ct",
+      "node_type": "DiagnosticData",
+      "name": "Noncontrast head CT",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_mri_brain_when_ct_nondiagnostic_and_suspicion_persists",
+      "node_type": "DiagnosticData",
+      "name": "MRI brain when CT nondiagnostic and suspicion persists",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_cta_mra_to_evaluate_vascular_lesion_when_indicated",
+      "node_type": "DiagnosticData",
+      "name": "CTA/MRA to evaluate vascular lesion when indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_coagulation_profile",
+      "node_type": "DiagnosticData",
+      "name": "Coagulation profile",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_platelet_count",
+      "node_type": "DiagnosticData",
+      "name": "Platelet count",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_medication_history_for_anticoagulants_antiplatelets",
+      "node_type": "DiagnosticData",
+      "name": "Medication history for anticoagulants/antiplatelets",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_glucose_to_assess_mimic",
+      "node_type": "DiagnosticData",
+      "name": "Glucose to assess mimic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_repeat_imaging_for_expansion_or_deterioration",
+      "node_type": "DiagnosticData",
+      "name": "Repeat imaging for expansion or deterioration",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_neurosurgical_assessment_when_indicated",
+      "node_type": "DiagnosticData",
+      "name": "Neurosurgical assessment when indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_acute_blood_on_head_ct",
+      "node_type": "Finding",
+      "name": "Acute blood on head CT",
+      "synonyms": [
+        "acute blood on head CT",
+        "intracranial blood",
+        "head CT shows blood",
+        "hemorrhage on CT",
+        "brain bleed"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_intraparenchymal_hematoma",
+      "node_type": "Finding",
+      "name": "Intraparenchymal hematoma",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_subarachnoid_blood",
+      "node_type": "Finding",
+      "name": "Subarachnoid blood",
+      "synonyms": [
+        "subarachnoid blood",
+        "SAH",
+        "subarachnoid hemorrhage"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_subdural_or_epidural_collection",
+      "node_type": "Finding",
+      "name": "Subdural or epidural collection",
+      "synonyms": [
+        "subdural hematoma",
+        "epidural hematoma",
+        "SDH",
+        "EDH",
+        "extra-axial blood"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_intraventricular_hemorrhage",
+      "node_type": "Finding",
+      "name": "Intraventricular hemorrhage",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_hydrocephalus",
+      "node_type": "Finding",
+      "name": "Hydrocephalus",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_mass_effect_or_midline_shift",
+      "node_type": "Finding",
+      "name": "Mass effect or midline shift",
+      "synonyms": [
+        "mass effect",
+        "midline shift",
+        "herniation",
+        "ventricular compression"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_hematoma_expansion",
+      "node_type": "Finding",
+      "name": "Hematoma expansion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_spot_sign_or_vascular_lesion_on_cta",
+      "node_type": "Finding",
+      "name": "Spot sign or vascular lesion on CTA",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_hemorrhagic_stroke_or_neurosurgical_pathway",
+      "node_type": "ManagementAction",
+      "name": "Activate hemorrhagic stroke or neurosurgical pathway",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_airway_and_neurologic_deterioration",
+      "node_type": "ManagementAction",
+      "name": "Assess airway and neurologic deterioration",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_reverse_anticoagulation_when_indicated_by_local_protocol",
+      "node_type": "ManagementAction",
+      "name": "Reverse anticoagulation when indicated by local protocol",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_manage_blood_pressure_per_guideline_local_protocol",
+      "node_type": "ManagementAction",
+      "name": "Manage blood pressure per guideline/local protocol",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_need_for_external_ventricular_drain_or_surgery",
+      "node_type": "ManagementAction",
+      "name": "Evaluate need for external ventricular drain or surgery",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_avoid_thrombolysis_until_hemorrhage_excluded",
+      "node_type": "ManagementAction",
+      "name": "Avoid thrombolysis until hemorrhage excluded",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_escalate_to_neurocritical_care_when_indicated",
+      "node_type": "ManagementAction",
+      "name": "Escalate to neurocritical care when indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_ischemic_stroke",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Ischemic stroke",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_subarachnoid_hemorrhage",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Subarachnoid hemorrhage",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_meningitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Meningitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_encephalitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Encephalitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_migraine",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Migraine",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_seizure_with_postictal_deficit",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Seizure with postictal deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_brain_tumor_or_abscess",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Brain tumor or abscess",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_toxic_metabolic_encephalopathy",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Toxic-metabolic encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_clinical_context",
+      "target": "context_acute_neurologic_deficit",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_clinical_context",
+      "target": "context_possible_hemorrhagic_stroke",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_clinical_context",
+      "target": "context_head_trauma_or_anticoagulation_context",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_clinical_context",
+      "target": "context_need_to_distinguish_from_ischemic_stroke",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_severe_headache",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_focal_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_vomiting",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_reduced_level_of_consciousness",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_seizure_at_onset",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_neck_stiffness_or_photophobia",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_acute_confusion",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_dizziness_or_ataxia",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_visual_disturbance",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Intracranial Hemorrhage, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hypertension_or_severe_bp_elevation",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_focal_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_decreased_glasgow_coma_scale",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_papilledema_or_signs_of_raised_intracranial_pressure",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_meningism",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_anisocoria_or_herniation_signs",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_trauma_signs",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_coagulopathy_signs",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Intracranial Hemorrhage or severity.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "risk_anticoagulant_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_antiplatelet_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_uncontrolled_hypertension",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_cerebral_amyloid_angiopathy_risk",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_known_aneurysm_or_vascular_malformation",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_recent_head_trauma",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_thrombocytopenia",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_liver_disease_or_coagulopathy",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_cocaine_or_stimulant_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "risk_heavy_alcohol_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_intracranial_hemorrhage",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Intracranial Hemorrhage in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_noncontrast_head_ct",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_mri_brain_when_ct_nondiagnostic_and_suspicion_persists",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_cta_mra_to_evaluate_vascular_lesion_when_indicated",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_coagulation_profile",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_platelet_count",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_medication_history_for_anticoagulants_antiplatelets",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_glucose_to_assess_mimic",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_repeat_imaging_for_expansion_or_deterioration",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_neurosurgical_assessment_when_indicated",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Intracranial Hemorrhage.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_acute_blood_on_head_ct",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_intraparenchymal_hematoma",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_subarachnoid_blood",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_subdural_or_epidural_collection",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_intraventricular_hemorrhage",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_hydrocephalus",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_mass_effect_or_midline_shift",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_hematoma_expansion",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "has_supporting_finding",
+      "target": "finding_spot_sign_or_vascular_lesion_on_cta",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Intracranial Hemorrhage or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_hemorrhagic_stroke_or_neurosurgical_pathway",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_airway_and_neurologic_deterioration",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_reverse_anticoagulation_when_indicated_by_local_protocol",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_manage_blood_pressure_per_guideline_local_protocol",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e054",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_need_for_external_ventricular_drain_or_surgery",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e055",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_avoid_thrombolysis_until_hemorrhage_excluded",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "edge_id": "e056",
+      "source": "disease_intracranial_hemorrhage",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_escalate_to_neurocritical_care_when_indicated",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Intracranial Hemorrhage is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Acute neurologic deficit, sudden severe headache, seizure/reduced consciousness, anticoagulant/trauma context, or suspected stroke before imaging.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "ICH_P1_severe_headache",
+            "case_features": [
+              "sudden severe headache",
+              "vomiting or neck stiffness or reduced consciousness"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Possible intracranial bleeding, including SAH/ICH."
+          },
+          {
+            "pattern_id": "ICH_P2_stroke_plus_anticoag",
+            "case_features": [
+              "focal neurologic deficit",
+              "anticoagulant use"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Hemorrhagic stroke risk."
+          },
+          {
+            "pattern_id": "ICH_P3_low_gcs",
+            "case_features": [
+              "acute neurologic symptoms",
+              "reduced GCS or seizure"
+            ],
+            "candidate_priority": "high",
+            "reason": "Severe intracranial process possible."
+          },
+          {
+            "pattern_id": "ICH_P4_trauma",
+            "case_features": [
+              "head trauma",
+              "headache/vomiting/confusion/focal deficit"
+            ],
+            "candidate_priority": "high",
+            "reason": "Traumatic intracranial hemorrhage possible."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "ICH_W1_headache_only",
+            "case_features": [
+              "headache without sudden severe onset or neurologic signs"
+            ],
+            "candidate_priority": "low_to_moderate",
+            "reason": "Headache is nonspecific."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_identify_hemorrhage_red_flags",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Are sudden severe headache, focal deficit, vomiting, seizure, reduced consciousness, trauma, or anticoagulant use present?",
+      "required_case_fields": [
+        "symptoms",
+        "onset",
+        "medications",
+        "trauma_history",
+        "neuro_exam"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Urgent brain imaging is required.",
+      "negative_result": "Lower priority but do not exclude if stroke syndrome present.",
+      "if_missing": "Cannot assess red flags without history/exam.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_cdc_stroke_symptoms_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_brain_imaging",
+      "step_type": "imaging_check",
+      "step_name": "",
+      "check": "Is noncontrast head CT or appropriate MRI available?",
+      "required_case_fields": [
+        "noncontrast_CT",
+        "MRI"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Confirm or exclude intracranial blood and subtype.",
+      "negative_result": "If negative but suspicion persists for SAH/other bleed, follow local pathway.",
+      "if_missing": "Cannot classify stroke type or exclude hemorrhage without imaging.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_classify_bleeding_compartment",
+      "step_type": "classification",
+      "step_name": "",
+      "check": "What hemorrhage subtype/location is present?",
+      "required_case_fields": [
+        "imaging_report"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Route to ICH/SAH/SDH/EDH-specific pathway.",
+      "negative_result": "If no hemorrhage, consider ischemic stroke/mimics.",
+      "if_missing": "Subtype cannot be determined.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_assess_severity_and_deterioration",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "Are GCS decline, herniation signs, hydrocephalus, mass effect, IVH, or posterior fossa hemorrhage present?",
+      "required_case_fields": [
+        "GCS",
+        "pupils",
+        "CT_findings",
+        "vitals"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Urgent neurocritical/neurosurgical evaluation.",
+      "negative_result": "Continue monitoring and standard pathway.",
+      "if_missing": "Severity incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_medication_reversal",
+      "step_type": "coagulation_check",
+      "step_name": "",
+      "check": "Is the patient taking anticoagulants/antiplatelets or coagulopathic?",
+      "required_case_fields": [
+        "medications",
+        "INR",
+        "anti_Xa_when_applicable",
+        "platelets",
+        "liver_disease"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Flag for immediate clinician-led reversal assessment.",
+      "negative_result": "No reversal factor identified.",
+      "if_missing": "Medication/coagulation status missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_bp_and_support",
+      "step_type": "management_verification",
+      "step_name": "",
+      "check": "Is blood pressure or airway/respiratory status requiring urgent management?",
+      "required_case_fields": [
+        "BP",
+        "GCS",
+        "oxygenation",
+        "airway"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Escalate support and BP pathway per local protocol.",
+      "negative_result": "Continue monitoring.",
+      "if_missing": "Critical physiologic data missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_vascular_cause_evaluation",
+      "step_type": "etiology_check",
+      "step_name": "",
+      "check": "Is CTA/MRA/angiography indicated to assess aneurysm, AVM, or vascular lesion?",
+      "required_case_fields": [
+        "age",
+        "location",
+        "SAH_pattern",
+        "CTA/MRA"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Identify vascular cause and intervention pathway.",
+      "negative_result": "Not indicated or negative per local assessment.",
+      "if_missing": "Etiology evaluation incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    },
+    {
+      "step_id": "step_08_differential_check",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Could ischemic stroke, meningitis, encephalitis, seizure, migraine, tumor, or metabolic disorder explain the presentation?",
+      "required_case_fields": [
+        "imaging",
+        "glucose",
+        "infection_signs",
+        "seizure_history"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing or coexisting diagnoses.",
+      "negative_result": "Hemorrhage remains primary if imaging supports.",
+      "if_missing": "Differential incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "ISCHEMIC_STROKE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Focal deficit overlaps; hemorrhage requires imaging exclusion before reperfusion therapy."
+      ],
+      "critical_tests_or_data": [
+        "noncontrast CT/MRI",
+        "CTA"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "SUBARACHNOID_HEMORRHAGE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Thunderclap headache, meningism, vomiting, reduced consciousness; may need specific SAH pathway even if broad ICH graph retrieved."
+      ],
+      "critical_tests_or_data": [
+        "CT head",
+        "CTA",
+        "LP per local pathway when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "MENINGITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Fever, neck stiffness, altered mental status; CT/LP and empiric therapy decisions may be urgent."
+      ],
+      "critical_tests_or_data": [
+        "blood cultures",
+        "LP when safe",
+        "CT when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ENCEPHALITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Fever, altered mental status, seizures, focal deficits."
+      ],
+      "critical_tests_or_data": [
+        "MRI",
+        "CSF PCR",
+        "EEG"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "SEIZURE_POSTICTAL",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Seizure at onset can be cause or result of hemorrhage; imaging needed."
+      ],
+      "critical_tests_or_data": [
+        "history",
+        "CT/MRI",
+        "EEG"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "MIGRAINE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Headache and neurologic aura can mimic stroke/bleed; sudden worst headache requires hemorrhage exclusion."
+      ],
+      "critical_tests_or_data": [
+        "clinical history",
+        "imaging when red flags"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "INTRACRANIAL_HEMORRHAGE",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_aha_asa_ich_2022",
+      "source_type": "guideline",
+      "title": "2022 AHA/ASA Guideline for the Management of Patients With Spontaneous Intracerebral Hemorrhage",
+      "publisher": "American Heart Association / American Stroke Association",
+      "publication_date": "2022",
+      "publication_year": "",
+      "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000407",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Provides recommendations for diagnosis and management of spontaneous intracerebral hemorrhage.",
+        "Used here for acute hemorrhagic stroke verification, imaging, anticoagulation reversal, blood-pressure management, neurosurgical escalation, and safety constraints."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_cdc_stroke_symptoms_2026",
+      "source_type": "public_health_reference",
+      "title": "Signs and Symptoms of Stroke",
+      "publisher": "Centers for Disease Control and Prevention",
+      "publication_date": "2026-05-19",
+      "publication_year": "",
+      "url": "https://www.cdc.gov/stroke/signs-symptoms/index.html",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Stroke warning symptoms include sudden weakness/numbness, confusion or speech trouble, visual difficulty, trouble walking/dizziness/loss of balance, and sudden severe headache.",
+        "Used for symptom normalization and emergency-recognition nodes."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not distinguish ischemic from hemorrhagic stroke clinically without brain imaging.",
+      "Do not give stroke reassurance after symptom improvement without imaging/context.",
+      "Do not ignore anticoagulant use."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always state imaging status and anticoagulation status.",
+      "Always assess neurologic deterioration and neurosurgical red flags."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 11,
+    "preserved_graph_nodes": 65,
+    "preserved_graph_edges": 56
+  }
+}

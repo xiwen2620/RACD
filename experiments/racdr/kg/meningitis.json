@@ -1,0 +1,2109 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_MENINGITIS_ADULT",
+  "file_name": "meningitis.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Meningitis.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "MENINGITIS",
+  "disease_name_en": "Meningitis",
+  "aliases": [
+    "Bacterial meningitis",
+    "Meningococcal disease",
+    "Acute meningitis"
+  ],
+  "disease_category": "infection_neurologic",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "SEPSIS",
+      "ENCEPHALITIS",
+      "INTRACRANIAL_HEMORRHAGE"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [],
+    "boundary_note": "This graph targets meningitis recognition and verification; encephalitis graph should be loaded when encephalopathy, seizures, focal neurologic abnormalities, or brain inflammation features dominate.",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Meningitis is inflammation of the meninges, commonly infectious; bacterial meningitis and meningococcal disease are time-critical emergencies.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Classic triad of fever, neck stiffness, and altered mental status may be incomplete.",
+      "Early symptoms can resemble viral illness, migraine, sepsis, influenza-like illness, or intracranial hemorrhage.",
+      "Rash may be absent in meningococcal disease.",
+      "Delays in empiric therapy, blood cultures, lumbar puncture decision-making, or sepsis recognition increase risk."
+    ],
+    "clinical_priority": "emergency",
+    "time_sensitivity": "When bacterial meningitis or meningococcal disease is suspected, urgent clinician-led empiric therapy and diagnostic pathway should not be delayed by incomplete workup.",
+    "do_not_use_as": [
+      "a CSF interpretation tool without clinician review",
+      "an antibiotic order generator",
+      "a replacement for local meningitis/sepsis pathway"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_fever",
+        "input_terms": [
+          "fever",
+          "febrile",
+          "pyrexia",
+          "high temperature",
+          "chills",
+          "rigors",
+          "shaking chills"
+        ],
+        "input_variants": [
+          "T >38",
+          "temperature >38",
+          "temp 38",
+          "temp 39",
+          "temperature 101",
+          "temperature 102",
+          "febrile to"
+        ],
+        "normalized_case_fact": "fever",
+        "normalized_node_id": "symptom_fever",
+        "normalized_node": "Fever",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_headache",
+        "input_terms": [
+          "headache",
+          "severe headache",
+          "new headache"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "headache",
+        "normalized_node_id": "symptom_headache",
+        "normalized_node": "Headache",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_neck_stiffness",
+        "input_terms": [
+          "neck stiffness",
+          "stiff neck",
+          "nuchal rigidity",
+          "meningismus",
+          "meningism"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "neck_stiffness",
+        "normalized_node_id": "symptom_neck_stiffness",
+        "normalized_node": "Neck stiffness",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_photophobia",
+        "input_terms": [
+          "photophobia",
+          "light sensitivity",
+          "sensitive to light"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "photophobia",
+        "normalized_node_id": "symptom_photophobia",
+        "normalized_node": "Photophobia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_nausea_vomiting",
+        "input_terms": [
+          "nausea",
+          "vomiting",
+          "emesis"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "nausea_or_vomiting",
+        "normalized_node_id": "symptom_nausea_or_vomiting",
+        "normalized_node": "Nausea or vomiting",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_altered_mental_status",
+        "input_terms": [
+          "altered mental status",
+          "AMS",
+          "confusion",
+          "confused",
+          "delirium",
+          "acute delirium",
+          "encephalopathy",
+          "drowsy",
+          "somnolent",
+          "reduced level of consciousness",
+          "not acting right"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "altered_mental_status",
+        "normalized_node_id": "symptom_altered_mental_status",
+        "normalized_node": "Altered mental status",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_seizure",
+        "input_terms": [
+          "seizure",
+          "new seizure",
+          "convulsion"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "seizure",
+        "normalized_node_id": "symptom_seizure",
+        "normalized_node": "Seizure",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_non_blanching_rash",
+        "input_terms": [
+          "non-blanching rash",
+          "petechial rash",
+          "purpuric rash",
+          "meningococcal rash",
+          "petechiae",
+          "purpura"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "non_blanching_rash",
+        "normalized_node_id": "sign_non_blanching_petechial_or_purpuric_rash",
+        "normalized_node": "Non-blanching petechial or purpuric rash",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_sepsis_or_shock",
+        "input_terms": [
+          "tachycardia",
+          "tachycardic",
+          "fast heart rate",
+          "rapid heart rate",
+          "elevated heart rate",
+          "high heart rate",
+          "HR high",
+          "pulse high",
+          "hypotension",
+          "hypotensive",
+          "low blood pressure",
+          "low BP",
+          "SBP low",
+          "MAP low",
+          "shock",
+          "hemodynamic instability",
+          "hemodynamically unstable",
+          "hypoxemia",
+          "hypoxaemia",
+          "hypoxic",
+          "low oxygen saturation",
+          "low O2 sat",
+          "low SpO2",
+          "oxygen desaturation",
+          "desaturation",
+          "requires oxygen",
+          "new oxygen requirement"
+        ],
+        "input_variants": [
+          "HR >100",
+          "heart rate >100",
+          "pulse >100",
+          "HR 100",
+          "HR 110",
+          "HR 120",
+          "pulse 110",
+          "pulse 120",
+          "SBP <90",
+          "systolic BP <90",
+          "MAP <65",
+          "BP 82/48",
+          "BP 80/40",
+          "blood pressure 82/48",
+          "SpO2 <90",
+          "SpO2 <92",
+          "O2 sat <90",
+          "O2 sat <92",
+          "oxygen saturation 88",
+          "sat 88",
+          "satting 88"
+        ],
+        "normalized_case_fact": "shock_physiology",
+        "normalized_node_id": "sign_signs_of_sepsis_or_shock",
+        "normalized_node": "Signs of sepsis or shock",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_csf_pleocytosis",
+        "input_terms": [
+          "CSF pleocytosis",
+          "elevated CSF WBC",
+          "CSF white cells high"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "csf_pleocytosis",
+        "normalized_node_id": "finding_csf_pleocytosis",
+        "normalized_node": "CSF pleocytosis",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "csf_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_low_csf_glucose",
+        "input_terms": [
+          "low CSF glucose",
+          "CSF glucose low",
+          "low CSF:blood glucose ratio"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "low_csf_glucose",
+        "normalized_node_id": "finding_low_csf_glucose_relative_to_blood_glucose",
+        "normalized_node": "Low CSF glucose relative to blood glucose",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "csf_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_elevated_csf_protein",
+        "input_terms": [
+          "elevated CSF protein",
+          "CSF protein high"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "elevated_csf_protein",
+        "normalized_node_id": "finding_elevated_csf_protein",
+        "normalized_node": "Elevated CSF protein",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "csf_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_013_positive_gram_stain_culture",
+        "input_terms": [
+          "positive CSF gram stain",
+          "CSF culture positive",
+          "organisms on gram stain",
+          "positive CSF culture"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "positive_csf_gram_stain_or_culture",
+        "normalized_node_id": "finding_positive_csf_gram_stain_or_culture",
+        "normalized_node": "Positive CSF Gram stain or culture",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "csf_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_meningitis",
+      "node_type": "DiseaseCandidate",
+      "name": "Meningitis",
+      "synonyms": [
+        "Bacterial meningitis",
+        "Meningococcal disease",
+        "Acute meningitis"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_suspected_meningitis",
+      "node_type": "ClinicalContext",
+      "name": "Suspected meningitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_suspected_meningococcal_disease",
+      "node_type": "ClinicalContext",
+      "name": "Suspected meningococcal disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_sepsis_with_possible_cns_source",
+      "node_type": "ClinicalContext",
+      "name": "Sepsis with possible CNS source",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_lumbar_puncture_safety_assessment_required",
+      "node_type": "ClinicalContext",
+      "name": "Lumbar puncture safety assessment required",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_fever",
+      "node_type": "Symptom",
+      "name": "Fever",
+      "synonyms": [
+        "fever",
+        "febrile",
+        "pyrexia",
+        "high temperature",
+        "chills",
+        "rigors",
+        "shaking chills"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_headache",
+      "node_type": "Symptom",
+      "name": "Headache",
+      "synonyms": [
+        "headache",
+        "severe headache",
+        "new headache"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_neck_stiffness",
+      "node_type": "Symptom",
+      "name": "Neck stiffness",
+      "synonyms": [
+        "neck stiffness",
+        "stiff neck",
+        "nuchal rigidity",
+        "meningismus",
+        "meningism"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_photophobia",
+      "node_type": "Symptom",
+      "name": "Photophobia",
+      "synonyms": [
+        "photophobia",
+        "light sensitivity",
+        "sensitive to light"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_nausea_or_vomiting",
+      "node_type": "Symptom",
+      "name": "Nausea or vomiting",
+      "synonyms": [
+        "nausea",
+        "vomiting",
+        "emesis"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_altered_mental_status",
+      "node_type": "Symptom",
+      "name": "Altered mental status",
+      "synonyms": [
+        "altered mental status",
+        "AMS",
+        "confusion",
+        "confused",
+        "delirium",
+        "acute delirium",
+        "encephalopathy",
+        "drowsy",
+        "somnolent",
+        "reduced level of consciousness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_seizure",
+      "node_type": "Symptom",
+      "name": "Seizure",
+      "synonyms": [
+        "seizure",
+        "new seizure",
+        "convulsion"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_rash",
+      "node_type": "Symptom",
+      "name": "Rash",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_limb_pain_or_cold_hands_and_feet_in_meningococcal_disease",
+      "node_type": "Symptom",
+      "name": "Limb pain or cold hands and feet in meningococcal disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_myalgia_or_severe_malaise",
+      "node_type": "Symptom",
+      "name": "Myalgia or severe malaise",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_meningism",
+      "node_type": "Sign",
+      "name": "Meningism",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_non_blanching_petechial_or_purpuric_rash",
+      "node_type": "Sign",
+      "name": "Non-blanching petechial or purpuric rash",
+      "synonyms": [
+        "non-blanching rash",
+        "petechial rash",
+        "purpuric rash",
+        "meningococcal rash",
+        "petechiae",
+        "purpura"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_reduced_level_of_consciousness",
+      "node_type": "Sign",
+      "name": "Reduced level of consciousness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_focal_neurologic_deficit",
+      "node_type": "Sign",
+      "name": "Focal neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_signs_of_sepsis_or_shock",
+      "node_type": "Sign",
+      "name": "Signs of sepsis or shock",
+      "synonyms": [
+        "tachycardia",
+        "tachycardic",
+        "fast heart rate",
+        "rapid heart rate",
+        "elevated heart rate",
+        "high heart rate",
+        "HR high",
+        "pulse high",
+        "hypotension",
+        "hypotensive"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_papilledema_or_signs_of_raised_intracranial_pressure",
+      "node_type": "Sign",
+      "name": "Papilledema or signs of raised intracranial pressure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_positive_kernig_or_brudzinski_sign_if_assessed",
+      "node_type": "Sign",
+      "name": "Positive Kernig or Brudzinski sign if assessed",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_toxic_appearance",
+      "node_type": "Sign",
+      "name": "Toxic appearance",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_asplenia_or_hyposplenia",
+      "node_type": "RiskFactor",
+      "name": "Asplenia or hyposplenia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_complement_deficiency_or_complement_inhibitor_therapy",
+      "node_type": "RiskFactor",
+      "name": "Complement deficiency or complement inhibitor therapy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_immunosuppression",
+      "node_type": "RiskFactor",
+      "name": "Immunosuppression",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_csf_leak",
+      "node_type": "RiskFactor",
+      "name": "CSF leak",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_cochlear_implant",
+      "node_type": "RiskFactor",
+      "name": "Cochlear implant",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_neurosurgery",
+      "node_type": "RiskFactor",
+      "name": "Recent neurosurgery",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_crowded_living_exposure",
+      "node_type": "RiskFactor",
+      "name": "Crowded living exposure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_unvaccinated_or_incomplete_vaccination",
+      "node_type": "RiskFactor",
+      "name": "Unvaccinated or incomplete vaccination",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_age_extremes",
+      "node_type": "RiskFactor",
+      "name": "Age extremes",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_blood_cultures_before_antibiotics_if_this_does_not_delay_treatment",
+      "node_type": "DiagnosticData",
+      "name": "Blood cultures before antibiotics if this does not delay treatment",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_lumbar_puncture_when_safe",
+      "node_type": "DiagnosticData",
+      "name": "Lumbar puncture when safe",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_cell_count_and_differential",
+      "node_type": "DiagnosticData",
+      "name": "CSF cell count and differential",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_glucose_with_paired_blood_glucose",
+      "node_type": "DiagnosticData",
+      "name": "CSF glucose with paired blood glucose",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_protein",
+      "node_type": "DiagnosticData",
+      "name": "CSF protein",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_gram_stain_and_culture",
+      "node_type": "DiagnosticData",
+      "name": "CSF Gram stain and culture",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_csf_pcr_or_molecular_testing_when_available",
+      "node_type": "DiagnosticData",
+      "name": "CSF PCR or molecular testing when available",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ct_head_before_lp_when_indicated_by_red_flags",
+      "node_type": "DiagnosticData",
+      "name": "CT head before LP when indicated by red flags",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_full_blood_count_and_inflammatory_markers",
+      "node_type": "DiagnosticData",
+      "name": "Full blood count and inflammatory markers",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_lactate_and_sepsis_labs_when_severe_illness",
+      "node_type": "DiagnosticData",
+      "name": "Lactate and sepsis labs when severe illness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_csf_pleocytosis",
+      "node_type": "Finding",
+      "name": "CSF pleocytosis",
+      "synonyms": [
+        "CSF pleocytosis",
+        "elevated CSF WBC",
+        "CSF white cells high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_low_csf_glucose_relative_to_blood_glucose",
+      "node_type": "Finding",
+      "name": "Low CSF glucose relative to blood glucose",
+      "synonyms": [
+        "low CSF glucose",
+        "CSF glucose low",
+        "low CSF:blood glucose ratio"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_elevated_csf_protein",
+      "node_type": "Finding",
+      "name": "Elevated CSF protein",
+      "synonyms": [
+        "elevated CSF protein",
+        "CSF protein high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_positive_csf_gram_stain_or_culture",
+      "node_type": "Finding",
+      "name": "Positive CSF Gram stain or culture",
+      "synonyms": [
+        "positive CSF gram stain",
+        "CSF culture positive",
+        "organisms on gram stain",
+        "positive CSF culture"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_positive_blood_culture",
+      "node_type": "Finding",
+      "name": "Positive blood culture",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_positive_meningococcal_pcr",
+      "node_type": "Finding",
+      "name": "Positive meningococcal PCR",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_non_blanching_rash",
+      "node_type": "Finding",
+      "name": "Non-blanching rash",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_sepsis_physiology",
+      "node_type": "Finding",
+      "name": "Sepsis physiology",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_raised_intracranial_pressure_signs",
+      "node_type": "Finding",
+      "name": "Raised intracranial pressure signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_meningitis_sepsis_pathway",
+      "node_type": "ManagementAction",
+      "name": "Activate meningitis/sepsis pathway",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_do_not_delay_empiric_antibiotics_for_lp_or_ct_when_high_suspicion",
+      "node_type": "ManagementAction",
+      "name": "Do not delay empiric antibiotics for LP or CT when high suspicion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_need_for_adjunctive_corticosteroid_according_to_local_protocol",
+      "node_type": "ManagementAction",
+      "name": "Assess need for adjunctive corticosteroid according to local protocol",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_infection_prevention_and_public_health_notification_when_meningococcal_disease_s",
+      "node_type": "ManagementAction",
+      "name": "Infection prevention and public health notification when meningococcal disease suspected",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_critical_care_escalation_for_shock_or_reduced_consciousness",
+      "node_type": "ManagementAction",
+      "name": "Critical care escalation for shock or reduced consciousness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_contraindications_to_immediate_lp",
+      "node_type": "ManagementAction",
+      "name": "Evaluate contraindications to immediate LP",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_encephalitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Encephalitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_sepsis_from_non_cns_source",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Sepsis from non-CNS source",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_intracranial_hemorrhage",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Intracranial hemorrhage",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_migraine",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Migraine",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_viral_meningitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Viral meningitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_brain_abscess",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Brain abscess",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_cervical_spine_pathology",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Cervical spine pathology",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_toxic_metabolic_encephalopathy",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Toxic-metabolic encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_meningitis",
+      "relation": "has_clinical_context",
+      "target": "context_suspected_meningitis",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_meningitis",
+      "relation": "has_clinical_context",
+      "target": "context_suspected_meningococcal_disease",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_meningitis",
+      "relation": "has_clinical_context",
+      "target": "context_sepsis_with_possible_cns_source",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_meningitis",
+      "relation": "has_clinical_context",
+      "target": "context_lumbar_puncture_safety_assessment_required",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_fever",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_headache",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_neck_stiffness",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_photophobia",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_nausea_or_vomiting",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_altered_mental_status",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_seizure",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_rash",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_limb_pain_or_cold_hands_and_feet_in_meningococcal_disease",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_meningitis",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_myalgia_or_severe_malaise",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Meningitis, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_meningism",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_non_blanching_petechial_or_purpuric_rash",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_reduced_level_of_consciousness",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_focal_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_signs_of_sepsis_or_shock",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_papilledema_or_signs_of_raised_intracranial_pressure",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_positive_kernig_or_brudzinski_sign_if_assessed",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_toxic_appearance",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Meningitis or severity.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_asplenia_or_hyposplenia",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_complement_deficiency_or_complement_inhibitor_therapy",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_immunosuppression",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_csf_leak",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_cochlear_implant",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_recent_neurosurgery",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_crowded_living_exposure",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_unvaccinated_or_incomplete_vaccination",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "risk_age_extremes",
+      "relation": "increases_suspicion_for",
+      "target": "disease_meningitis",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Meningitis in the appropriate clinical context.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_blood_cultures_before_antibiotics_if_this_does_not_delay_treatment",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_lumbar_puncture_when_safe",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_cell_count_and_differential",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_glucose_with_paired_blood_glucose",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_protein",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_gram_stain_and_culture",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_csf_pcr_or_molecular_testing_when_available",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ct_head_before_lp_when_indicated_by_red_flags",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_full_blood_count_and_inflammatory_markers",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_meningitis",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_lactate_and_sepsis_labs_when_severe_illness",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Meningitis.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_csf_pleocytosis",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_low_csf_glucose_relative_to_blood_glucose",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_elevated_csf_protein",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_positive_csf_gram_stain_or_culture",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_positive_blood_culture",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_positive_meningococcal_pcr",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_non_blanching_rash",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_sepsis_physiology",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_meningitis",
+      "relation": "has_supporting_finding",
+      "target": "finding_raised_intracranial_pressure_signs",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Meningitis or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_meningitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_meningitis_sepsis_pathway",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Meningitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "disease_meningitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_do_not_delay_empiric_antibiotics_for_lp_or_ct_when_high_suspicion",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Meningitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "disease_meningitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_need_for_adjunctive_corticosteroid_according_to_local_protocol",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Meningitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e054",
+      "source": "disease_meningitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_infection_prevention_and_public_health_notification_when_meningococcal_disease_s",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Meningitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e055",
+      "source": "disease_meningitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_critical_care_escalation_for_shock_or_reduced_consciousness",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Meningitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "edge_id": "e056",
+      "source": "disease_meningitis",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_contraindications_to_immediate_lp",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Meningitis is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Fever/headache/neck stiffness/photophobia/altered mental status/seizure/rash or sepsis with possible CNS source.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "MEN_P1_classic",
+            "case_features": [
+              "fever",
+              "headache",
+              "neck stiffness"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Classic meningitis symptom cluster."
+          },
+          {
+            "pattern_id": "MEN_P2_rash_sepsis",
+            "case_features": [
+              "fever or sepsis",
+              "non-blanching rash"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Meningococcal disease concern."
+          },
+          {
+            "pattern_id": "MEN_P3_ams_seizure",
+            "case_features": [
+              "fever",
+              "altered mental status or seizure"
+            ],
+            "candidate_priority": "high",
+            "reason": "CNS infection possible; encephalitis also considered."
+          },
+          {
+            "pattern_id": "MEN_P4_immunocomp",
+            "case_features": [
+              "headache/fever",
+              "immunosuppression or CSF leak/neurosurgery"
+            ],
+            "candidate_priority": "high",
+            "reason": "High-risk context with possible atypical presentation."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "MEN_W1_headache_only",
+            "case_features": [
+              "headache without fever/meningism/neurologic signs"
+            ],
+            "candidate_priority": "low",
+            "reason": "Headache alone is nonspecific."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_recognition",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Are symptoms or signs suggestive of bacterial meningitis or meningococcal disease?",
+      "required_case_fields": [
+        "fever",
+        "headache",
+        "neck_stiffness",
+        "rash",
+        "mental_status",
+        "seizure"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Treat as high-risk candidate and proceed urgently.",
+      "negative_result": "Lower priority but do not exclude early/atypical meningitis.",
+      "if_missing": "Critical symptoms/signs missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_severity_and_sepsis",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "Are sepsis, shock, reduced consciousness, seizure, focal deficit, or raised ICP signs present?",
+      "required_case_fields": [
+        "vitals",
+        "GCS",
+        "neuro_exam",
+        "rash",
+        "perfusion"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Escalate urgency and clinician-led emergency pathway.",
+      "negative_result": "Continue diagnostic pathway.",
+      "if_missing": "Severity assessment incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_blood_cultures_and_antibiotic_timing",
+      "step_type": "microbiology_management",
+      "step_name": "",
+      "check": "Can blood cultures be obtained without delaying urgent empiric therapy?",
+      "required_case_fields": [
+        "blood_cultures",
+        "antibiotic_time",
+        "illness_severity"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Obtain cultures when feasible and do not delay treatment in high-risk cases.",
+      "negative_result": "If low suspicion, continue evaluation.",
+      "if_missing": "Treatment/culture timing missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_lp_safety",
+      "step_type": "lumbar_puncture_safety",
+      "step_name": "",
+      "check": "Is immediate lumbar puncture safe or is CT/stabilization needed first?",
+      "required_case_fields": [
+        "focal_deficit",
+        "papilledema",
+        "seizure",
+        "immunosuppression",
+        "GCS",
+        "coagulation"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Proceed with LP if safe; otherwise CT/stabilize without delaying therapy.",
+      "negative_result": "LP may be deferred if contraindications exist.",
+      "if_missing": "LP safety cannot be determined.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_csf_interpretation",
+      "step_type": "csf_check",
+      "step_name": "",
+      "check": "Do CSF results support bacterial meningitis?",
+      "required_case_fields": [
+        "CSF_WBC",
+        "CSF_glucose",
+        "blood_glucose",
+        "CSF_protein",
+        "Gram_stain",
+        "culture",
+        "PCR"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Supports meningitis subtype and targeted management.",
+      "negative_result": "Negative early/partial data do not fully exclude if pretreated or high suspicion.",
+      "if_missing": "CSF unavailable; diagnosis relies on clinical and blood/molecular evidence.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_differentiate_encephalitis",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Are encephalitis features prominent: encephalopathy, seizures, focal deficits, abnormal MRI/EEG?",
+      "required_case_fields": [
+        "mental_status",
+        "seizures",
+        "focal_deficits",
+        "MRI",
+        "EEG"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Load encephalitis graph and consider parallel pathway.",
+      "negative_result": "Meningitis remains primary if meningeal/sepsis features dominate.",
+      "if_missing": "CNS differential incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_public_health_and_source",
+      "step_type": "public_health_check",
+      "step_name": "",
+      "check": "Is meningococcal disease suspected requiring infection control/public health actions?",
+      "required_case_fields": [
+        "rash",
+        "culture/PCR",
+        "exposure",
+        "clinical_suspicion"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Flag infection-control and public-health pathway.",
+      "negative_result": "Not applicable if not suspected.",
+      "if_missing": "Meningococcal status uncertain.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "ENCEPHALITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Altered mental status lasting >24h, seizures, focal deficits, MRI/EEG abnormalities; overlap is common."
+      ],
+      "critical_tests_or_data": [
+        "MRI brain",
+        "CSF PCR",
+        "EEG"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "INTRACRANIAL_HEMORRHAGE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Thunderclap headache, vomiting, neck stiffness, focal deficit; CT needed."
+      ],
+      "critical_tests_or_data": [
+        "noncontrast CT",
+        "CTA/LP per pathway"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "SEPSIS_NON_CNS_SOURCE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Sepsis physiology with no meningeal signs or CNS findings; source may be urinary, lung, abdominal, skin."
+      ],
+      "critical_tests_or_data": [
+        "cultures",
+        "source imaging"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "MIGRAINE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Headache/photophobia/nausea; lacks fever, meningism, sepsis, altered mental status."
+      ],
+      "critical_tests_or_data": [
+        "clinical history",
+        "red-flag imaging/LP when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "VIRAL_MENINGITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Often less severe, CSF lymphocytic pattern; bacterial disease must be excluded first in high-risk presentations."
+      ],
+      "critical_tests_or_data": [
+        "CSF profile",
+        "PCR"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "BRAIN_ABSCESS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Focal deficit, seizure, fever; imaging lesion."
+      ],
+      "critical_tests_or_data": [
+        "MRI/CT with contrast",
+        "blood cultures"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "MENINGITIS",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_nice_meningitis_2024",
+      "source_type": "guideline",
+      "title": "NICE NG240: Meningitis (bacterial) and meningococcal disease: recognition, diagnosis and management",
+      "publisher": "National Institute for Health and Care Excellence",
+      "publication_date": "2024-03-19",
+      "publication_year": "",
+      "url": "https://www.nice.org.uk/guidance/ng240",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Covers recognition, diagnosis, and management of bacterial meningitis and meningococcal disease in babies, children, young people, and adults.",
+        "Used here for adult recognition, emergency treatment timing, lumbar puncture considerations, and meningococcal disease red flags."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_idsa_encephalitis_2008",
+      "source_type": "guideline",
+      "title": "IDSA Clinical Practice Guidelines: The Management of Encephalitis",
+      "publisher": "Infectious Diseases Society of America",
+      "publication_date": "2008-08-01",
+      "publication_year": "",
+      "url": "https://www.idsociety.org/practice-guideline/encephalitis/",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Provides diagnostic and treatment guidance for suspected encephalitis and multiple infectious etiologies.",
+        "Used here for encephalopathy-plus-inflammation recognition, CSF testing, neuroimaging, EEG, PCR testing, and empiric acyclovir consideration."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not wait for rash to suspect meningococcal disease.",
+      "Do not delay empiric treatment in high-risk suspected bacterial meningitis solely for CT or LP.",
+      "Do not exclude meningitis because the classic triad is incomplete."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always state LP safety status.",
+      "Always assess sepsis/shock and altered mental status.",
+      "Always consider encephalitis in AMS/seizure presentations."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 13,
+    "preserved_graph_nodes": 65,
+    "preserved_graph_edges": 56
+  }
+}

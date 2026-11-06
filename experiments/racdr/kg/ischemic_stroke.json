@@ -1,0 +1,2030 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_ISCHEMIC_STROKE_ADULT",
+  "file_name": "ischemic_stroke.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Ischemic Stroke.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "ISCHEMIC_STROKE",
+  "disease_name_en": "Ischemic Stroke",
+  "aliases": [
+    "Acute ischemic stroke",
+    "AIS",
+    "Brain infarction",
+    "Large vessel occlusion stroke"
+  ],
+  "disease_category": "neurologic_vascular",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "TRANSIENT_ISCHEMIC_ATTACK",
+      "LARGE_VESSEL_OCCLUSION",
+      "INTRACRANIAL_HEMORRHAGE"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [
+      {
+        "target_graph": "INTRACRANIAL_HEMORRHAGE",
+        "description": "Symptoms overlap; urgent brain imaging is required to distinguish ischemia from hemorrhage before reperfusion decisions."
+      }
+    ],
+    "boundary_note": "",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Ischemic stroke is acute neurologic dysfunction caused by focal cerebral, spinal, or retinal infarction due to vascular occlusion or hypoperfusion.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Posterior circulation strokes can present with dizziness, vomiting, ataxia, visual symptoms, or headache and be mistaken for benign vertigo.",
+      "Symptoms may fluctuate or improve, leading to under-triage despite TIA/stroke risk.",
+      "Hypoglycemia, seizure, migraine, intoxication, and intracranial hemorrhage can mimic stroke.",
+      "Delayed last-known-well assessment or imaging can miss reperfusion windows."
+    ],
+    "clinical_priority": "emergency",
+    "time_sensitivity": "Requires immediate stroke-code workflow, last-known-well determination, urgent brain/vascular imaging, and reperfusion eligibility assessment.",
+    "do_not_use_as": [
+      "a thrombolysis decision tool",
+      "a substitute for imaging",
+      "a replacement for neurologist/stroke-team review"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_sudden_unilateral_weakness",
+        "input_terms": [
+          "sudden unilateral weakness",
+          "one-sided weakness",
+          "left sided weakness",
+          "right sided weakness",
+          "hemiparesis",
+          "unilateral numbness",
+          "arm weakness",
+          "leg weakness"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "sudden_unilateral_weakness_or_numbness",
+        "normalized_node_id": "symptom_sudden_unilateral_weakness_or_numbness",
+        "normalized_node": "Sudden unilateral weakness or numbness",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_aphasia_speech_difficulty",
+        "input_terms": [
+          "aphasia",
+          "speech difficulty",
+          "slurred speech",
+          "word finding difficulty",
+          "dysphasia",
+          "expressive aphasia"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "aphasia_or_speech_difficulty",
+        "normalized_node_id": "symptom_sudden_speech_difficulty_or_aphasia",
+        "normalized_node": "Sudden speech difficulty or aphasia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_facial_droop",
+        "input_terms": [
+          "facial droop",
+          "face droop",
+          "facial weakness",
+          "asymmetric smile"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "facial_droop",
+        "normalized_node_id": "symptom_facial_droop",
+        "normalized_node": "Facial droop",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_visual_loss_diplopia",
+        "input_terms": [
+          "visual loss",
+          "vision loss",
+          "diplopia",
+          "double vision",
+          "visual field cut",
+          "hemianopia"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "visual_loss_or_diplopia",
+        "normalized_node_id": "symptom_sudden_visual_loss_or_diplopia",
+        "normalized_node": "Sudden visual loss or diplopia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_ataxia_dizziness",
+        "input_terms": [
+          "ataxia",
+          "trouble walking",
+          "gait instability",
+          "loss of balance",
+          "vertigo with neurologic signs",
+          "dizziness with weakness"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "ataxia_or_posterior_circulation_symptoms",
+        "normalized_node_id": "symptom_sudden_trouble_walking_dizziness_loss_of_balance_or_ataxia",
+        "normalized_node": "Sudden trouble walking, dizziness, loss of balance, or ataxia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_sudden_confusion",
+        "input_terms": [
+          "sudden confusion",
+          "acute confusion",
+          "neglect",
+          "inattention"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "sudden_confusion",
+        "normalized_node_id": "symptom_sudden_confusion",
+        "normalized_node": "Sudden confusion",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_last_known_well",
+        "input_terms": [
+          "last known well",
+          "last seen normal",
+          "LKW",
+          "symptom onset time",
+          "time of onset",
+          "wake-up stroke"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "last_known_well",
+        "normalized_node_id": "test_last_known_well_and_symptom_onset_time",
+        "normalized_node": "Last known well and symptom onset time",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_positive_fast_be_fast",
+        "input_terms": [
+          "FAST positive",
+          "BE-FAST positive",
+          "positive stroke screen",
+          "stroke alert",
+          "stroke code"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "positive_fast_or_be_fast",
+        "normalized_node_id": "sign_positive_fast_or_be_fast_screen",
+        "normalized_node": "Positive FAST or BE-FAST screen",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_abnormal_nihss",
+        "input_terms": [
+          "NIHSS",
+          "abnormal NIHSS",
+          "NIH stroke scale",
+          "NIHSS elevated"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "abnormal_nihss",
+        "normalized_node_id": "sign_abnormal_nihss",
+        "normalized_node": "Abnormal NIHSS",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_large_vessel_occlusion",
+        "input_terms": [
+          "large vessel occlusion",
+          "LVO",
+          "M1 occlusion",
+          "ICA occlusion",
+          "basilar occlusion",
+          "CTA occlusion"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "large_vessel_occlusion",
+        "normalized_node_id": "finding_large_vessel_occlusion_on_cta_mra",
+        "normalized_node": "Large vessel occlusion on CTA/MRA",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_early_ischemic_change",
+        "input_terms": [
+          "early ischemic change",
+          "DWI lesion",
+          "restricted diffusion",
+          "acute infarct on MRI",
+          "ischemic changes on CT"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "early_ischemic_change",
+        "normalized_node_id": "finding_early_ischemic_change_on_ct_or_dwi_lesion_on_mri",
+        "normalized_node": "Early ischemic change on CT or DWI lesion on MRI",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_atrial_fibrillation",
+        "input_terms": [
+          "atrial fibrillation",
+          "AF",
+          "AFib",
+          "new atrial fibrillation"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "atrial_fibrillation",
+        "normalized_node_id": "risk_atrial_fibrillation",
+        "normalized_node": "Atrial fibrillation",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_ischemic_stroke",
+      "node_type": "DiseaseCandidate",
+      "name": "Ischemic Stroke",
+      "synonyms": [
+        "Acute ischemic stroke",
+        "AIS",
+        "Brain infarction",
+        "Large vessel occlusion stroke"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_sudden_focal_neurologic_deficit",
+      "node_type": "ClinicalContext",
+      "name": "Sudden focal neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_last_known_well_required",
+      "node_type": "ClinicalContext",
+      "name": "Last known well required",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_stroke_code_activation",
+      "node_type": "ClinicalContext",
+      "name": "Stroke code activation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_large_vessel_occlusion_evaluation",
+      "node_type": "ClinicalContext",
+      "name": "Large vessel occlusion evaluation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_unilateral_weakness_or_numbness",
+      "node_type": "Symptom",
+      "name": "Sudden unilateral weakness or numbness",
+      "synonyms": [
+        "sudden unilateral weakness",
+        "one-sided weakness",
+        "left sided weakness",
+        "right sided weakness",
+        "hemiparesis",
+        "unilateral numbness",
+        "arm weakness",
+        "leg weakness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_speech_difficulty_or_aphasia",
+      "node_type": "Symptom",
+      "name": "Sudden speech difficulty or aphasia",
+      "synonyms": [
+        "aphasia",
+        "speech difficulty",
+        "slurred speech",
+        "word finding difficulty",
+        "dysphasia",
+        "expressive aphasia"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_facial_droop",
+      "node_type": "Symptom",
+      "name": "Facial droop",
+      "synonyms": [
+        "facial droop",
+        "face droop",
+        "facial weakness",
+        "asymmetric smile"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_visual_loss_or_diplopia",
+      "node_type": "Symptom",
+      "name": "Sudden visual loss or diplopia",
+      "synonyms": [
+        "visual loss",
+        "vision loss",
+        "diplopia",
+        "double vision",
+        "visual field cut",
+        "hemianopia"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_trouble_walking_dizziness_loss_of_balance_or_ataxia",
+      "node_type": "Symptom",
+      "name": "Sudden trouble walking, dizziness, loss of balance, or ataxia",
+      "synonyms": [
+        "ataxia",
+        "trouble walking",
+        "gait instability",
+        "loss of balance",
+        "vertigo with neurologic signs",
+        "dizziness with weakness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_confusion",
+      "node_type": "Symptom",
+      "name": "Sudden confusion",
+      "synonyms": [
+        "sudden confusion",
+        "acute confusion",
+        "neglect",
+        "inattention"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_severe_acute_headache",
+      "node_type": "Symptom",
+      "name": "Severe acute headache",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_vertigo_with_neurologic_signs",
+      "node_type": "Symptom",
+      "name": "Vertigo with neurologic signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_neglect_or_spatial_inattention",
+      "node_type": "Symptom",
+      "name": "Neglect or spatial inattention",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_focal_neurologic_deficit",
+      "node_type": "Sign",
+      "name": "Focal neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_positive_fast_or_be_fast_screen",
+      "node_type": "Sign",
+      "name": "Positive FAST or BE-FAST screen",
+      "synonyms": [
+        "FAST positive",
+        "BE-FAST positive",
+        "positive stroke screen",
+        "stroke alert",
+        "stroke code"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_abnormal_nihss",
+      "node_type": "Sign",
+      "name": "Abnormal NIHSS",
+      "synonyms": [
+        "NIHSS",
+        "abnormal NIHSS",
+        "NIH stroke scale",
+        "NIHSS elevated"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_gaze_deviation",
+      "node_type": "Sign",
+      "name": "Gaze deviation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_visual_field_deficit",
+      "node_type": "Sign",
+      "name": "Visual field deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_limb_ataxia",
+      "node_type": "Sign",
+      "name": "Limb ataxia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_dysarthria",
+      "node_type": "Sign",
+      "name": "Dysarthria",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_reduced_level_of_consciousness",
+      "node_type": "Sign",
+      "name": "Reduced level of consciousness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_atrial_fibrillation",
+      "node_type": "RiskFactor",
+      "name": "Atrial fibrillation",
+      "synonyms": [
+        "atrial fibrillation",
+        "AFib",
+        "new atrial fibrillation"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hypertension",
+      "node_type": "RiskFactor",
+      "name": "Hypertension",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_diabetes_mellitus",
+      "node_type": "RiskFactor",
+      "name": "Diabetes mellitus",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hyperlipidemia",
+      "node_type": "RiskFactor",
+      "name": "Hyperlipidemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_smoking",
+      "node_type": "RiskFactor",
+      "name": "Smoking",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_prior_stroke_or_tia",
+      "node_type": "RiskFactor",
+      "name": "Prior stroke or TIA",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_carotid_stenosis",
+      "node_type": "RiskFactor",
+      "name": "Carotid stenosis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_cardiovascular_disease",
+      "node_type": "RiskFactor",
+      "name": "Known cardiovascular disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_surgery_or_procedure",
+      "node_type": "RiskFactor",
+      "name": "Recent surgery or procedure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hypercoagulable_state",
+      "node_type": "RiskFactor",
+      "name": "Hypercoagulable state",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_last_known_well_and_symptom_onset_time",
+      "node_type": "DiagnosticData",
+      "name": "Last known well and symptom onset time",
+      "synonyms": [
+        "last known well",
+        "last seen normal",
+        "LKW",
+        "symptom onset time",
+        "time of onset",
+        "wake-up stroke"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_point_of_care_glucose",
+      "node_type": "DiagnosticData",
+      "name": "Point-of-care glucose",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_noncontrast_head_ct_or_mri",
+      "node_type": "DiagnosticData",
+      "name": "Noncontrast head CT or MRI",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_cta_head_and_neck_for_lvo_assessment",
+      "node_type": "DiagnosticData",
+      "name": "CTA head and neck for LVO assessment",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ct_or_mr_perfusion_when_indicated",
+      "node_type": "DiagnosticData",
+      "name": "CT or MR perfusion when indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_nihss_or_validated_stroke_severity_scale",
+      "node_type": "DiagnosticData",
+      "name": "NIHSS or validated stroke severity scale",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ecg_and_cardiac_rhythm_monitoring",
+      "node_type": "DiagnosticData",
+      "name": "ECG and cardiac rhythm monitoring",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_basic_labs_without_delaying_imaging_reperfusion_when_safe",
+      "node_type": "DiagnosticData",
+      "name": "Basic labs without delaying imaging/reperfusion when safe",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_swallow_screen_after_acute_stabilization",
+      "node_type": "DiagnosticData",
+      "name": "Swallow screen after acute stabilization",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_no_intracranial_hemorrhage_on_initial_imaging",
+      "node_type": "Finding",
+      "name": "No intracranial hemorrhage on initial imaging",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_early_ischemic_change_on_ct_or_dwi_lesion_on_mri",
+      "node_type": "Finding",
+      "name": "Early ischemic change on CT or DWI lesion on MRI",
+      "synonyms": [
+        "early ischemic change",
+        "DWI lesion",
+        "restricted diffusion",
+        "acute infarct on MRI",
+        "ischemic changes on CT"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_large_vessel_occlusion_on_cta_mra",
+      "node_type": "Finding",
+      "name": "Large vessel occlusion on CTA/MRA",
+      "synonyms": [
+        "large vessel occlusion",
+        "LVO",
+        "ICA occlusion",
+        "basilar occlusion",
+        "CTA occlusion"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_perfusion_mismatch_when_applicable",
+      "node_type": "Finding",
+      "name": "Perfusion mismatch when applicable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_new_atrial_fibrillation",
+      "node_type": "Finding",
+      "name": "New atrial fibrillation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_hypoglycemia_excluded",
+      "node_type": "Finding",
+      "name": "Hypoglycemia excluded",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_disabling_neurologic_deficit",
+      "node_type": "Finding",
+      "name": "Disabling neurologic deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_stroke_code",
+      "node_type": "ManagementAction",
+      "name": "Activate stroke code",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_thrombolysis_eligibility",
+      "node_type": "ManagementAction",
+      "name": "Assess thrombolysis eligibility",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_mechanical_thrombectomy_eligibility",
+      "node_type": "ManagementAction",
+      "name": "Assess mechanical thrombectomy eligibility",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_avoid_unnecessary_imaging_delays",
+      "node_type": "ManagementAction",
+      "name": "Avoid unnecessary imaging delays",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_manage_blood_pressure_according_to_reperfusion_plan",
+      "node_type": "ManagementAction",
+      "name": "Manage blood pressure according to reperfusion plan",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_stroke_mimics",
+      "node_type": "ManagementAction",
+      "name": "Evaluate stroke mimics",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_transfer_to_stroke_capable_center_when_needed",
+      "node_type": "ManagementAction",
+      "name": "Transfer to stroke-capable center when needed",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_intracranial_hemorrhage",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Intracranial hemorrhage",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_transient_ischemic_attack",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Transient ischemic attack",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_seizure_with_postictal_deficit",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Seizure with postictal deficit",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_migraine_with_aura",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Migraine with aura",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_hypoglycemia",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Hypoglycemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_vestibular_neuritis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Vestibular neuritis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_brain_tumor_or_mass_lesion",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Brain tumor or mass lesion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_functional_neurologic_disorder",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Functional neurologic disorder",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_aortic_dissection_with_cerebral_malperfusion",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Aortic dissection with cerebral malperfusion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_clinical_context",
+      "target": "context_sudden_focal_neurologic_deficit",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_clinical_context",
+      "target": "context_last_known_well_required",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_clinical_context",
+      "target": "context_stroke_code_activation",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_clinical_context",
+      "target": "context_large_vessel_occlusion_evaluation",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_unilateral_weakness_or_numbness",
+      "strength": "strong",
+      "weight": 0.9,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_speech_difficulty_or_aphasia",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_facial_droop",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_visual_loss_or_diplopia",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_trouble_walking_dizziness_loss_of_balance_or_ataxia",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_confusion",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_severe_acute_headache",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_vertigo_with_neurologic_signs",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_neglect_or_spatial_inattention",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Ischemic Stroke, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_focal_neurologic_deficit",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_positive_fast_or_be_fast_screen",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_abnormal_nihss",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_gaze_deviation",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_visual_field_deficit",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_limb_ataxia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_dysarthria",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_reduced_level_of_consciousness",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Ischemic Stroke or severity.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "risk_atrial_fibrillation",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_hypertension",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_diabetes_mellitus",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_hyperlipidemia",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_smoking",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_prior_stroke_or_tia",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_carotid_stenosis",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_known_cardiovascular_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_recent_surgery_or_procedure",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "risk_hypercoagulable_state",
+      "relation": "increases_suspicion_for",
+      "target": "disease_ischemic_stroke",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Ischemic Stroke in the appropriate clinical context.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_last_known_well_and_symptom_onset_time",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_point_of_care_glucose",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_noncontrast_head_ct_or_mri",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_cta_head_and_neck_for_lvo_assessment",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ct_or_mr_perfusion_when_indicated",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_nihss_or_validated_stroke_severity_scale",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ecg_and_cardiac_rhythm_monitoring",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_basic_labs_without_delaying_imaging_reperfusion_when_safe",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_ischemic_stroke",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_swallow_screen_after_acute_stabilization",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Ischemic Stroke.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_no_intracranial_hemorrhage_on_initial_imaging",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_early_ischemic_change_on_ct_or_dwi_lesion_on_mri",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_large_vessel_occlusion_on_cta_mra",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_perfusion_mismatch_when_applicable",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_new_atrial_fibrillation",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_hypoglycemia_excluded",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_ischemic_stroke",
+      "relation": "has_supporting_finding",
+      "target": "finding_disabling_neurologic_deficit",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Ischemic Stroke or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_stroke_code",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_thrombolysis_eligibility",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_mechanical_thrombectomy_eligibility",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_avoid_unnecessary_imaging_delays",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_manage_blood_pressure_according_to_reperfusion_plan",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_stroke_mimics",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e054",
+      "source": "disease_ischemic_stroke",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_transfer_to_stroke_capable_center_when_needed",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Ischemic Stroke is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Sudden focal neurologic deficit, BE-FAST symptom, acute disabling neurologic syndrome, or unexplained acute posterior circulation symptoms.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "AIS_P1_FAST",
+            "case_features": [
+              "facial droop or arm weakness or speech difficulty",
+              "sudden onset"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Classic stroke recognition pattern."
+          },
+          {
+            "pattern_id": "AIS_P2_lvo",
+            "case_features": [
+              "severe deficit or cortical signs",
+              "acute onset"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Possible large vessel occlusion."
+          },
+          {
+            "pattern_id": "AIS_P3_posterior",
+            "case_features": [
+              "acute dizziness/ataxia/visual symptoms",
+              "neurologic signs"
+            ],
+            "candidate_priority": "high",
+            "reason": "Posterior circulation stroke risk."
+          },
+          {
+            "pattern_id": "AIS_P4_tia_like",
+            "case_features": [
+              "resolved focal deficit",
+              "vascular risk factors"
+            ],
+            "candidate_priority": "high",
+            "reason": "TIA/stroke warning event requiring urgent evaluation."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "AIS_W1_dizziness_only",
+            "case_features": [
+              "isolated dizziness without neurologic signs"
+            ],
+            "candidate_priority": "low_to_moderate",
+            "reason": "Nonspecific but posterior circulation stroke may still need context."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_recognize_stroke_syndrome",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Are symptoms sudden and focal or consistent with BE-FAST/posterior circulation stroke?",
+      "required_case_fields": [
+        "symptoms",
+        "onset",
+        "neurologic_exam"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Activate stroke workflow.",
+      "negative_result": "Lower priority but assess mimics and atypical stroke.",
+      "if_missing": "Cannot determine onset/focality.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_cdc_stroke_symptoms_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_last_known_well",
+      "step_type": "time_check",
+      "step_name": "",
+      "check": "What is last-known-well and symptom discovery time?",
+      "required_case_fields": [
+        "last_known_well",
+        "symptom_discovery_time",
+        "baseline_function"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use time window for reperfusion eligibility.",
+      "negative_result": "If outside window, still evaluate for thrombectomy/secondary prevention as applicable.",
+      "if_missing": "Critical missing data: last-known-well unavailable.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_exclude_hypoglycemia_and_mimics",
+      "step_type": "mimic_screen",
+      "step_name": "",
+      "check": "Is glucose checked and are common stroke mimics considered?",
+      "required_case_fields": [
+        "point_of_care_glucose",
+        "seizure_history",
+        "migraine",
+        "toxins",
+        "infection"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Treat mimic if found while continuing stroke pathway if uncertainty remains.",
+      "negative_result": "Proceed if no mimic explains deficit.",
+      "if_missing": "Glucose/mimic data missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_brain_imaging",
+      "step_type": "imaging_check",
+      "step_name": "",
+      "check": "Is urgent brain imaging available to distinguish ischemia from hemorrhage?",
+      "required_case_fields": [
+        "noncontrast_CT",
+        "MRI"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Proceed with ischemic/hemorrhagic classification.",
+      "negative_result": "If hemorrhage present, switch to ICH pathway.",
+      "if_missing": "Cannot classify stroke type without imaging.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_vascular_imaging",
+      "step_type": "lvo_check",
+      "step_name": "",
+      "check": "Is large vessel occlusion assessed when clinically indicated?",
+      "required_case_fields": [
+        "CTA_head_neck",
+        "MRA",
+        "CTP/MRP"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Evaluate thrombectomy eligibility and transfer needs.",
+      "negative_result": "No LVO or not indicated.",
+      "if_missing": "LVO status unavailable.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_severity_and_disability",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "What is deficit severity and disability level?",
+      "required_case_fields": [
+        "NIHSS",
+        "exam",
+        "functional_baseline"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Support reperfusion and disposition decisions.",
+      "negative_result": "Minor nondisabling symptoms may follow local pathway.",
+      "if_missing": "Severity data missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_reperfusion_eligibility",
+      "step_type": "treatment_window_check",
+      "step_name": "",
+      "check": "Does the case meet local criteria for thrombolysis or thrombectomy evaluation?",
+      "required_case_fields": [
+        "time_window",
+        "imaging",
+        "contraindications",
+        "medications",
+        "BP"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Recommend stroke-team pathway; do not generate autonomous orders.",
+      "negative_result": "Document why not eligible if data allow.",
+      "if_missing": "Eligibility cannot be assessed.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_08_differential_red_flags",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Could ICH, seizure, migraine, hypoglycemia, vestibular disorder, or dissection explain the presentation?",
+      "required_case_fields": [
+        "imaging",
+        "glucose",
+        "history",
+        "pain",
+        "vitals"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing conditions and parallel verification.",
+      "negative_result": "AIS remains most supported if imaging/clinical pattern aligns.",
+      "if_missing": "Differential incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "INTRACRANIAL_HEMORRHAGE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Same focal deficits; severe headache, vomiting, reduced consciousness, anticoagulation, or very high BP may raise concern."
+      ],
+      "critical_tests_or_data": [
+        "noncontrast CT/MRI"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "SEIZURE_WITH_POSTICTAL_DEFICIT",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Witnessed seizure, tongue bite, postictal confusion, deficit resolving over time."
+      ],
+      "critical_tests_or_data": [
+        "history",
+        "EEG when needed",
+        "imaging"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "HYPOGLYCEMIA",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Can mimic focal deficits or altered mental status."
+      ],
+      "critical_tests_or_data": [
+        "point-of-care glucose"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "MIGRAINE_WITH_AURA",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Gradual spread of positive neurologic symptoms, migraine history; still avoid premature closure in first/worst or atypical cases."
+      ],
+      "critical_tests_or_data": [
+        "clinical history",
+        "imaging when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "VESTIBULAR_NEURITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Isolated continuous vertigo without focal neurologic signs; posterior stroke remains concern if ataxia, direction-changing nystagmus, or vascular risk."
+      ],
+      "critical_tests_or_data": [
+        "HINTS by trained clinician",
+        "MRI/CTA when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "AORTIC_DISSECTION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Stroke symptoms plus chest/back pain, pulse deficit, hypotension, or aortic risk factors."
+      ],
+      "critical_tests_or_data": [
+        "CTA aorta/head/neck",
+        "bilateral BP"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "ISCHEMIC_STROKE",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_aha_asa_ais_2026",
+      "source_type": "guideline",
+      "title": "2026 AHA/ASA Guideline for the Early Management of Patients With Acute Ischemic Stroke",
+      "publisher": "American Heart Association / American Stroke Association",
+      "publication_date": "2026-01-26",
+      "publication_year": "",
+      "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Provides updated evidence-based recommendations for acute ischemic stroke management from prehospital evaluation through acute reperfusion strategies.",
+        "Supports stroke-code activation, last-known-well assessment, urgent brain and vascular imaging, thrombolysis and thrombectomy eligibility evaluation, and management of mimics."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_cdc_stroke_symptoms_2026",
+      "source_type": "public_health_reference",
+      "title": "Signs and Symptoms of Stroke",
+      "publisher": "Centers for Disease Control and Prevention",
+      "publication_date": "2026-05-19",
+      "publication_year": "",
+      "url": "https://www.cdc.gov/stroke/signs-symptoms/index.html",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Stroke warning symptoms include sudden weakness/numbness, confusion or speech trouble, visual difficulty, trouble walking/dizziness/loss of balance, and sudden severe headache.",
+        "Used for symptom normalization and emergency-recognition nodes."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not exclude stroke because symptoms improved.",
+      "Do not label isolated dizziness benign without posterior circulation red-flag assessment.",
+      "Do not decide thrombolysis without imaging and stroke-team/local protocol."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always capture last-known-well.",
+      "Always state whether brain imaging has ruled out hemorrhage.",
+      "Always evaluate LVO status when severe/cortical signs are present."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 12,
+    "preserved_graph_nodes": 64,
+    "preserved_graph_edges": 54
+  }
+}

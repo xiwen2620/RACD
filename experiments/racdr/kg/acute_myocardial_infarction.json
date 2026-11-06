@@ -1,0 +1,1937 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_ACUTE_MYOCARDIAL_INFARCTION_ADULT",
+  "file_name": "acute_myocardial_infarction.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Acute Myocardial Infarction.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "ACUTE_MYOCARDIAL_INFARCTION",
+  "disease_name_en": "Acute Myocardial Infarction",
+  "aliases": [
+    "AMI",
+    "Myocardial infarction",
+    "Heart attack",
+    "STEMI",
+    "NSTEMI",
+    "Type 1 myocardial infarction"
+  ],
+  "disease_category": "cardiovascular",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [
+      "ACUTE_CORONARY_SYNDROME"
+    ],
+    "part_of": [],
+    "overlaps_with": [
+      "CARDIOGENIC_SHOCK",
+      "CARDIAC_ARREST"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [
+      {
+        "target_graph": "ACS",
+        "description": "AMI is ACS with acute myocardial injury and ischemic evidence, while ACS also includes unstable angina without troponin-defined myocardial injury."
+      }
+    ],
+    "boundary_note": "",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Acute myocardial infarction is acute myocardial injury, usually detected by a rise and/or fall of cardiac troponin, with clinical evidence of acute myocardial ischemia.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Chest pain can be absent or atypical, especially in older adults, women, and people with diabetes or chronic kidney disease.",
+      "Symptoms may present as dyspnea, epigastric discomfort, nausea, diaphoresis, syncope, fatigue, or heart failure.",
+      "Early ECG may be nondiagnostic and initial troponin may be negative if measured too early.",
+      "Aortic dissection, pulmonary embolism, pericarditis, pneumothorax, and gastrointestinal disease can mimic AMI."
+    ],
+    "clinical_priority": "emergency",
+    "time_sensitivity": "Time-critical evaluation for STEMI reperfusion eligibility and high-risk NSTEMI invasive management.",
+    "do_not_use_as": [
+      "a replacement for ECG interpretation",
+      "a replacement for serial troponin protocols",
+      "a medication-order generator"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_ischemic_chest_pain",
+        "input_terms": [
+          "chest pain",
+          "chest pressure",
+          "crushing chest pain",
+          "substernal chest pain",
+          "retrosternal pain",
+          "chest tightness",
+          "chest heaviness"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "ischemic_chest_pain",
+        "normalized_node_id": "symptom_chest_pressure_or_crushing_chest_pain",
+        "normalized_node": "Chest pressure or crushing chest pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_radiating_pain",
+        "input_terms": [
+          "radiation to left arm",
+          "left arm pain",
+          "jaw pain",
+          "neck pain",
+          "shoulder pain",
+          "pain radiates to back",
+          "radiating chest pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "radiating_pain",
+        "normalized_node_id": "symptom_radiation_to_left_arm_jaw_neck_shoulder_or_back",
+        "normalized_node": "Radiation to left arm, jaw, neck, shoulder, or back",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_dyspnea",
+        "input_terms": [
+          "dyspnea",
+          "dyspnoea",
+          "shortness of breath",
+          "short of breath",
+          "SOB",
+          "breathless",
+          "difficulty breathing"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "dyspnea",
+        "normalized_node_id": "symptom_dyspnea",
+        "normalized_node": "Dyspnea",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_diaphoresis",
+        "input_terms": [
+          "diaphoresis",
+          "sweating",
+          "clammy",
+          "cold sweat"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "diaphoresis",
+        "normalized_node_id": "symptom_diaphoresis",
+        "normalized_node": "Diaphoresis",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_nausea_vomiting",
+        "input_terms": [
+          "nausea",
+          "vomiting",
+          "emesis"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "nausea_or_vomiting",
+        "normalized_node_id": "symptom_nausea_or_vomiting",
+        "normalized_node": "Nausea or vomiting",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_syncope_near_syncope",
+        "input_terms": [
+          "syncope",
+          "near syncope",
+          "presyncope",
+          "passed out",
+          "fainted"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "syncope_or_near_syncope",
+        "normalized_node_id": "symptom_syncope_or_near_syncope",
+        "normalized_node": "Syncope or near-syncope",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_troponin_elevation",
+        "input_terms": [
+          "elevated troponin",
+          "troponin positive",
+          "troponin rise",
+          "rising troponin",
+          "hs-troponin elevated",
+          "troponin above 99th percentile"
+        ],
+        "input_variants": [
+          "troponin >99th percentile",
+          "troponin 0.5",
+          "troponin 500"
+        ],
+        "normalized_case_fact": "myocardial_injury",
+        "normalized_node_id": "finding_rise_and_or_fall_in_cardiac_troponin_above_the_99th_percentile_with_ischemic_evi",
+        "normalized_node": "Rise and/or fall in cardiac troponin above the 99th percentile with ischemic evidence",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_st_elevation",
+        "input_terms": [
+          "ST elevation",
+          "STEMI",
+          "STE",
+          "ST segment elevation",
+          "ST elevations"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "st_segment_elevation",
+        "normalized_node_id": "finding_st_segment_elevation_in_a_coronary_distribution",
+        "normalized_node": "ST-segment elevation in a coronary distribution",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_st_depression_t_wave_inversion",
+        "input_terms": [
+          "ST depression",
+          "dynamic ST depression",
+          "T wave inversion",
+          "T-wave inversion",
+          "ischemic ECG changes"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "ischemic_ecg_changes",
+        "normalized_node_id": "finding_st_depression_or_dynamic_t_wave_inversion",
+        "normalized_node": "ST depression or dynamic T-wave inversion",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_acute_heart_failure",
+        "input_terms": [
+          "acute heart failure",
+          "pulmonary edema",
+          "rales",
+          "new heart failure",
+          "flash pulmonary edema"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "acute_heart_failure",
+        "normalized_node_id": "sign_signs_of_acute_heart_failure",
+        "normalized_node": "Signs of acute heart failure",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_arrhythmia",
+        "input_terms": [
+          "arrhythmia",
+          "ventricular tachycardia",
+          "VT",
+          "VF",
+          "atrial fibrillation",
+          "new arrhythmia"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "arrhythmia",
+        "normalized_node_id": "sign_arrhythmia",
+        "normalized_node": "Arrhythmia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_acute_myocardial_infarction",
+      "node_type": "DiseaseCandidate",
+      "name": "Acute Myocardial Infarction",
+      "synonyms": [
+        "AMI",
+        "Myocardial infarction",
+        "Heart attack",
+        "STEMI",
+        "NSTEMI",
+        "Type 1 myocardial infarction"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_acute_chest_pain_syndrome",
+      "node_type": "ClinicalContext",
+      "name": "Acute chest pain syndrome",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_possible_myocardial_ischemia",
+      "node_type": "ClinicalContext",
+      "name": "Possible myocardial ischemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_time_from_symptom_onset",
+      "node_type": "ClinicalContext",
+      "name": "Time from symptom onset",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_prehospital_ecg_or_emergency_ecg_available",
+      "node_type": "ClinicalContext",
+      "name": "Prehospital ECG or emergency ECG available",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_chest_pressure_or_crushing_chest_pain",
+      "node_type": "Symptom",
+      "name": "Chest pressure or crushing chest pain",
+      "synonyms": [
+        "retrosternal pressure",
+        "central chest pain",
+        "chest pain",
+        "chest pressure",
+        "crushing chest pain",
+        "substernal chest pain",
+        "retrosternal pain",
+        "chest tightness",
+        "chest heaviness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_radiation_to_left_arm_jaw_neck_shoulder_or_back",
+      "node_type": "Symptom",
+      "name": "Radiation to left arm, jaw, neck, shoulder, or back",
+      "synonyms": [
+        "radiation to left arm",
+        "left arm pain",
+        "jaw pain",
+        "neck pain",
+        "shoulder pain",
+        "pain radiates to back",
+        "radiating chest pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_dyspnea",
+      "node_type": "Symptom",
+      "name": "Dyspnea",
+      "synonyms": [
+        "dyspnea",
+        "dyspnoea",
+        "shortness of breath",
+        "short of breath",
+        "SOB",
+        "breathless",
+        "difficulty breathing"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_diaphoresis",
+      "node_type": "Symptom",
+      "name": "Diaphoresis",
+      "synonyms": [
+        "diaphoresis",
+        "sweating",
+        "clammy",
+        "cold sweat"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_nausea_or_vomiting",
+      "node_type": "Symptom",
+      "name": "Nausea or vomiting",
+      "synonyms": [
+        "nausea",
+        "vomiting",
+        "emesis"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_epigastric_discomfort",
+      "node_type": "Symptom",
+      "name": "Epigastric discomfort",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_syncope_or_near_syncope",
+      "node_type": "Symptom",
+      "name": "Syncope or near-syncope",
+      "synonyms": [
+        "syncope",
+        "near syncope",
+        "presyncope",
+        "passed out",
+        "fainted"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_unexplained_fatigue_or_weakness",
+      "node_type": "Symptom",
+      "name": "Unexplained fatigue or weakness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_palpitations",
+      "node_type": "Symptom",
+      "name": "Palpitations",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hemodynamic_instability",
+      "node_type": "Sign",
+      "name": "Hemodynamic instability",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_signs_of_acute_heart_failure",
+      "node_type": "Sign",
+      "name": "Signs of acute heart failure",
+      "synonyms": [
+        "acute heart failure",
+        "pulmonary edema",
+        "rales",
+        "new heart failure",
+        "flash pulmonary edema"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_new_murmur_or_suspected_mechanical_complication",
+      "node_type": "Sign",
+      "name": "New murmur or suspected mechanical complication",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_arrhythmia",
+      "node_type": "Sign",
+      "name": "Arrhythmia",
+      "synonyms": [
+        "arrhythmia",
+        "ventricular tachycardia",
+        "atrial fibrillation",
+        "new arrhythmia"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_cardiac_arrest",
+      "node_type": "Sign",
+      "name": "Cardiac arrest",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypoxemia",
+      "node_type": "Sign",
+      "name": "Hypoxemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_coronary_artery_disease",
+      "node_type": "RiskFactor",
+      "name": "Known coronary artery disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_prior_myocardial_infarction",
+      "node_type": "RiskFactor",
+      "name": "Prior myocardial infarction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_diabetes_mellitus",
+      "node_type": "RiskFactor",
+      "name": "Diabetes mellitus",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hypertension",
+      "node_type": "RiskFactor",
+      "name": "Hypertension",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_hyperlipidemia",
+      "node_type": "RiskFactor",
+      "name": "Hyperlipidemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_smoking",
+      "node_type": "RiskFactor",
+      "name": "Smoking",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_chronic_kidney_disease",
+      "node_type": "RiskFactor",
+      "name": "Chronic kidney disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_older_age",
+      "node_type": "RiskFactor",
+      "name": "Older age",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_family_history_of_premature_coronary_disease",
+      "node_type": "RiskFactor",
+      "name": "Family history of premature coronary disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_cocaine_or_stimulant_use",
+      "node_type": "RiskFactor",
+      "name": "Cocaine or stimulant use",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_12_lead_ecg_within_10_minutes_when_acs_is_suspected",
+      "node_type": "DiagnosticData",
+      "name": "12-lead ECG within 10 minutes when ACS is suspected",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_serial_high_sensitivity_cardiac_troponin",
+      "node_type": "DiagnosticData",
+      "name": "Serial high-sensitivity cardiac troponin",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_repeat_ecgs_if_symptoms_persist_or_initial_ecg_is_nondiagnostic",
+      "node_type": "DiagnosticData",
+      "name": "Repeat ECGs if symptoms persist or initial ECG is nondiagnostic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_bedside_echocardiography_when_unstable_or_diagnosis_unclear",
+      "node_type": "DiagnosticData",
+      "name": "Bedside echocardiography when unstable or diagnosis unclear",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_chest_radiography_when_alternative_thoracic_diagnosis_is_possible",
+      "node_type": "DiagnosticData",
+      "name": "Chest radiography when alternative thoracic diagnosis is possible",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_basic_metabolic_panel_and_renal_function",
+      "node_type": "DiagnosticData",
+      "name": "Basic metabolic panel and renal function",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_complete_blood_count",
+      "node_type": "DiagnosticData",
+      "name": "Complete blood count",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_coagulation_profile_when_invasive_therapy_or_anticoagulation_is_considered",
+      "node_type": "DiagnosticData",
+      "name": "Coagulation profile when invasive therapy or anticoagulation is considered",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_st_segment_elevation_in_a_coronary_distribution",
+      "node_type": "Finding",
+      "name": "ST-segment elevation in a coronary distribution",
+      "synonyms": [
+        "ST elevation",
+        "STEMI",
+        "STE",
+        "ST segment elevation",
+        "ST elevations"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_new_or_presumed_new_left_bundle_branch_block_with_ischemic_features",
+      "node_type": "Finding",
+      "name": "New or presumed new left bundle branch block with ischemic features",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_st_depression_or_dynamic_t_wave_inversion",
+      "node_type": "Finding",
+      "name": "ST depression or dynamic T-wave inversion",
+      "synonyms": [
+        "ST depression",
+        "dynamic ST depression",
+        "T wave inversion",
+        "T-wave inversion",
+        "ischemic ECG changes"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_rise_and_or_fall_in_cardiac_troponin_above_the_99th_percentile_with_ischemic_evi",
+      "node_type": "Finding",
+      "name": "Rise and/or fall in cardiac troponin above the 99th percentile with ischemic evidence",
+      "synonyms": [
+        "elevated troponin",
+        "troponin positive",
+        "troponin rise",
+        "rising troponin",
+        "hs-troponin elevated"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_regional_wall_motion_abnormality_consistent_with_ischemia",
+      "node_type": "Finding",
+      "name": "Regional wall motion abnormality consistent with ischemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_ventricular_arrhythmia",
+      "node_type": "Finding",
+      "name": "Ventricular arrhythmia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_pulmonary_edema",
+      "node_type": "Finding",
+      "name": "Pulmonary edema",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_stemi_or_acs_pathway_when_criteria_are_met",
+      "node_type": "ManagementAction",
+      "name": "Activate STEMI or ACS pathway when criteria are met",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_immediate_reperfusion_strategy_for_eligible_stemi",
+      "node_type": "ManagementAction",
+      "name": "Immediate reperfusion strategy for eligible STEMI",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_early_invasive_evaluation_for_high_risk_nstemi_when_indicated",
+      "node_type": "ManagementAction",
+      "name": "Early invasive evaluation for high-risk NSTEMI when indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_continuous_cardiac_monitoring",
+      "node_type": "ManagementAction",
+      "name": "Continuous cardiac monitoring",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_for_contraindications_to_antithrombotic_or_reperfusion_therapy",
+      "node_type": "ManagementAction",
+      "name": "Evaluate for contraindications to antithrombotic or reperfusion therapy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_for_mechanical_complications_and_cardiogenic_shock",
+      "node_type": "ManagementAction",
+      "name": "Assess for mechanical complications and cardiogenic shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_acute_coronary_syndrome_without_infarction",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Acute coronary syndrome without infarction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_aortic_dissection",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Aortic dissection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pulmonary_embolism",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pulmonary embolism",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pericarditis_or_myocarditis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pericarditis or myocarditis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pneumothorax",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pneumothorax",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_esophageal_rupture",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Esophageal rupture",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_gastroesophageal_or_biliary_disease",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Gastroesophageal or biliary disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_clinical_context",
+      "target": "context_acute_chest_pain_syndrome",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_clinical_context",
+      "target": "context_possible_myocardial_ischemia",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_clinical_context",
+      "target": "context_time_from_symptom_onset",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_clinical_context",
+      "target": "context_prehospital_ecg_or_emergency_ecg_available",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_chest_pressure_or_crushing_chest_pain",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_radiation_to_left_arm_jaw_neck_shoulder_or_back",
+      "strength": "moderate",
+      "weight": 0.65,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_dyspnea",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_diaphoresis",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_nausea_or_vomiting",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_epigastric_discomfort",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_syncope_or_near_syncope",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_unexplained_fatigue_or_weakness",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_palpitations",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Acute Myocardial Infarction, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hemodynamic_instability",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Acute Myocardial Infarction or severity.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_signs_of_acute_heart_failure",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Acute Myocardial Infarction or severity.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_new_murmur_or_suspected_mechanical_complication",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Acute Myocardial Infarction or severity.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_arrhythmia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Acute Myocardial Infarction or severity.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_cardiac_arrest",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Acute Myocardial Infarction or severity.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hypoxemia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Acute Myocardial Infarction or severity.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "risk_known_coronary_artery_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "risk_prior_myocardial_infarction",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "risk_diabetes_mellitus",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_hypertension",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_hyperlipidemia",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_smoking",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_chronic_kidney_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_older_age",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_family_history_of_premature_coronary_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_cocaine_or_stimulant_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_acute_myocardial_infarction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Acute Myocardial Infarction in the appropriate clinical context.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_12_lead_ecg_within_10_minutes_when_acs_is_suspected",
+      "strength": "critical",
+      "weight": 0.95,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_serial_high_sensitivity_cardiac_troponin",
+      "strength": "critical",
+      "weight": 0.95,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_repeat_ecgs_if_symptoms_persist_or_initial_ecg_is_nondiagnostic",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_bedside_echocardiography_when_unstable_or_diagnosis_unclear",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_chest_radiography_when_alternative_thoracic_diagnosis_is_possible",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_basic_metabolic_panel_and_renal_function",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_complete_blood_count",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_coagulation_profile_when_invasive_therapy_or_anticoagulation_is_considered",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Acute Myocardial Infarction.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_st_segment_elevation_in_a_coronary_distribution",
+      "strength": "critical",
+      "weight": 0.98,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_new_or_presumed_new_left_bundle_branch_block_with_ischemic_features",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_st_depression_or_dynamic_t_wave_inversion",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_rise_and_or_fall_in_cardiac_troponin_above_the_99th_percentile_with_ischemic_evi",
+      "strength": "critical",
+      "weight": 0.98,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_universal_mi_2018",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_regional_wall_motion_abnormality_consistent_with_ischemia",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_ventricular_arrhythmia",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "has_supporting_finding",
+      "target": "finding_pulmonary_edema",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Acute Myocardial Infarction or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_stemi_or_acs_pathway_when_criteria_are_met",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Acute Myocardial Infarction is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_immediate_reperfusion_strategy_for_eligible_stemi",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Acute Myocardial Infarction is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_early_invasive_evaluation_for_high_risk_nstemi_when_indicated",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Acute Myocardial Infarction is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_continuous_cardiac_monitoring",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Acute Myocardial Infarction is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_for_contraindications_to_antithrombotic_or_reperfusion_therapy",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Acute Myocardial Infarction is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_acute_myocardial_infarction",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_for_mechanical_complications_and_cardiogenic_shock",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Acute Myocardial Infarction is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Compatible ischemic symptom or equivalent plus cardiac risk context, abnormal ECG, troponin abnormality, or hemodynamic complication.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "AMI_P1_classic_chest_pain",
+            "case_features": [
+              "chest pressure",
+              "radiation",
+              "diaphoresis or nausea"
+            ],
+            "candidate_priority": "high",
+            "reason": "Classic ischemic symptom cluster."
+          },
+          {
+            "pattern_id": "AMI_P2_STEMI_pattern",
+            "case_features": [
+              "acute symptoms",
+              "ST-segment elevation"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Potential STEMI requiring immediate reperfusion pathway."
+          },
+          {
+            "pattern_id": "AMI_P3_troponin_ischemia",
+            "case_features": [
+              "troponin rise/fall",
+              "ischemic symptoms or ECG changes"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Meets core myocardial infarction verification concept if acute ischemia is present."
+          },
+          {
+            "pattern_id": "AMI_P4_atypical_high_risk",
+            "case_features": [
+              "dyspnea or epigastric discomfort or syncope",
+              "diabetes/older age/CKD",
+              "ECG or troponin pending"
+            ],
+            "candidate_priority": "moderate_to_high",
+            "reason": "Atypical AMI presentation in a high-risk patient."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "AMI_W1_chest_pain_only",
+            "case_features": [
+              "chest pain without ischemic features, ECG, or risk context"
+            ],
+            "candidate_priority": "low_to_moderate",
+            "reason": "Chest pain is nonspecific."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_identify_ischemic_presentation",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Does the case include ischemic chest discomfort or an ischemic equivalent?",
+      "required_case_fields": [
+        "symptoms",
+        "onset",
+        "associated_symptoms",
+        "risk_factors"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Proceed to ECG/troponin verification.",
+      "negative_result": "Lower priority but do not exclude atypical AMI.",
+      "if_missing": "Presentation cannot be characterized; list missing symptom quality, onset, duration, and associated features.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_obtain_or_review_ecg",
+      "step_type": "ecg_check",
+      "step_name": "",
+      "check": "Is a 12-lead ECG available and is there STEMI-equivalent or ischemic change?",
+      "required_case_fields": [
+        "ECG",
+        "time_ECG_performed",
+        "prior_ECG"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Classify possible STEMI/NSTEMI and activate appropriate pathway.",
+      "negative_result": "If nondiagnostic and symptoms persist, repeat ECG and continue troponin pathway.",
+      "if_missing": "Critical missing data: ECG not provided.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_serial_troponin",
+      "step_type": "biomarker_check",
+      "step_name": "",
+      "check": "Is there a rise/fall of cardiac troponin above the 99th percentile?",
+      "required_case_fields": [
+        "initial_troponin",
+        "repeat_troponin",
+        "assay_type",
+        "timing"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Supports acute myocardial injury; require ischemic evidence to label MI.",
+      "negative_result": "Early negative troponin does not exclude AMI; follow serial protocol.",
+      "if_missing": "Critical missing data: serial troponin timing/results.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_universal_mi_2018",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_confirm_ischemic_evidence",
+      "step_type": "definition_check",
+      "step_name": "",
+      "check": "Does myocardial injury occur with ischemic symptoms, ischemic ECG, imaging evidence, or coronary thrombus?",
+      "required_case_fields": [
+        "symptoms",
+        "ECG",
+        "imaging",
+        "angiography"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Classify as acute myocardial infarction if criteria align.",
+      "negative_result": "Consider non-ischemic myocardial injury or type 2 injury.",
+      "if_missing": "Cannot distinguish AMI from myocardial injury without ischemic evidence.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_universal_mi_2018",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_classify_stemi_nstemi",
+      "step_type": "subtype_classification",
+      "step_name": "",
+      "check": "Is this STEMI, NSTEMI, or uncertain AMI subtype?",
+      "required_case_fields": [
+        "ECG",
+        "troponin",
+        "symptom_onset"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use subtype to determine urgency and pathway.",
+      "negative_result": "If uncertain, continue ACS evaluation and evaluate mimics.",
+      "if_missing": "Subtype cannot be assigned without ECG/troponin.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_identify_high_risk_complications",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "Are shock, heart failure, arrhythmia, mechanical complication, or cardiac arrest present?",
+      "required_case_fields": [
+        "vital_signs",
+        "exam",
+        "telemetry",
+        "echo"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Escalate to critical care/cath team as locally indicated.",
+      "negative_result": "Continue monitoring.",
+      "if_missing": "Severity incomplete without vitals/monitoring.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_evaluate_high_risk_mimics",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Could aortic dissection, PE, pericarditis, pneumothorax, or GI catastrophe better explain the presentation?",
+      "required_case_fields": [
+        "pain_quality",
+        "pulse_BP_differential",
+        "DVT_risk",
+        "CXR",
+        "CTA_when_indicated"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing diagnoses and avoid harmful premature treatment.",
+      "negative_result": "AMI remains more likely if ischemic evidence dominates.",
+      "if_missing": "Differential incomplete; list missing red-flag data.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "ACUTE_CORONARY_SYNDROME_WITHOUT_INFARCTION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Ischemic symptoms without troponin-defined myocardial injury may represent unstable angina.",
+        "Requires ACS pathway despite no AMI confirmation."
+      ],
+      "critical_tests_or_data": [
+        "serial troponin",
+        "ECG",
+        "risk stratification"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "AORTIC_DISSECTION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Abrupt tearing chest/back pain, pulse deficit, neurologic symptoms, mediastinal widening, or hypotension may mimic AMI.",
+        "Antithrombotic therapy can be dangerous if dissection is missed."
+      ],
+      "critical_tests_or_data": [
+        "bilateral BP",
+        "pulse exam",
+        "CTA aorta"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PULMONARY_EMBOLISM",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Pleuritic chest pain, dyspnea, syncope, hypoxemia, VTE risk factors.",
+        "Troponin may be elevated from RV strain."
+      ],
+      "critical_tests_or_data": [
+        "pretest probability",
+        "D-dimer when appropriate",
+        "CTPA"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PERICARDITIS_MYOCARDITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Positional pleuritic pain, diffuse ST elevation/PR depression, viral prodrome.",
+        "Troponin can be elevated in myocarditis."
+      ],
+      "critical_tests_or_data": [
+        "ECG pattern",
+        "CRP",
+        "echo",
+        "cardiac MRI when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PNEUMOTHORAX",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Sudden pleuritic chest pain and dyspnea with unilateral breath-sound changes."
+      ],
+      "critical_tests_or_data": [
+        "CXR",
+        "lung ultrasound"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ESOPHAGEAL_RUPTURE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Severe chest pain after vomiting, sepsis, subcutaneous emphysema."
+      ],
+      "critical_tests_or_data": [
+        "CT chest",
+        "contrast esophagram",
+        "surgical review"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "ACUTE_MYOCARDIAL_INFARCTION",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_acc_aha_acs_2025",
+      "source_type": "guideline",
+      "title": "2025 ACC/AHA/ACEP/NAEMSP/SCAI Guideline for the Management of Patients With Acute Coronary Syndromes",
+      "publisher": "American College of Cardiology / American Heart Association and partner societies",
+      "publication_date": "2025",
+      "publication_year": "",
+      "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001309",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Addresses acute management across unstable angina, NSTEMI, and STEMI.",
+        "Supports rapid ECG-based classification, serial cardiac troponin evaluation, risk stratification, and timely reperfusion or invasive management when indicated."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_esc_acs_2023",
+      "source_type": "guideline",
+      "title": "2023 ESC Guidelines for the management of acute coronary syndromes",
+      "publisher": "European Society of Cardiology",
+      "publication_date": "2023",
+      "publication_year": "",
+      "url": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/acute-coronary-syndromes/",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Provides an integrated guideline for patients presenting with acute coronary syndrome across the spectrum of STEMI and NSTE-ACS.",
+        "Used here for diagnostic classification and high-risk ACS verification logic."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_universal_mi_2018",
+      "source_type": "consensus_definition",
+      "title": "Fourth Universal Definition of Myocardial Infarction (2018)",
+      "publisher": "ESC/ACC/AHA/WHF task force",
+      "publication_date": "2018",
+      "publication_year": "",
+      "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000000617",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Myocardial infarction requires acute myocardial injury detected by cardiac troponin rise and/or fall plus clinical evidence of acute myocardial ischemia.",
+        "Acute myocardial injury without ischemic evidence should not automatically be labeled myocardial infarction."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not diagnose AMI from troponin elevation alone without ischemic evidence.",
+      "Do not exclude AMI using a single early negative troponin.",
+      "Do not ignore aortic dissection red flags before antithrombotic assumptions."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always require ECG status and serial troponin status for verification.",
+      "Always distinguish AMI from unstable angina and non-ischemic myocardial injury."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 11,
+    "preserved_graph_nodes": 58,
+    "preserved_graph_edges": 50
+  }
+}

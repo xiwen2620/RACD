@@ -1,0 +1,2939 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_SEPTIC_SHOCK_ADULT",
+  "file_name": "septic_shock.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T00:00:00+00:00",
+  "clinical_scope": {
+    "population": "Adults in acute care, emergency department, ward deterioration, ICU, ambulance or immediate prehospital settings. Use local definitions for adult age threshold; NICE NG253 covers people aged 16 or over.",
+    "setting": [
+      "emergency_department",
+      "ward_deterioration",
+      "icu",
+      "ambulance_or_prehospital",
+      "acute_hospital"
+    ],
+    "excluded_populations": [
+      "Children and neonates",
+      "Pregnant or recently pregnant patients unless a dedicated obstetric sepsis pathway is used",
+      "Burns-specific shock pathways",
+      "Trauma hemorrhagic shock pathways"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Septic Shock.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "SEPTIC_SHOCK",
+  "disease_name_en": "Septic Shock",
+  "aliases": [
+    "Sepsis-induced shock",
+    "Septic circulatory shock",
+    "Sepsis with shock"
+  ],
+  "disease_category": "infection_critical_care",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [
+      "SEPSIS"
+    ],
+    "part_of": [],
+    "overlaps_with": [
+      "SEVERE_INFECTION_WITH_ORGAN_DYSFUNCTION",
+      "SHOCK"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [
+      {
+        "target_graph": "SEPSIS",
+        "description": "Septic shock is a high-mortality subset of sepsis characterized by profound circulatory, cellular, and metabolic abnormalities."
+      }
+    ],
+    "boundary_note": "",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Septic shock is a subset of sepsis in which underlying circulatory, cellular, and metabolic abnormalities are sufficiently profound to substantially increase mortality.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Septic shock may evolve rapidly from infection or sepsis before all laboratory or resuscitation data are available.",
+      "Hypotension, hypoperfusion, altered mental status, oliguria, or elevated lactate may be attributed to noninfectious shock states unless infection is actively considered.",
+      "Vasopressor requirement, adequate fluid status, and lactate may be missing or pending early in evaluation.",
+      "Delayed recognition can postpone resuscitation, antimicrobial pathway activation, source control assessment, ICU escalation, and organ support."
+    ],
+    "clinical_priority": "medical_emergency",
+    "time_sensitivity": "Immediately life-threatening; suspected septic shock requires urgent recognition of infection with shock physiology, lactate/perfusion assessment, resuscitation status review, vasopressor/ICU escalation assessment, and source-control evaluation.",
+    "do_not_use_as": [
+      "Autonomous diagnosis without clinician review",
+      "Medication ordering or dose selection",
+      "Pediatric, neonatal, obstetric, or postpartum-specific pathways",
+      "Replacing local antimicrobial, vasopressor, ICU, or resuscitation protocols"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "chief_complaint",
+      "symptoms",
+      "suspected_or_confirmed_infection",
+      "vital_signs",
+      "mental_status",
+      "perfusion_findings",
+      "urine_output",
+      "laboratory_results",
+      "cultures_and_microbiology",
+      "imaging_or_source_evaluation",
+      "fluid_resuscitation_status",
+      "vasopressor_status",
+      "antimicrobial_status",
+      "comorbidities_and_immunosuppression",
+      "differential_diagnosis_context"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_infection_suspected",
+        "input_terms": [
+          "suspected infection",
+          "confirmed infection",
+          "infection",
+          "infected",
+          "septic",
+          "bacteremia",
+          "bloodstream infection"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_suspected",
+        "normalized_node_id": "CONCEPT_SUSPECTED_INFECTION",
+        "normalized_node": "Suspected or confirmed infection",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "infection_source",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_fever",
+        "input_terms": [
+          "fever",
+          "febrile",
+          "pyrexia",
+          "high temperature",
+          "chills",
+          "rigors",
+          "shaking chills"
+        ],
+        "input_variants": [
+          "T >38",
+          "temperature >38",
+          "temp 38",
+          "temp 39",
+          "temperature 101",
+          "temperature 102",
+          "febrile to"
+        ],
+        "normalized_case_fact": "fever",
+        "normalized_node_id": "SYMPTOM_FEVER",
+        "normalized_node": "Fever",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_hypothermia",
+        "input_terms": [
+          "hypothermia",
+          "hypothermic",
+          "low temperature",
+          "cold and septic"
+        ],
+        "input_variants": [
+          "T <36",
+          "temperature <36",
+          "temp 35",
+          "temp 95"
+        ],
+        "normalized_case_fact": "hypothermia",
+        "normalized_node_id": "SYMPTOM_HYPOTHERMIA",
+        "normalized_node": "Hypothermia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_tachycardia",
+        "input_terms": [
+          "tachycardia",
+          "tachycardic",
+          "fast heart rate",
+          "rapid heart rate",
+          "elevated heart rate",
+          "high heart rate",
+          "HR high",
+          "pulse high"
+        ],
+        "input_variants": [
+          "HR >100",
+          "heart rate >100",
+          "pulse >100",
+          "HR 100",
+          "HR 110",
+          "HR 120",
+          "pulse 110",
+          "pulse 120"
+        ],
+        "normalized_case_fact": "tachycardia",
+        "normalized_node_id": "SIGN_TACHYCARDIA",
+        "normalized_node": "Tachycardia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_tachypnea",
+        "input_terms": [
+          "tachypnea",
+          "tachypneic",
+          "rapid respirations",
+          "rapid respiratory rate",
+          "increased work of breathing",
+          "RR high",
+          "respiratory rate high"
+        ],
+        "input_variants": [
+          "RR >20",
+          "RR >22",
+          "respiratory rate >20",
+          "respiratory rate >22",
+          "RR 24",
+          "RR 28",
+          "RR 30"
+        ],
+        "normalized_case_fact": "tachypnea",
+        "normalized_node_id": "SIGN_TACHYPNEA",
+        "normalized_node": "Tachypnea",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_hypotension_or_hypoperfusion",
+        "input_terms": [
+          "hypotension",
+          "hypotensive",
+          "low blood pressure",
+          "low BP",
+          "SBP low",
+          "MAP low",
+          "shock",
+          "hemodynamic instability",
+          "hemodynamically unstable"
+        ],
+        "input_variants": [
+          "SBP <90",
+          "systolic BP <90",
+          "MAP <65",
+          "BP 82/48",
+          "BP 80/40",
+          "blood pressure 82/48"
+        ],
+        "normalized_case_fact": "hypotension",
+        "normalized_node_id": "SIGN_HYPOTENSION",
+        "normalized_node": "Hypotension",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_hypoxemia",
+        "input_terms": [
+          "hypoxemia",
+          "hypoxaemia",
+          "hypoxic",
+          "low oxygen saturation",
+          "low O2 sat",
+          "low SpO2",
+          "oxygen desaturation",
+          "desaturation",
+          "requires oxygen",
+          "new oxygen requirement"
+        ],
+        "input_variants": [
+          "SpO2 <90",
+          "SpO2 <92",
+          "O2 sat <90",
+          "O2 sat <92",
+          "oxygen saturation 88",
+          "sat 88",
+          "satting 88"
+        ],
+        "normalized_case_fact": "hypoxemia",
+        "normalized_node_id": "SIGN_HYPOXEMIA",
+        "normalized_node": "Hypoxemia or reduced oxygen saturation",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_altered_mental_status",
+        "input_terms": [
+          "altered mental status",
+          "AMS",
+          "confusion",
+          "confused",
+          "delirium",
+          "acute delirium",
+          "encephalopathy",
+          "drowsy",
+          "somnolent",
+          "reduced level of consciousness",
+          "not acting right"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "altered_mental_status",
+        "normalized_node_id": "SIGN_ALTERED_MENTAL_STATUS",
+        "normalized_node": "Altered mental status",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_oliguria",
+        "input_terms": [
+          "oliguria",
+          "low urine output",
+          "decreased urine output",
+          "reduced urine output",
+          "not passing urine",
+          "anuria"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "oliguria",
+        "normalized_node_id": "SIGN_DECREASED_URINE_OUTPUT",
+        "normalized_node": "Decreased urine output / oliguria",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_renal_dysfunction",
+        "input_terms": [
+          "acute kidney injury",
+          "AKI",
+          "renal dysfunction",
+          "kidney injury",
+          "creatinine elevated",
+          "elevated creatinine",
+          "rising creatinine"
+        ],
+        "input_variants": [
+          "Cr >1.2",
+          "creatinine >1.2",
+          "creatinine 2.1",
+          "Cr 2.1"
+        ],
+        "normalized_case_fact": "renal_dysfunction",
+        "normalized_node_id": "ORGAN_KIDNEY_DYSFUNCTION",
+        "normalized_node": "Acute kidney injury or oliguria",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_elevated_lactate",
+        "input_terms": [
+          "elevated lactate",
+          "high lactate",
+          "lactate high",
+          "lactic acidosis",
+          "hyperlactatemia"
+        ],
+        "input_variants": [
+          "lactate >2",
+          "lactate greater than 2",
+          "lactate 3",
+          "lactate 4",
+          "lactate 4.5",
+          "lactate >=4"
+        ],
+        "normalized_case_fact": "elevated_lactate",
+        "normalized_node_id": "LAB_LACTATE_GT_2",
+        "normalized_node": "Lactate > 2 mmol/L",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_lactate_gt_2",
+        "input_terms": [
+          "lactate >2",
+          "lactate greater than 2",
+          "lactate over 2"
+        ],
+        "input_variants": [
+          "lactate 2.1",
+          "lactate 3",
+          "lactate 4.5"
+        ],
+        "normalized_case_fact": "lactate_gt_2",
+        "normalized_node_id": "LAB_LACTATE_GT_2",
+        "normalized_node": "Lactate > 2 mmol/L",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_013_lactate_ge_4",
+        "input_terms": [
+          "lactate >=4",
+          "lactate greater than 4",
+          "lactate over 4"
+        ],
+        "input_variants": [
+          "lactate 4",
+          "lactate 4.5",
+          "lactate 5"
+        ],
+        "normalized_case_fact": "lactate_ge_4",
+        "normalized_node_id": "LAB_LACTATE_GT_2",
+        "normalized_node": "Lactate > 2 mmol/L",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_014_liver_dysfunction",
+        "input_terms": [
+          "hyperbilirubinemia",
+          "bilirubin elevated",
+          "elevated bilirubin",
+          "liver dysfunction",
+          "hepatic dysfunction"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "liver_dysfunction",
+        "normalized_node_id": "ORGAN_LIVER_DYSFUNCTION",
+        "normalized_node": "Hepatic dysfunction or hyperbilirubinemia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_015_pneumonia_source",
+        "input_terms": [
+          "pneumonia",
+          "PNA",
+          "pulmonary infection",
+          "lower respiratory infection",
+          "lung infection"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "SOURCE_PNEUMONIA",
+        "normalized_node": "Pulmonary infection / pneumonia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_016_urinary_source",
+        "input_terms": [
+          "UTI",
+          "urinary tract infection",
+          "pyelonephritis",
+          "urosepsis",
+          "dysuria",
+          "flank pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "SOURCE_URINARY",
+        "normalized_node": "Urinary tract infection or pyelonephritis",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_017_abdominal_source",
+        "input_terms": [
+          "intra-abdominal infection",
+          "abdominal source",
+          "peritonitis",
+          "cholangitis",
+          "appendicitis",
+          "diverticulitis"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "SOURCE_INTRA_ABDOMINAL",
+        "normalized_node": "Intra-abdominal infection",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_018_skin_soft_tissue_source",
+        "input_terms": [
+          "cellulitis",
+          "skin infection",
+          "soft tissue infection",
+          "necrotizing infection",
+          "wound infection"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "SOURCE_SKIN_SOFT_TISSUE",
+        "normalized_node": "Skin, soft tissue, or necrotizing infection",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_019_vasopressor_requirement",
+        "input_terms": [
+          "vasopressor",
+          "vasopressors",
+          "pressor support",
+          "pressors",
+          "requires pressors",
+          "norepinephrine",
+          "levophed",
+          "noradrenaline",
+          "vasopressor requirement"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "vasopressor_requirement",
+        "normalized_node_id": "TREATMENT_VASOPRESSOR_SUPPORT",
+        "normalized_node": "Vasopressor support",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "treatment_status",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark absent fields as not_provided and explain how each missing item limits septic shock verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "DISEASE_SEPTIC_SHOCK",
+      "node_type": "DiseaseCandidate",
+      "name": "Septic shock",
+      "synonyms": [
+        "sepsis-induced shock",
+        "septic circulatory shock"
+      ],
+      "standard_codes": {
+        "snomed_ct": "76571007",
+        "icd_10": [
+          "R65.21"
+        ]
+      },
+      "attributes": []
+    },
+    {
+      "node_id": "DISEASE_SEPSIS",
+      "node_type": "DiseaseCandidate",
+      "name": "Sepsis",
+      "synonyms": [
+        "life-threatening organ dysfunction due to infection"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "CONCEPT_SUSPECTED_INFECTION",
+      "node_type": "ClinicalContext",
+      "name": "Suspected or confirmed infection",
+      "synonyms": [
+        "suspected infection",
+        "confirmed infection",
+        "infection",
+        "infected",
+        "septic",
+        "bacteremia",
+        "bloodstream infection"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_PNEUMONIA",
+      "node_type": "ClinicalContext",
+      "name": "Pulmonary infection / pneumonia",
+      "synonyms": [
+        "pneumonia",
+        "PNA",
+        "pulmonary infection",
+        "lower respiratory infection",
+        "lung infection"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_URINARY",
+      "node_type": "ClinicalContext",
+      "name": "Urinary tract infection or pyelonephritis",
+      "synonyms": [
+        "UTI",
+        "urinary tract infection",
+        "pyelonephritis",
+        "urosepsis",
+        "dysuria",
+        "flank pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_INTRA_ABDOMINAL",
+      "node_type": "ClinicalContext",
+      "name": "Intra-abdominal infection",
+      "synonyms": [
+        "intra-abdominal infection",
+        "abdominal source",
+        "peritonitis",
+        "cholangitis",
+        "appendicitis",
+        "diverticulitis"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_SKIN_SOFT_TISSUE",
+      "node_type": "ClinicalContext",
+      "name": "Skin, soft tissue, or necrotizing infection",
+      "synonyms": [
+        "cellulitis",
+        "skin infection",
+        "soft tissue infection",
+        "necrotizing infection",
+        "wound infection"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_CNS",
+      "node_type": "ClinicalContext",
+      "name": "Central nervous system infection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_LINE_DEVICE",
+      "node_type": "ClinicalContext",
+      "name": "Intravascular catheter or device-related infection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SOURCE_UNKNOWN",
+      "node_type": "ClinicalContext",
+      "name": "Unknown infection source",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_FEVER",
+      "node_type": "Symptom",
+      "name": "Fever",
+      "synonyms": [
+        "pyrexia",
+        "fever",
+        "febrile",
+        "high temperature",
+        "chills",
+        "rigors",
+        "shaking chills"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_HYPOTHERMIA",
+      "node_type": "Symptom",
+      "name": "Hypothermia",
+      "synonyms": [
+        "hypothermia",
+        "hypothermic",
+        "low temperature",
+        "cold and septic"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_RIGORS",
+      "node_type": "Symptom",
+      "name": "Rigors or chills",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_DYSPNEA",
+      "node_type": "Symptom",
+      "name": "Dyspnea",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_WEAKNESS",
+      "node_type": "Symptom",
+      "name": "Severe weakness or malaise",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_DIZZINESS_SYNCOPE",
+      "node_type": "Symptom",
+      "name": "Dizziness, collapse, or syncope",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SYMPTOM_SEVERE_PAIN",
+      "node_type": "Symptom",
+      "name": "Severe pain or disproportionate pain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_HYPOTENSION",
+      "node_type": "Sign",
+      "name": "Hypotension",
+      "synonyms": [
+        "hypotension",
+        "hypotensive",
+        "low blood pressure",
+        "low BP",
+        "SBP low",
+        "MAP low",
+        "shock",
+        "hemodynamic instability",
+        "hemodynamically unstable"
+      ],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "definition_hint",
+          "value": "Low systolic blood pressure or MAP below target; local thresholds may vary."
+        }
+      ]
+    },
+    {
+      "node_id": "SIGN_PERSISTENT_HYPOTENSION_AFTER_FLUIDS",
+      "node_type": "Sign",
+      "name": "Persistent hypotension after fluid resuscitation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_TACHYCARDIA",
+      "node_type": "Sign",
+      "name": "Tachycardia",
+      "synonyms": [
+        "tachycardia",
+        "tachycardic",
+        "fast heart rate",
+        "rapid heart rate",
+        "elevated heart rate",
+        "high heart rate",
+        "HR high",
+        "pulse high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_TACHYPNEA",
+      "node_type": "Sign",
+      "name": "Tachypnea",
+      "synonyms": [
+        "tachypnea",
+        "tachypneic",
+        "rapid respirations",
+        "rapid respiratory rate",
+        "increased work of breathing",
+        "RR high",
+        "respiratory rate high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_HYPOXEMIA",
+      "node_type": "Sign",
+      "name": "Hypoxemia or reduced oxygen saturation",
+      "synonyms": [
+        "hypoxemia",
+        "hypoxaemia",
+        "hypoxic",
+        "low oxygen saturation",
+        "oxygen desaturation",
+        "desaturation",
+        "requires oxygen",
+        "new oxygen requirement"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_ALTERED_MENTAL_STATUS",
+      "node_type": "Sign",
+      "name": "Altered mental status",
+      "synonyms": [
+        "altered mental status",
+        "AMS",
+        "confusion",
+        "confused",
+        "delirium",
+        "acute delirium",
+        "encephalopathy",
+        "drowsy",
+        "somnolent",
+        "reduced level of consciousness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_PERIPHERAL_HYPOPERFUSION",
+      "node_type": "Sign",
+      "name": "Peripheral hypoperfusion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "mottled skin",
+            "ashen appearance",
+            "cyanosis",
+            "cool extremities",
+            "delayed capillary refill"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "SIGN_PROLONGED_CAPILLARY_REFILL",
+      "node_type": "Sign",
+      "name": "Prolonged capillary refill time",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "SIGN_DECREASED_URINE_OUTPUT",
+      "node_type": "Sign",
+      "name": "Decreased urine output / oliguria",
+      "synonyms": [
+        "oliguria",
+        "low urine output",
+        "decreased urine output",
+        "reduced urine output",
+        "not passing urine",
+        "anuria"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ORGAN_DYSFUNCTION",
+      "node_type": "SyndromeComponent",
+      "name": "Acute organ dysfunction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ORGAN_KIDNEY_DYSFUNCTION",
+      "node_type": "OrganDysfunction",
+      "name": "Acute kidney injury or oliguria",
+      "synonyms": [
+        "acute kidney injury",
+        "AKI",
+        "renal dysfunction",
+        "kidney injury",
+        "creatinine elevated",
+        "elevated creatinine",
+        "rising creatinine"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ORGAN_RESPIRATORY_DYSFUNCTION",
+      "node_type": "OrganDysfunction",
+      "name": "Respiratory dysfunction or hypoxemic respiratory failure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ORGAN_CNS_DYSFUNCTION",
+      "node_type": "OrganDysfunction",
+      "name": "Central nervous system dysfunction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ORGAN_COAGULATION_DYSFUNCTION",
+      "node_type": "OrganDysfunction",
+      "name": "Coagulation abnormality",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ORGAN_LIVER_DYSFUNCTION",
+      "node_type": "OrganDysfunction",
+      "name": "Hepatic dysfunction or hyperbilirubinemia",
+      "synonyms": [
+        "hyperbilirubinemia",
+        "bilirubin elevated",
+        "elevated bilirubin",
+        "liver dysfunction",
+        "hepatic dysfunction"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_LACTATE",
+      "node_type": "LaboratoryTest",
+      "name": "Serum or blood lactate",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_LACTATE_GT_2",
+      "node_type": "LaboratoryTest",
+      "name": "Lactate > 2 mmol/L",
+      "synonyms": [
+        "elevated lactate",
+        "high lactate",
+        "lactate high",
+        "lactic acidosis",
+        "hyperlactatemia"
+      ],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "unit",
+          "value": "mmol/L"
+        },
+        {
+          "key": "threshold",
+          "value": ">2"
+        }
+      ]
+    },
+    {
+      "node_id": "LAB_SERIAL_LACTATE",
+      "node_type": "LaboratoryTest",
+      "name": "Serial lactate measurement",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_BLOOD_CULTURES",
+      "node_type": "LaboratoryTest",
+      "name": "Blood cultures",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_SITE_CULTURES",
+      "node_type": "LaboratoryTest",
+      "name": "Source-specific cultures or pathogen tests",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_CBC",
+      "node_type": "LaboratoryTest",
+      "name": "Complete blood count",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_CRP",
+      "node_type": "LaboratoryTest",
+      "name": "C-reactive protein",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_U_AND_E_CREATININE",
+      "node_type": "LaboratoryTest",
+      "name": "Urea, electrolytes, creatinine",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_BLOOD_GAS",
+      "node_type": "LaboratoryTest",
+      "name": "Blood gas including glucose and lactate",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_COAGULATION",
+      "node_type": "LaboratoryTest",
+      "name": "Coagulation tests",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_BILIRUBIN",
+      "node_type": "LaboratoryTest",
+      "name": "Bilirubin / liver tests",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "LAB_PROCALTITONIN",
+      "node_type": "LaboratoryTest",
+      "name": "Procalcitonin",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "safe_use_note",
+          "value": "Not sufficient alone to decide antibiotic initiation; may support discontinuation decisions when combined with clinical evaluation in selected contexts."
+        }
+      ]
+    },
+    {
+      "node_id": "TREATMENT_IV_CRYSTALLOID_RESUSCITATION",
+      "node_type": "ManagementAction",
+      "name": "IV crystalloid fluid resuscitation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_BALANCED_CRYSTALLOID",
+      "node_type": "ManagementAction",
+      "name": "Balanced crystalloid for resuscitation when appropriate",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_AVOID_STARCHES",
+      "node_type": "ManagementAction",
+      "name": "Avoid starches for resuscitation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_VASOPRESSOR_SUPPORT",
+      "node_type": "ManagementAction",
+      "name": "Vasopressor support",
+      "synonyms": [
+        "vasopressor",
+        "vasopressors",
+        "pressor support",
+        "pressors",
+        "requires pressors",
+        "norepinephrine",
+        "levophed",
+        "noradrenaline",
+        "vasopressor requirement"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_NOREPINEPHRINE",
+      "node_type": "MedicationClassOrAgent",
+      "name": "Norepinephrine as first-line vasopressor",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_ADD_VASOPRESSIN",
+      "node_type": "MedicationClassOrAgent",
+      "name": "Add vasopressin for escalating norepinephrine requirements",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TARGET_MAP_65",
+      "node_type": "TreatmentTarget",
+      "name": "Initial MAP target around 65 mm Hg",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_PERIPHERAL_VASOPRESSOR_START",
+      "node_type": "ManagementAction",
+      "name": "Start vasopressors peripherally if needed rather than delaying for central access",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_ANTIMICROBIALS_IMMEDIATE",
+      "node_type": "ManagementAction",
+      "name": "Immediate antimicrobial therapy ideally within 1 hour of septic shock recognition",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_SOURCE_CONTROL",
+      "node_type": "ManagementAction",
+      "name": "Rapid source identification and source control",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_ICU_ADMISSION",
+      "node_type": "ManagementAction",
+      "name": "ICU-level care",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_IV_CORTICOSTEROIDS",
+      "node_type": "ManagementAction",
+      "name": "IV corticosteroids for septic shock when clinically indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_INOTROPE",
+      "node_type": "ManagementAction",
+      "name": "Inotrope for cardiac dysfunction with persistent hypoperfusion despite adequate fluid status and arterial pressure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "TREATMENT_OXYGEN_RESPIRATORY_SUPPORT",
+      "node_type": "ManagementAction",
+      "name": "Oxygen and respiratory support as clinically indicated",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "RISK_IMMUNOSUPPRESSION",
+      "node_type": "RiskFactor",
+      "name": "Immunosuppression",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "RISK_RECENT_HOSPITALIZATION",
+      "node_type": "RiskFactor",
+      "name": "Recent or prolonged hospitalization",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "RISK_BROAD_SPECTRUM_ANTIBIOTICS",
+      "node_type": "RiskFactor",
+      "name": "Prolonged broad-spectrum antibiotic exposure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "RISK_MDR_COLONIZATION",
+      "node_type": "RiskFactor",
+      "name": "Known MDR organism colonization or prior MDR infection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "RISK_INTRA_ABDOMINAL_SOURCE",
+      "node_type": "RiskFactor",
+      "name": "Intra-abdominal source or fungal infection risk context",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_HYPOVOLEMIC_SHOCK",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Hypovolemic shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_CARDIOGENIC_SHOCK",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Cardiogenic shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_OBSTRUCTIVE_SHOCK",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Obstructive shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_ANAPHYLAXIS",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Anaphylaxis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_ADRENAL_CRISIS",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Adrenal crisis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_DKA",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Diabetic ketoacidosis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "DIFF_TOXICOLOGIC_SHOCK",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Toxicologic or medication-related shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "E001",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "is_subset_of",
+      "target": "DISEASE_SEPSIS",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "edge_id": "E002",
+      "source": "CONCEPT_SUSPECTED_INFECTION",
+      "relation": "required_context_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "edge_id": "E003",
+      "source": "SIGN_PERSISTENT_HYPOTENSION_AFTER_FLUIDS",
+      "relation": "core_clinical_criterion_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "edge_id": "E004",
+      "source": "TREATMENT_VASOPRESSOR_SUPPORT",
+      "relation": "core_clinical_criterion_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "Required to maintain MAP at or above target after adequate fluid resuscitation / in absence of hypovolemia"
+        }
+      ]
+    },
+    {
+      "edge_id": "E005",
+      "source": "LAB_LACTATE_GT_2",
+      "relation": "core_clinical_criterion_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "Despite adequate volume resuscitation"
+        }
+      ]
+    },
+    {
+      "edge_id": "E006",
+      "source": "SYMPTOM_FEVER",
+      "relation": "supports_infection_context_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.35,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "specificity",
+          "value": "low"
+        }
+      ]
+    },
+    {
+      "edge_id": "E007",
+      "source": "SYMPTOM_HYPOTHERMIA",
+      "relation": "supports_severe_infection_context_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "specificity",
+          "value": "moderate"
+        }
+      ]
+    },
+    {
+      "edge_id": "E008",
+      "source": "SYMPTOM_RIGORS",
+      "relation": "supports_infection_context_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.35,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "specificity",
+          "value": "low"
+        }
+      ]
+    },
+    {
+      "edge_id": "E009",
+      "source": "SYMPTOM_DYSPNEA",
+      "relation": "possible_organ_or_source_feature_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.45,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "specificity",
+          "value": "low"
+        }
+      ]
+    },
+    {
+      "edge_id": "E010",
+      "source": "SYMPTOM_DIZZINESS_SYNCOPE",
+      "relation": "possible_shock_feature_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.45,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "specificity",
+          "value": "low"
+        }
+      ]
+    },
+    {
+      "edge_id": "E011",
+      "source": "SYMPTOM_SEVERE_PAIN",
+      "relation": "red_flag_source_feature_for",
+      "target": "SOURCE_SKIN_SOFT_TISSUE",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "Disproportionate pain can suggest severe skin/soft tissue infection including necrotizing infection; evaluate source urgently.",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E012",
+      "source": "SIGN_HYPOTENSION",
+      "relation": "major_shock_feature_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.85,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "edge_id": "E013",
+      "source": "SIGN_TACHYCARDIA",
+      "relation": "supports_unstable_shock_pattern_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.45,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "edge_id": "E014",
+      "source": "SIGN_HYPOXEMIA",
+      "relation": "supports_unstable_shock_pattern_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "edge_id": "E015",
+      "source": "SIGN_ALTERED_MENTAL_STATUS",
+      "relation": "supports_unstable_shock_or_organ_dysfunction_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.7,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "edge_id": "E016",
+      "source": "SIGN_PERIPHERAL_HYPOPERFUSION",
+      "relation": "supports_unstable_shock_pattern_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.7,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "edge_id": "E017",
+      "source": "SIGN_PROLONGED_CAPILLARY_REFILL",
+      "relation": "perfusion_assessment_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.5,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_LACTATE_PERFUSION",
+      "attributes": []
+    },
+    {
+      "edge_id": "E018",
+      "source": "SIGN_DECREASED_URINE_OUTPUT",
+      "relation": "supports_organ_dysfunction_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E019",
+      "source": "ORGAN_DYSFUNCTION",
+      "relation": "supports_parent_sepsis_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.8,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "edge_id": "E020",
+      "source": "ORGAN_KIDNEY_DYSFUNCTION",
+      "relation": "is_example_of",
+      "target": "ORGAN_DYSFUNCTION",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E021",
+      "source": "ORGAN_RESPIRATORY_DYSFUNCTION",
+      "relation": "is_example_of",
+      "target": "ORGAN_DYSFUNCTION",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E022",
+      "source": "ORGAN_CNS_DYSFUNCTION",
+      "relation": "is_example_of",
+      "target": "ORGAN_DYSFUNCTION",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E023",
+      "source": "ORGAN_COAGULATION_DYSFUNCTION",
+      "relation": "is_example_of",
+      "target": "ORGAN_DYSFUNCTION",
+      "strength": "unspecified",
+      "weight": 0.6,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E024",
+      "source": "ORGAN_LIVER_DYSFUNCTION",
+      "relation": "is_example_of",
+      "target": "ORGAN_DYSFUNCTION",
+      "strength": "unspecified",
+      "weight": 0.6,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E025",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_test",
+      "target": "LAB_LACTATE",
+      "strength": "unspecified",
+      "weight": 0.95,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_CULTURES_LACTATE",
+      "attributes": []
+    },
+    {
+      "edge_id": "E026",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_serial_monitoring",
+      "target": "LAB_SERIAL_LACTATE",
+      "strength": "unspecified",
+      "weight": 0.85,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_LACTATE_PERFUSION",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "When lactate is elevated or shock persists"
+        }
+      ]
+    },
+    {
+      "edge_id": "E027",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_test",
+      "target": "LAB_BLOOD_CULTURES",
+      "strength": "unspecified",
+      "weight": 0.85,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_CULTURES_LACTATE",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "As soon as possible and ideally before antimicrobials if this does not cause unsafe delay"
+        }
+      ]
+    },
+    {
+      "edge_id": "E028",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_test",
+      "target": "LAB_BLOOD_GAS",
+      "strength": "unspecified",
+      "weight": 0.7,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_NICE_NG253_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "E029",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_test",
+      "target": "LAB_CBC",
+      "strength": "unspecified",
+      "weight": 0.6,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_NICE_NG253_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "E030",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_test",
+      "target": "LAB_U_AND_E_CREATININE",
+      "strength": "unspecified",
+      "weight": 0.7,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_NICE_NG253_2025",
+      "attributes": []
+    },
+    {
+      "edge_id": "E031",
+      "source": "LAB_PROCALTITONIN",
+      "relation": "cannot_be_used_alone_to_start_antimicrobials_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.9,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E032",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TREATMENT_ANTIMICROBIALS_IMMEDIATE",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "attributes": [
+        {
+          "key": "time_target",
+          "value": "ideally within 1 hour of recognition"
+        }
+      ]
+    },
+    {
+      "edge_id": "E033",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TREATMENT_IV_CRYSTALLOID_RESUSCITATION",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": [
+        {
+          "key": "time_target",
+          "value": "initial resuscitation; at least 30 mL/kg in first 3 hours for sepsis-induced hypoperfusion or septic shock unless individualized contraindications"
+        }
+      ]
+    },
+    {
+      "edge_id": "E034",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TREATMENT_BALANCED_CRYSTALLOID",
+      "strength": "unspecified",
+      "weight": 0.75,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E035",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends_against",
+      "target": "TREATMENT_AVOID_STARCHES",
+      "strength": "unspecified",
+      "weight": 0.9,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E036",
+      "source": "SIGN_PERSISTENT_HYPOTENSION_AFTER_FLUIDS",
+      "relation": "triggers",
+      "target": "TREATMENT_VASOPRESSOR_SUPPORT",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "edge_id": "E037",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TREATMENT_PERIPHERAL_VASOPRESSOR_START",
+      "strength": "unspecified",
+      "weight": 0.8,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "When vasopressors are needed and waiting for central venous access would delay restoration of MAP"
+        }
+      ]
+    },
+    {
+      "edge_id": "E038",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TARGET_MAP_65",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E039",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TREATMENT_NOREPINEPHRINE",
+      "strength": "unspecified",
+      "weight": 1.0,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_VASOPRESSORS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E040",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_suggests",
+      "target": "TREATMENT_ADD_VASOPRESSIN",
+      "strength": "unspecified",
+      "weight": 0.7,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_VASOPRESSORS",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "Escalating norepinephrine doses"
+        }
+      ]
+    },
+    {
+      "edge_id": "E041",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_suggests",
+      "target": "TREATMENT_IV_CORTICOSTEROIDS",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_CORTICOSTEROIDS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E042",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_suggests",
+      "target": "TREATMENT_INOTROPE",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "attributes": [
+        {
+          "key": "condition",
+          "value": "Cardiac dysfunction with persistent hypoperfusion despite adequate fluid status and arterial blood pressure"
+        }
+      ]
+    },
+    {
+      "edge_id": "E043",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "guideline_recommends",
+      "target": "TREATMENT_SOURCE_CONTROL",
+      "strength": "unspecified",
+      "weight": 0.9,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": [
+        {
+          "key": "time_target",
+          "value": "evaluate rapidly; if required, early source control ideally within 6 hours of diagnosis"
+        }
+      ]
+    },
+    {
+      "edge_id": "E044",
+      "source": "DISEASE_SEPTIC_SHOCK",
+      "relation": "requires_or_consider",
+      "target": "TREATMENT_ICU_ADMISSION",
+      "strength": "unspecified",
+      "weight": 0.9,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E045",
+      "source": "SOURCE_PNEUMONIA",
+      "relation": "possible_source_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E046",
+      "source": "SOURCE_URINARY",
+      "relation": "possible_source_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E047",
+      "source": "SOURCE_INTRA_ABDOMINAL",
+      "relation": "possible_source_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E048",
+      "source": "SOURCE_SKIN_SOFT_TISSUE",
+      "relation": "possible_source_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.65,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E049",
+      "source": "SOURCE_LINE_DEVICE",
+      "relation": "possible_source_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E050",
+      "source": "SOURCE_UNKNOWN",
+      "relation": "does_not_exclude",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.75,
+      "clinical_note": "No source identified in the initial case should not rule out septic shock if infection remains plausible and shock criteria are present.",
+      "evidence_id": "",
+      "attributes": []
+    },
+    {
+      "edge_id": "E051",
+      "source": "RISK_MDR_COLONIZATION",
+      "relation": "increases_need_to_consider_mdr_coverage_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.7,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E052",
+      "source": "RISK_BROAD_SPECTRUM_ANTIBIOTICS",
+      "relation": "increases_need_to_consider_mdr_or_fungal_context_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.55,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E053",
+      "source": "RISK_IMMUNOSUPPRESSION",
+      "relation": "increases_severe_infection_and_fungal_risk_context_for",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0.6,
+      "clinical_note": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "edge_id": "E054",
+      "source": "DIFF_HYPOVOLEMIC_SHOCK",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "history of bleeding, dehydration, vomiting/diarrhea, fluid loss",
+            "lactate may be elevated without infection",
+            "hypotension may improve with volume replacement"
+          ]
+        }
+      ]
+    },
+    {
+      "edge_id": "E055",
+      "source": "DIFF_CARDIOGENIC_SHOCK",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "chest pain, ECG/echo/troponin abnormalities",
+            "pulmonary edema",
+            "poor response or harm from excess fluids"
+          ]
+        }
+      ]
+    },
+    {
+      "edge_id": "E056",
+      "source": "DIFF_OBSTRUCTIVE_SHOCK",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "massive pulmonary embolism, tension pneumothorax, tamponade",
+            "sudden obstructive physiology",
+            "bedside ultrasound or imaging may be decisive"
+          ]
+        }
+      ]
+    },
+    {
+      "edge_id": "E057",
+      "source": "DIFF_ANAPHYLAXIS",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "acute allergen exposure",
+            "urticaria, angioedema, bronchospasm",
+            "rapid response to epinephrine may support anaphylaxis"
+          ]
+        }
+      ]
+    },
+    {
+      "edge_id": "E058",
+      "source": "DIFF_ADRENAL_CRISIS",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "known adrenal insufficiency or chronic steroid use",
+            "hyponatremia, hyperkalemia, hypoglycemia",
+            "infection can precipitate adrenal crisis and coexist with sepsis"
+          ]
+        }
+      ]
+    },
+    {
+      "edge_id": "E059",
+      "source": "DIFF_DKA",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "marked hyperglycemia, ketosis, metabolic acidosis",
+            "infection can be a trigger and coexist with DKA"
+          ]
+        }
+      ]
+    },
+    {
+      "edge_id": "E060",
+      "source": "DIFF_TOXICOLOGIC_SHOCK",
+      "relation": "must_differentiate_from",
+      "target": "DISEASE_SEPTIC_SHOCK",
+      "strength": "unspecified",
+      "weight": 0,
+      "clinical_note": "",
+      "evidence_id": "",
+      "attributes": [
+        {
+          "key": "distinguishing_features",
+          "value": [
+            "medication overdose or poisoning history",
+            "bradycardia or toxidrome patterns",
+            "infection markers may be absent but not definitive"
+          ]
+        }
+      ]
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "source_field": "retrieval_goal",
+        "value": "Trigger septic shock graph expansion when a case contains infection context plus shock, hypoperfusion, organ dysfunction, or critical care treatment clues."
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "source_field": "high_priority_trigger_patterns",
+        "value": [
+          {
+            "pattern_id": "SS_TRIGGER_001",
+            "logic": "suspected_or_confirmed_infection AND hypotension",
+            "candidate_priority": "high",
+            "rationale": "Infection plus hypotension is a major shock-pattern trigger; septic shock cannot be confirmed without fluid response, vasopressor requirement, and lactate context."
+          },
+          {
+            "pattern_id": "SS_TRIGGER_002",
+            "logic": "suspected_or_confirmed_infection AND vasopressor_support",
+            "candidate_priority": "very_high",
+            "rationale": "Vasopressor requirement in an infected patient is a core septic shock signal; verify MAP target, fluid status, and lactate."
+          },
+          {
+            "pattern_id": "SS_TRIGGER_003",
+            "logic": "suspected_or_confirmed_infection AND lactate_gt_2 AND hypotension_or_hypoperfusion",
+            "candidate_priority": "very_high",
+            "rationale": "Elevated lactate with infection and shock/hypoperfusion should trigger immediate septic shock pathway verification."
+          },
+          {
+            "pattern_id": "SS_TRIGGER_004",
+            "logic": "fever_or_hypothermia AND altered_mental_status AND peripheral_hypoperfusion",
+            "candidate_priority": "high",
+            "rationale": "This pattern can indicate severe infection with shock physiology even before labs are available."
+          },
+          {
+            "pattern_id": "SS_TRIGGER_005",
+            "logic": "suspected_infection AND decreased_urine_output_or_aki AND hypotension",
+            "candidate_priority": "high",
+            "rationale": "Renal dysfunction plus shock physiology supports sepsis severity and requires shock verification."
+          }
+        ]
+      },
+      {
+        "source_field": "moderate_priority_trigger_patterns",
+        "value": [
+          {
+            "pattern_id": "SS_TRIGGER_006",
+            "logic": "infection_context AND tachycardia AND tachypnea AND systemic_symptoms",
+            "candidate_priority": "moderate",
+            "rationale": "May represent sepsis; expand sepsis graph first and septic shock graph if hypotension, lactate, or vasopressor information appears."
+          },
+          {
+            "pattern_id": "SS_TRIGGER_007",
+            "logic": "unknown_source_infection_possible AND shock_not_explained_by_noninfectious_cause",
+            "candidate_priority": "moderate_to_high",
+            "rationale": "Unknown source does not exclude septic shock; differential shock etiologies must be evaluated."
+          }
+        ]
+      }
+    ],
+    "scoring_warning": "",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "SS_PATH_001",
+      "step_type": "clinical_context_check",
+      "step_name": "Establish infection context",
+      "check": "Does the case contain suspected or confirmed infection, antimicrobial indication, positive cultures, fever/hypothermia with source symptoms, or clinician concern for infection?",
+      "required_case_fields": [
+        "suspected_or_confirmed_infection",
+        "source_symptoms",
+        "temperature",
+        "cultures",
+        "imaging",
+        "antimicrobial_status"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Proceed to sepsis and shock physiology verification.",
+      "negative_result": "Do not confirm septic shock; continue shock differential and report infection evidence as absent or not_provided.",
+      "if_missing": "Mark infection context as not_provided; septic shock cannot be classified as confirmed without plausible infection.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_002",
+      "step_type": "sepsis_parent_check",
+      "step_name": "Identify acute organ dysfunction / sepsis physiology",
+      "check": "Is there acute organ dysfunction or physiologic deterioration compatible with sepsis?",
+      "required_case_fields": [
+        "mental_status",
+        "oxygenation",
+        "urine_output",
+        "creatinine",
+        "bilirubin",
+        "platelets_or_coagulation",
+        "blood_pressure",
+        "lactate"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Supports parent sepsis context and justifies shock verification.",
+      "negative_result": "Lower certainty; do not exclude if data are missing or shock physiology is present.",
+      "if_missing": "List missing organ dysfunction data and continue if hypotension, vasopressor use, or lactate elevation is present.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_003",
+      "step_type": "hemodynamic_screen",
+      "step_name": "Detect shock physiology",
+      "check": "Is there hypotension, persistent hypotension, MAP below target, signs of hypoperfusion, collapse/syncope, altered mentation, mottling, cyanosis, or oliguria?",
+      "required_case_fields": [
+        "sbp",
+        "dbp",
+        "map",
+        "heart_rate",
+        "skin_perfusion",
+        "capillary_refill",
+        "urine_output",
+        "mental_status"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Classify as shock physiology; prioritize septic shock if infection context is present.",
+      "negative_result": "Septic shock is less supported, but sepsis without shock may still be possible.",
+      "if_missing": "Report lack of hemodynamic data as critical missing information.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_004",
+      "step_type": "resuscitation_context_check",
+      "step_name": "Assess fluid resuscitation status",
+      "check": "Has adequate IV fluid resuscitation been given or is there a documented reason to individualize/limit fluids?",
+      "required_case_fields": [
+        "fluid_type",
+        "fluid_volume",
+        "fluid_timing",
+        "body_weight_or_bmi",
+        "heart_failure_or_fluid_overload_risk",
+        "response_to_fluids"
+      ],
+      "positive_criteria": [],
+      "positive_result": "If hypotension persists, proceed to vasopressor and lactate criteria.",
+      "negative_result": "If not resuscitated and no contraindication, classify as possible/probable septic shock pending resuscitation response rather than confirmed Sepsis-3 septic shock.",
+      "if_missing": "Mark adequate_fluid_status as unknown; core septic shock criteria cannot be fully verified.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_005",
+      "step_type": "core_definition_check",
+      "step_name": "Verify vasopressor requirement and MAP target",
+      "check": "Does the patient require vasopressor therapy to maintain MAP at or around 65 mm Hg after adequate fluid resuscitation / without hypovolemia?",
+      "required_case_fields": [
+        "vasopressor_status",
+        "vasopressor_agent",
+        "map_before_pressors",
+        "map_on_pressors",
+        "fluid_status"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Meets vasopressor component of septic shock criteria.",
+      "negative_result": "If no vasopressors are required and MAP is adequate after fluids, confirmed septic shock is not supported; consider sepsis with hypoperfusion or another state.",
+      "if_missing": "Report vasopressor requirement and MAP as critical missing information.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_006",
+      "step_type": "core_definition_and_monitoring_check",
+      "step_name": "Verify lactate criterion and trend",
+      "check": "Is lactate >2 mmol/L despite adequate volume resuscitation, and are serial lactates available if initially elevated?",
+      "required_case_fields": [
+        "initial_lactate",
+        "repeat_lactate",
+        "timing_relative_to_fluids",
+        "alternate_lactate_causes"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Meets metabolic component of septic shock criteria if infection and vasopressor criteria are also met.",
+      "negative_result": "A lactate <=2 after adequate resuscitation makes Sepsis-3 septic shock less supported, but unstable patients still require clinical evaluation.",
+      "if_missing": "Report lactate as critical missing information; do not confirm or exclude septic shock solely from missing lactate.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_LACTATE_PERFUSION",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_007",
+      "step_type": "management_pathway_check",
+      "step_name": "Immediate antimicrobial and microbiology verification",
+      "check": "Were blood cultures collected as soon as possible and ideally before antimicrobials, and were antimicrobials started immediately, ideally within 1 hour of septic shock recognition?",
+      "required_case_fields": [
+        "blood_cultures_time",
+        "antimicrobial_time",
+        "antimicrobial_spectrum",
+        "mdr_risk_factors",
+        "fungal_risk_factors"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Management aligns with septic shock pathway.",
+      "negative_result": "Flag deviation or missing timing; do not delay life-saving antimicrobials solely for cultures.",
+      "if_missing": "Report microbiology and antimicrobial timing as missing management verification data.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_008",
+      "step_type": "management_pathway_check",
+      "step_name": "Source identification and source control",
+      "check": "Is a likely infection source identified, and if source control is needed, is early source control planned or performed?",
+      "required_case_fields": [
+        "suspected_source",
+        "imaging",
+        "cultures",
+        "drainage_or_surgery_need",
+        "device_or_line_source",
+        "source_control_time"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Source pathway is being addressed.",
+      "negative_result": "Flag unresolved source; unknown source does not exclude septic shock.",
+      "if_missing": "Report source evaluation and source control status as missing critical information.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_009",
+      "step_type": "hemodynamic_management_check",
+      "step_name": "Evaluate vasopressor selection and escalation",
+      "check": "If vasopressors are used, is norepinephrine the first-line agent or is there a documented reason for another agent; if norepinephrine is escalating, is vasopressin considered?",
+      "required_case_fields": [
+        "vasopressor_agent",
+        "vasopressor_dose_trend",
+        "map_response",
+        "arrhythmia_context",
+        "cardiac_function"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Hemodynamic management aligns with septic shock pathway.",
+      "negative_result": "Flag mismatch with guideline preference or missing rationale; local protocol and clinician judgment apply.",
+      "if_missing": "Report agent and dose trend as missing management verification data.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_VASOPRESSORS",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_010",
+      "step_type": "supportive_care_check",
+      "step_name": "Check adjunctive and supportive care triggers",
+      "check": "Are there triggers for ICU admission, corticosteroids, inotropes, ventilation/oxygen support, renal support, glucose control, or VTE prophylaxis?",
+      "required_case_fields": [
+        "icu_status",
+        "vasopressor_persistence",
+        "cardiac_dysfunction",
+        "oxygenation",
+        "aki_status",
+        "glucose",
+        "bleeding_risk"
+      ],
+      "positive_criteria": [],
+      "positive_result": "List guideline-relevant supportive care considerations.",
+      "negative_result": "No additional trigger found in provided data.",
+      "if_missing": "Report missing supportive care variables without making unsupported treatment claims.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SSC_2026_CORTICOSTEROIDS",
+      "attributes": []
+    },
+    {
+      "step_id": "SS_PATH_011",
+      "step_type": "differential_diagnosis_check",
+      "step_name": "Differentiate other shock etiologies",
+      "check": "Are there findings suggesting hypovolemic, cardiogenic, obstructive, anaphylactic, adrenal, metabolic, or toxicologic shock instead of or in addition to septic shock?",
+      "required_case_fields": [
+        "bleeding_or_fluid_loss",
+        "ecg",
+        "troponin",
+        "echo",
+        "pulmonary_embolism_context",
+        "allergen_exposure",
+        "glucose_ketones",
+        "toxin_or_medication_history"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing or coexisting shock etiologies and do not over-attribute shock to infection.",
+      "negative_result": "Septic shock remains favored if infection plus core shock criteria are present.",
+      "if_missing": "Mark differential information as incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "EVIDENCE_SAFETY_GENERAL",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "HYPOVOLEMIC_SHOCK",
+      "disease_name": "Hypovolemic shock",
+      "why_confusable": "",
+      "why_confused": "Both can present with hypotension, tachycardia, elevated lactate, cool extremities, and altered mentation.",
+      "distinguishing_features": [
+        "bleeding, dehydration, gastrointestinal fluid loss, burns, diuretic excess",
+        "clear improvement after volume replacement",
+        "absence of infection signs does not fully exclude infection but lowers septic shock support"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "bleeding_history",
+        "fluid_losses",
+        "hemoglobin",
+        "volume_response",
+        "infection_evidence"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "CARDIOGENIC_SHOCK",
+      "disease_name": "Cardiogenic shock",
+      "why_confusable": "",
+      "why_confused": "Can cause hypotension, hypoperfusion, elevated lactate, pulmonary edema, and altered mentation.",
+      "distinguishing_features": [
+        "acute coronary syndrome features",
+        "ECG/troponin/echo abnormalities",
+        "pulmonary edema",
+        "poor tolerance of large-volume fluids"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "ecg",
+        "troponin",
+        "echo",
+        "chest_pain",
+        "heart_failure_history"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "OBSTRUCTIVE_SHOCK",
+      "disease_name": "Obstructive shock",
+      "why_confusable": "",
+      "why_confused": "Massive PE, tamponade, or tension pneumothorax can mimic septic shock and require different immediate treatment.",
+      "distinguishing_features": [
+        "sudden dyspnea/chest pain",
+        "JVP elevation, tamponade signs",
+        "unilateral absent breath sounds or tension pneumothorax signs",
+        "bedside ultrasound or CT evidence"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "chest_symptoms",
+        "bedside_ultrasound",
+        "ct_or_cxr",
+        "jvp",
+        "risk_factors_for_pe"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ANAPHYLAXIS",
+      "disease_name": "Anaphylaxis",
+      "why_confusable": "",
+      "why_confused": "Can cause distributive shock with hypotension and respiratory symptoms.",
+      "distinguishing_features": [
+        "allergen/drug/food/sting exposure",
+        "urticaria or angioedema",
+        "bronchospasm",
+        "rapid onset minutes to hours"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "exposure_history",
+        "skin_findings",
+        "airway_findings",
+        "timing"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ADRENAL_CRISIS",
+      "disease_name": "Adrenal crisis",
+      "why_confusable": "",
+      "why_confused": "Can produce refractory hypotension and can be precipitated by infection.",
+      "distinguishing_features": [
+        "known adrenal insufficiency",
+        "chronic steroid use",
+        "hyponatremia/hyperkalemia/hypoglycemia",
+        "coexisting infection possible"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "steroid_history",
+        "electrolytes",
+        "glucose",
+        "infection_context"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "DIABETIC_KETOACIDOSIS",
+      "disease_name": "Diabetic ketoacidosis",
+      "why_confusable": "",
+      "why_confused": "DKA can cause dehydration, tachycardia, hypotension, acidosis, and altered mental status; infection can trigger DKA and sepsis.",
+      "distinguishing_features": [
+        "hyperglycemia",
+        "ketones",
+        "anion-gap metabolic acidosis",
+        "Kussmaul respirations"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "glucose",
+        "ketones",
+        "blood_gas",
+        "anion_gap",
+        "infection_source"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "TOXICOLOGIC_OR_MEDICATION_RELATED_SHOCK",
+      "disease_name": "Toxicologic or medication-related shock",
+      "why_confusable": "",
+      "why_confused": "Drug toxicity can cause hypotension, altered mental status, acidosis, or bradycardia/tachycardia.",
+      "distinguishing_features": [
+        "medication ingestion or overdose",
+        "toxidrome",
+        "bradycardia with calcium-channel/beta-blocker toxicity",
+        "sedative/opioid effects"
+      ],
+      "critical_tests_or_data": [],
+      "required_case_fields": [
+        "medication_list",
+        "overdose_history",
+        "tox_screen_when_appropriate",
+        "pupil_and_neurologic_findings"
+      ],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {},
+    "candidate_retrieval": {},
+    "knowledge_graph_verification": {},
+    "guideline_pathway_result": {},
+    "final_assessment": {},
+    "source_traceability": {},
+    "attributes": [
+      {
+        "key": "type",
+        "value": "object"
+      },
+      {
+        "key": "required_sections",
+        "value": [
+          "case_summary",
+          "retrieval_result",
+          "septic_shock_graph_verification",
+          "guideline_pathway_result",
+          "classification",
+          "supporting_evidence",
+          "opposing_or_uncertain_evidence",
+          "critical_missing_information",
+          "differential_diagnoses",
+          "next_verification_actions",
+          "safety_note"
+        ]
+      },
+      {
+        "key": "example_structure",
+        "value": {
+          "case_summary": {
+            "infection_context": "present | absent | not_provided | uncertain",
+            "shock_features": [],
+            "lactate": "value_or_not_provided",
+            "fluid_resuscitation_status": "adequate | inadequate | contraindicated_or_limited | not_provided",
+            "vasopressor_status": "required | not_required | not_provided",
+            "organ_dysfunction_features": []
+          },
+          "retrieval_result": {
+            "candidate_disease": "Septic shock",
+            "triggered_by_nodes": [],
+            "initial_priority": "very_high | high | moderate | low",
+            "reason_for_retrieval": ""
+          },
+          "septic_shock_graph_verification": {
+            "matched_nodes": [],
+            "unmatched_or_missing_critical_nodes": [],
+            "core_definition_elements": {
+              "infection_or_sepsis_context": "met | not_met | missing | uncertain",
+              "vasopressor_requirement_for_map_after_fluids": "met | not_met | missing | uncertain",
+              "lactate_gt_2_after_resuscitation": "met | not_met | missing | uncertain"
+            }
+          },
+          "guideline_pathway_result": [],
+          "classification": {
+            "label": "confirmed_septic_shock_pattern | high_priority_probable_septic_shock | possible_septic_shock_or_severe_sepsis | shock_not_classified_as_septic",
+            "confidence": "high | moderate | low",
+            "rationale": ""
+          },
+          "next_verification_actions": [
+            "Obtain/confirm lactate and repeat if elevated",
+            "Document MAP, fluid response, and vasopressor requirement",
+            "Confirm suspected infection source and cultures",
+            "Evaluate alternative shock etiologies"
+          ],
+          "safety_note": "This output is a clinical decision support and missed-diagnosis risk prompt. It must not replace clinician diagnosis, local protocols, or emergency treatment."
+        }
+      }
+    ]
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "EVIDENCE_SEPSIS3_2016",
+      "source_type": "consensus_definition",
+      "title": "The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3)",
+      "publisher": "JAMA",
+      "publication_date": "",
+      "publication_year": "2016",
+      "url": "https://jamanetwork.com/journals/jama/fullarticle/2492881",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Defines septic shock as a subset of sepsis with profound circulatory/cellular/metabolic abnormalities and clinical identification by vasopressor requirement for MAP >=65 mm Hg plus lactate >2 mmol/L after adequate fluid resuscitation / in absence of hypovolemia.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E005",
+        "SS_PATH_001",
+        "SS_PATH_002",
+        "SS_PATH_005"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_CULTURES_LACTATE",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Recommends blood cultures as soon as possible and ideally before antimicrobials; suggests measuring lactate in adults with possible, probable, or definite sepsis or septic shock.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E025",
+        "E027"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_FLUID_VASOPRESSOR",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "States that sepsis and septic shock are medical emergencies; suggests at least 30 mL/kg IV crystalloid in the first 3 hours for sepsis-induced hypoperfusion or septic shock; suggests fluid bolus followed by vasopressor support if hypotension persists, with concurrent vasopressors and fluids warranted in unstable shock case-by-case.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E012",
+        "E013",
+        "E014",
+        "E015",
+        "E016",
+        "E033",
+        "E036",
+        "SS_PATH_003",
+        "SS_PATH_004"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_MAP_ANTIBIOTICS",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Suggests starting vasopressors peripherally rather than delaying for central access when needed; recommends initial MAP target of 65 mm Hg; recommends immediate antimicrobial therapy ideally within 1 hour for septic shock; suggests ICU admission within 6 hours for sepsis or septic shock requiring ICU admission.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E037",
+        "E038",
+        "E032",
+        "E044",
+        "SS_PATH_007"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_SOURCE_ANTIMICROBIALS",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Recommends rapid evaluation for anatomical source control; suggests early source control ideally within 6 hours when required; provides antimicrobial stewardship recommendations including MDR risk coverage and de-escalation; suggests clinical evaluation alone over procalcitonin plus clinical evaluation to decide whether to start antimicrobials.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E031",
+        "E034",
+        "E035",
+        "E043",
+        "E051",
+        "E052",
+        "E053",
+        "SS_PATH_008"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_LACTATE_PERFUSION",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Suggests serial lactate measurements to guide resuscitation in sepsis with elevated lactate or septic shock, and using capillary refill time as an adjunct to other perfusion measures.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E017",
+        "E026",
+        "SS_PATH_006"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_VASOPRESSORS",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Recommends norepinephrine as first-line vasopressor for adults with septic shock; suggests adding vasopressin when norepinephrine doses escalate.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E039",
+        "E040",
+        "SS_PATH_009"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SSC_2026_CORTICOSTEROIDS",
+      "source_type": "international_guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / Surviving Sepsis Campaign",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Suggests IV corticosteroids for adults with septic shock and contains supportive care recommendations relevant to respiratory support, renal replacement, glucose control, VTE prophylaxis, and avoiding selected adjunctive therapies.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E041",
+        "SS_PATH_010"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_NICE_NG253_2025",
+      "source_type": "national_guideline",
+      "title": "Suspected sepsis in people aged 16 or over: recognition, assessment and early management (NG253)",
+      "publisher": "NICE",
+      "publication_date": "2025-11-19",
+      "publication_year": "",
+      "url": "https://www.nice.org.uk/guidance/ng253",
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "For high-risk adults, NICE recommends urgent assessment, blood gas including glucose and lactate, blood culture, FBC, CRP, urea/electrolytes, broad-spectrum IV antibiotics within 1 hour of NEWS2 calculation, and prompt IV fluid bolus when high risk unless contraindicated; moderate risk with hypoperfusion should be treated as high risk.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "E028",
+        "E029",
+        "E030"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "EVIDENCE_SAFETY_GENERAL",
+      "source_type": "safety_rule",
+      "title": "Internal safety rules for single-pass septic shock decision support",
+      "publisher": "Project-specific clinical safety layer",
+      "publication_date": "",
+      "publication_year": "2026",
+      "url": null,
+      "review_status": "requires_clinician_review_before_clinical_deployment",
+      "key_points": [],
+      "summary": "Do not ask follow-up questions in single-pass mode; report missing critical information, avoid overdiagnosis, and explicitly evaluate competing shock etiologies.",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "SS_PATH_011"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not output a confirmed septic shock classification unless infection/sepsis context, vasopressor requirement for MAP target after adequate fluids/no hypovolemia, and lactate >2 mmol/L after resuscitation are documented.",
+      "Do not rule out septic shock solely because fever is absent; hypothermia or normothermia may occur in severe infection.",
+      "Do not rule out septic shock solely because the infection source is unknown on first assessment.",
+      "Do not use lactate alone to diagnose septic shock; lactate elevation must be interpreted with clinical context and other causes of lactate elevation.",
+      "Do not delay emergency treatment recommendations in the output just because cultures are missing; mark cultures as ideally before antimicrobials but not a reason to delay life-saving therapy.",
+      "Do not select, dose, or prescribe vasopressors, antimicrobials, corticosteroids, or fluids beyond guideline-level pathway statements; local protocol and clinician judgment are required.",
+      "Always report missing critical data: MAP/SBP, lactate, fluid response, vasopressor requirement, infection source, antimicrobial timing, cultures, oxygenation, urine output, mental status, and competing shock etiologies.",
+      "Always consider noninfectious shock etiologies and coexistence, especially cardiogenic, hypovolemic, obstructive, anaphylactic, adrenal crisis, DKA, toxicologic shock."
+    ],
+    "must_do": [],
+    "human_review": "",
+    "final_output_disclaimer": "This knowledge graph is for clinical decision support and missed-diagnosis risk analysis. It does not provide a standalone diagnosis or replace emergency care, clinician assessment, local protocols, or specialist consultation.",
+    "deployment_requirements": [
+      "Clinician review and sign-off for every graph node, edge, and pathway step",
+      "Local protocol mapping for antimicrobial selection, vasopressor administration, fluid contraindications, ICU transfer, and source control workflows",
+      "Version control and scheduled guideline update review",
+      "Audit logging of evidence_ids used in each model output"
+    ],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 19,
+    "preserved_graph_nodes": 70,
+    "preserved_graph_edges": 60
+  }
+}

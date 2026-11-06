@@ -1,0 +1,6 @@
+# Direct third-party dependencies identified from the RACDR source code.
+# Python 3.10 recommended. Versions are bounded for compatibility but are not
+# a validated reproduction lockfile of the original experiment environment.
+pandas>=2.0,<3.0
+openai>=1.0,<3.0
+tqdm>=4.65,<5.0

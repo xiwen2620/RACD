@@ -1,0 +1,2837 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_SEVERE_INFECTION_WITH_ORGAN_DYSFUNCTION_ADULT",
+  "file_name": "severe_infection_with_organ_dysfunction.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:14:17.432658+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older",
+    "setting": [
+      "acute hospital",
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration assessment",
+      "prehospital handoff"
+    ],
+    "excluded_populations": [
+      "children under 16 years",
+      "neonates",
+      "pregnancy-specific sepsis pathways",
+      "postpartum-specific sepsis pathways",
+      "immunotherapy-related cytokine release syndrome pathways"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected severe infection with acute organ dysfunction. This knowledge graph is intended for clinical decision support and missed-diagnosis risk reduction, not autonomous diagnosis.",
+    "important_boundary": "This is a working clinical candidate category, not a universally separate formal diagnosis distinct from sepsis. Under Sepsis-3, suspected or confirmed infection with life-threatening organ dysfunction corresponds to sepsis; this graph is designed to catch severe infection with organ dysfunction before or during sepsis verification, and to distinguish cases from septic shock.",
+    "attributes": []
+  },
+  "disease_id": "SEVERE_INFECTION_WITH_ORGAN_DYSFUNCTION",
+  "disease_name_en": "Severe Infection with Organ Dysfunction",
+  "aliases": [
+    "Suspected severe infection with acute organ dysfunction",
+    "Severe infection with organ failure",
+    "High-risk infection with organ dysfunction",
+    "Possible sepsis without confirmed septic shock",
+    "Infection-associated acute organ dysfunction"
+  ],
+  "disease_category": "infection",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "SEPSIS",
+      "SEPTIC_SHOCK"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [
+      "SEPSIS_VERIFICATION",
+      "SEPTIC_SHOCK_VERIFICATION"
+    ],
+    "distinctions": [
+      {
+        "target_graph": "SEPSIS",
+        "description": "This graph can be used as a broad retrieval layer when infection plus possible organ dysfunction is present. A Sepsis graph should then determine whether the full Sepsis-3 concept is met."
+      },
+      {
+        "target_graph": "SEPTIC_SHOCK",
+        "description": "Septic shock requires persistent circulatory/metabolic abnormalities, typically vasopressor requirement to maintain MAP >=65 mmHg and lactate >2 mmol/L after adequate fluid resuscitation. This graph includes organ dysfunction without requiring vasopressor-dependent shock."
+      }
+    ],
+    "boundary_note": "",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "A suspected or confirmed infection accompanied by new, worsening, or unexplained organ dysfunction, hypoperfusion, or physiological deterioration. It should trigger urgent evaluation for sepsis, source identification, organ support needs, antimicrobial therapy, and escalation of care.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Symptoms may be nonspecific, especially in older adults or immunocompromised patients.",
+      "Fever may be absent; hypothermia or normal temperature can occur in serious infection.",
+      "Early organ dysfunction may appear as confusion, tachypnea, oliguria, mild hypotension, rising creatinine, thrombocytopenia, hypoxia, hyperbilirubinemia, or elevated lactate rather than an obvious infection syndrome.",
+      "Localizing infection symptoms may be subtle or absent.",
+      "Deterioration may be misattributed to dehydration, medication effects, heart failure, pulmonary embolism, diabetic ketoacidosis, stroke, delirium, or noninfectious inflammation."
+    ],
+    "clinical_priority": "emergency_or_urgent",
+    "time_sensitivity": "Potentially life-threatening; should prompt urgent clinician assessment, sepsis risk stratification, physiological monitoring, laboratory evaluation, cultures when appropriate, early antimicrobials when sepsis/high-risk infection is likely, source control assessment, and escalation if organ dysfunction is present.",
+    "do_not_use_as": [
+      "a stand-alone definitive diagnosis",
+      "a replacement for local sepsis protocol",
+      "a treatment order generator",
+      "a probability calculator",
+      "a rule-out tool"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "pregnancy_status",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "suspected_infection_source",
+      "recent_infection_or_antibiotic_use",
+      "vital_signs",
+      "NEWS2_or_other_early_warning_score",
+      "mental_status",
+      "respiratory_status",
+      "circulation_and_perfusion",
+      "urine_output",
+      "skin_findings",
+      "past_medical_history",
+      "immunosuppression",
+      "medications",
+      "recent_surgery_or_procedure",
+      "indwelling_devices",
+      "laboratory_results",
+      "microbiology",
+      "imaging",
+      "organ_support",
+      "fluid_resuscitation_given",
+      "vasopressors_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_infection_suspected",
+        "input_terms": [
+          "suspected infection",
+          "confirmed infection",
+          "infection",
+          "infected",
+          "septic",
+          "bacteremia",
+          "bloodstream infection"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_suspected",
+        "normalized_node_id": "condition_suspected_infection",
+        "normalized_node": "Suspected or confirmed infection",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "infection_source",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_fever",
+        "input_terms": [
+          "fever",
+          "febrile",
+          "pyrexia",
+          "high temperature",
+          "chills",
+          "rigors",
+          "shaking chills"
+        ],
+        "input_variants": [
+          "T >38",
+          "temperature >38",
+          "temp 38",
+          "temp 39",
+          "temperature 101",
+          "temperature 102",
+          "febrile to"
+        ],
+        "normalized_case_fact": "fever",
+        "normalized_node_id": "symptom_fever",
+        "normalized_node": "Fever",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_hypothermia",
+        "input_terms": [
+          "hypothermia",
+          "hypothermic",
+          "low temperature",
+          "cold and septic"
+        ],
+        "input_variants": [
+          "T <36",
+          "temperature <36",
+          "temp 35",
+          "temp 95"
+        ],
+        "normalized_case_fact": "hypothermia",
+        "normalized_node_id": "symptom_hypothermia",
+        "normalized_node": "Hypothermia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_tachycardia",
+        "input_terms": [
+          "tachycardia",
+          "tachycardic",
+          "fast heart rate",
+          "rapid heart rate",
+          "elevated heart rate",
+          "high heart rate",
+          "HR high",
+          "pulse high"
+        ],
+        "input_variants": [
+          "HR >100",
+          "heart rate >100",
+          "pulse >100",
+          "HR 100",
+          "HR 110",
+          "HR 120",
+          "pulse 110",
+          "pulse 120"
+        ],
+        "normalized_case_fact": "tachycardia",
+        "normalized_node_id": "sign_tachycardia",
+        "normalized_node": "Tachycardia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_tachypnea",
+        "input_terms": [
+          "tachypnea",
+          "tachypneic",
+          "rapid respirations",
+          "rapid respiratory rate",
+          "increased work of breathing",
+          "RR high",
+          "respiratory rate high"
+        ],
+        "input_variants": [
+          "RR >20",
+          "RR >22",
+          "respiratory rate >20",
+          "respiratory rate >22",
+          "RR 24",
+          "RR 28",
+          "RR 30"
+        ],
+        "normalized_case_fact": "tachypnea",
+        "normalized_node_id": "sign_tachypnea",
+        "normalized_node": "Tachypnea",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_hypotension_or_hypoperfusion",
+        "input_terms": [
+          "hypotension",
+          "hypotensive",
+          "low blood pressure",
+          "low BP",
+          "SBP low",
+          "MAP low",
+          "shock",
+          "hemodynamic instability",
+          "hemodynamically unstable"
+        ],
+        "input_variants": [
+          "SBP <90",
+          "systolic BP <90",
+          "MAP <65",
+          "BP 82/48",
+          "BP 80/40",
+          "blood pressure 82/48"
+        ],
+        "normalized_case_fact": "hypotension",
+        "normalized_node_id": "sign_hypotension",
+        "normalized_node": "Hypotension",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_hypoxemia",
+        "input_terms": [
+          "hypoxemia",
+          "hypoxaemia",
+          "hypoxic",
+          "low oxygen saturation",
+          "low O2 sat",
+          "low SpO2",
+          "oxygen desaturation",
+          "desaturation",
+          "requires oxygen",
+          "new oxygen requirement"
+        ],
+        "input_variants": [
+          "SpO2 <90",
+          "SpO2 <92",
+          "O2 sat <90",
+          "O2 sat <92",
+          "oxygen saturation 88",
+          "sat 88",
+          "satting 88"
+        ],
+        "normalized_case_fact": "hypoxemia",
+        "normalized_node_id": "organ_dysfunction_respiratory_hypoxemia",
+        "normalized_node": "Respiratory dysfunction: hypoxemia or increased oxygen requirement",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_altered_mental_status",
+        "input_terms": [
+          "altered mental status",
+          "AMS",
+          "confusion",
+          "confused",
+          "delirium",
+          "acute delirium",
+          "encephalopathy",
+          "drowsy",
+          "somnolent",
+          "reduced level of consciousness",
+          "not acting right"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "altered_mental_status",
+        "normalized_node_id": "sign_altered_mental_status",
+        "normalized_node": "Altered mental status",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_oliguria",
+        "input_terms": [
+          "oliguria",
+          "low urine output",
+          "decreased urine output",
+          "reduced urine output",
+          "not passing urine",
+          "anuria"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "oliguria",
+        "normalized_node_id": "organ_dysfunction_renal_oliguria",
+        "normalized_node": "Renal dysfunction: oliguria",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_renal_dysfunction",
+        "input_terms": [
+          "acute kidney injury",
+          "AKI",
+          "renal dysfunction",
+          "kidney injury",
+          "creatinine elevated",
+          "elevated creatinine",
+          "rising creatinine"
+        ],
+        "input_variants": [
+          "Cr >1.2",
+          "creatinine >1.2",
+          "creatinine 2.1",
+          "Cr 2.1"
+        ],
+        "normalized_case_fact": "renal_dysfunction",
+        "normalized_node_id": "test_creatinine",
+        "normalized_node": "Creatinine and renal function",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_elevated_lactate",
+        "input_terms": [
+          "elevated lactate",
+          "high lactate",
+          "lactate high",
+          "lactic acidosis",
+          "hyperlactatemia"
+        ],
+        "input_variants": [
+          "lactate >2",
+          "lactate greater than 2",
+          "lactate 3",
+          "lactate 4",
+          "lactate 4.5",
+          "lactate >=4"
+        ],
+        "normalized_case_fact": "elevated_lactate",
+        "normalized_node_id": "organ_dysfunction_metabolic_lactate",
+        "normalized_node": "Metabolic dysfunction: elevated lactate",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_liver_dysfunction",
+        "input_terms": [
+          "hyperbilirubinemia",
+          "bilirubin elevated",
+          "elevated bilirubin",
+          "liver dysfunction",
+          "hepatic dysfunction"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "liver_dysfunction",
+        "normalized_node_id": "organ_dysfunction_hepatic_bilirubin",
+        "normalized_node": "Hepatic dysfunction: hyperbilirubinemia or liver injury",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_013_pneumonia_source",
+        "input_terms": [
+          "pneumonia",
+          "PNA",
+          "pulmonary infection",
+          "lower respiratory infection",
+          "lung infection"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "source_lung",
+        "normalized_node": "Respiratory infection source",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_014_urinary_source",
+        "input_terms": [
+          "UTI",
+          "urinary tract infection",
+          "pyelonephritis",
+          "urosepsis",
+          "dysuria",
+          "flank pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "source_urinary",
+        "normalized_node": "Urinary tract infection source",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_015_abdominal_source",
+        "input_terms": [
+          "intra-abdominal infection",
+          "abdominal source",
+          "peritonitis",
+          "cholangitis",
+          "appendicitis",
+          "diverticulitis"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "source_abdominal",
+        "normalized_node": "Intra-abdominal infection source",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_016_skin_soft_tissue_source",
+        "input_terms": [
+          "cellulitis",
+          "skin infection",
+          "soft tissue infection",
+          "necrotizing infection",
+          "wound infection"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "infection_source",
+        "normalized_node_id": "source_skin_soft_tissue",
+        "normalized_node": "Skin or soft tissue infection source",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_severe_infection_with_organ_dysfunction",
+      "node_type": "DiseaseCandidate",
+      "name": "Severe Infection with Organ Dysfunction",
+      "synonyms": [
+        "severe infection with organ failure",
+        "high-risk infection with organ dysfunction"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "condition_suspected_infection",
+      "node_type": "ClinicalContext",
+      "name": "Suspected or confirmed infection",
+      "synonyms": [
+        "possible infection",
+        "proven infection",
+        "infection source suspected",
+        "suspected infection",
+        "confirmed infection",
+        "infection",
+        "infected",
+        "septic",
+        "bacteremia",
+        "bloodstream infection"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "condition_new_organ_dysfunction",
+      "node_type": "ClinicalContext",
+      "name": "New or worsening organ dysfunction",
+      "synonyms": [
+        "acute organ failure",
+        "organ dysfunction",
+        "organ injury"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "condition_sepsis3_overlap",
+      "node_type": "Concept",
+      "name": "Sepsis-3 overlap: infection with life-threatening organ dysfunction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "condition_not_yet_shock",
+      "node_type": "Concept",
+      "name": "No confirmed vasopressor-dependent septic shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "source_lung",
+      "node_type": "ClinicalContext",
+      "name": "Respiratory infection source",
+      "synonyms": [
+        "pneumonia",
+        "PNA",
+        "pulmonary infection",
+        "lower respiratory infection",
+        "lung infection"
+      ],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "pneumonia",
+            "aspiration pneumonia"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "source_urinary",
+      "node_type": "ClinicalContext",
+      "name": "Urinary tract infection source",
+      "synonyms": [
+        "UTI",
+        "urinary tract infection",
+        "pyelonephritis",
+        "urosepsis",
+        "dysuria",
+        "flank pain"
+      ],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "pyelonephritis",
+            "urosepsis"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "source_abdominal",
+      "node_type": "ClinicalContext",
+      "name": "Intra-abdominal infection source",
+      "synonyms": [
+        "intra-abdominal infection",
+        "abdominal source",
+        "peritonitis",
+        "cholangitis",
+        "appendicitis",
+        "diverticulitis"
+      ],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "peritonitis",
+            "cholangitis",
+            "appendicitis with sepsis"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "source_skin_soft_tissue",
+      "node_type": "ClinicalContext",
+      "name": "Skin or soft tissue infection source",
+      "synonyms": [
+        "cellulitis",
+        "skin infection",
+        "soft tissue infection",
+        "necrotizing infection",
+        "wound infection"
+      ],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "cellulitis",
+            "necrotizing soft tissue infection"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "source_cns",
+      "node_type": "ClinicalContext",
+      "name": "Central nervous system infection source",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "meningitis",
+            "encephalitis"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "source_device_related",
+      "node_type": "ClinicalContext",
+      "name": "Device-related infection source",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": [
+        {
+          "key": "examples",
+          "value": [
+            "central line infection",
+            "catheter-associated infection"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "source_unknown",
+      "node_type": "ClinicalContext",
+      "name": "Unknown infection source",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_fever",
+      "node_type": "Symptom",
+      "name": "Fever",
+      "synonyms": [
+        "pyrexia",
+        "high temperature",
+        "fever",
+        "febrile",
+        "chills",
+        "rigors",
+        "shaking chills"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_hypothermia",
+      "node_type": "Symptom",
+      "name": "Hypothermia",
+      "synonyms": [
+        "low temperature",
+        "hypothermia",
+        "hypothermic",
+        "cold and septic"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_rigors",
+      "node_type": "Symptom",
+      "name": "Rigors or chills",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_malaise",
+      "node_type": "Symptom",
+      "name": "Severe malaise or weakness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_dyspnea",
+      "node_type": "Symptom",
+      "name": "Dyspnea",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_cough",
+      "node_type": "Symptom",
+      "name": "Cough or respiratory symptoms",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_abdominal_pain",
+      "node_type": "Symptom",
+      "name": "Abdominal pain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_vomiting_diarrhea",
+      "node_type": "Symptom",
+      "name": "Vomiting or diarrhea",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_dysuria_flank_pain",
+      "node_type": "Symptom",
+      "name": "Dysuria, urinary symptoms, or flank pain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_headache_neck_stiffness",
+      "node_type": "Symptom",
+      "name": "Headache or neck stiffness",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_new_pain_out_of_proportion",
+      "node_type": "Symptom",
+      "name": "Pain out of proportion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_altered_mental_status",
+      "node_type": "Sign",
+      "name": "Altered mental status",
+      "synonyms": [
+        "confusion",
+        "delirium",
+        "reduced consciousness",
+        "altered mental status",
+        "AMS",
+        "confused",
+        "acute delirium",
+        "encephalopathy",
+        "drowsy",
+        "somnolent",
+        "reduced level of consciousness"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_tachycardia",
+      "node_type": "Sign",
+      "name": "Tachycardia",
+      "synonyms": [
+        "tachycardia",
+        "tachycardic",
+        "fast heart rate",
+        "rapid heart rate",
+        "elevated heart rate",
+        "high heart rate",
+        "HR high",
+        "pulse high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_tachypnea",
+      "node_type": "Sign",
+      "name": "Tachypnea",
+      "synonyms": [
+        "tachypnea",
+        "tachypneic",
+        "rapid respirations",
+        "rapid respiratory rate",
+        "increased work of breathing",
+        "RR high",
+        "respiratory rate high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypotension",
+      "node_type": "Sign",
+      "name": "Hypotension",
+      "synonyms": [
+        "hypotension",
+        "hypotensive",
+        "low blood pressure",
+        "low BP",
+        "SBP low",
+        "MAP low",
+        "shock",
+        "hemodynamic instability",
+        "hemodynamically unstable"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_peripheral_hypoperfusion",
+      "node_type": "Sign",
+      "name": "Peripheral hypoperfusion",
+      "synonyms": [
+        "mottling",
+        "cold peripheries",
+        "delayed capillary refill"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_nonblanching_rash",
+      "node_type": "Sign",
+      "name": "Non-blanching or petechial rash",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_new_mottled_ashen_cyanotic_skin",
+      "node_type": "Sign",
+      "name": "Mottled, ashen, or cyanotic skin",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_high_news2",
+      "node_type": "RiskScore",
+      "name": "High NEWS2 or equivalent early warning score",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_respiratory_hypoxemia",
+      "node_type": "OrganDysfunction",
+      "name": "Respiratory dysfunction: hypoxemia or increased oxygen requirement",
+      "synonyms": [
+        "hypoxemia",
+        "hypoxaemia",
+        "hypoxic",
+        "low oxygen saturation",
+        "oxygen desaturation",
+        "desaturation",
+        "requires oxygen",
+        "new oxygen requirement"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_cardiovascular_hypotension",
+      "node_type": "OrganDysfunction",
+      "name": "Cardiovascular dysfunction: hypotension or hypoperfusion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_renal_aki",
+      "node_type": "OrganDysfunction",
+      "name": "Renal dysfunction: acute kidney injury",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_renal_oliguria",
+      "node_type": "OrganDysfunction",
+      "name": "Renal dysfunction: oliguria",
+      "synonyms": [
+        "oliguria",
+        "low urine output",
+        "decreased urine output",
+        "reduced urine output",
+        "not passing urine",
+        "anuria"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_neurologic_encephalopathy",
+      "node_type": "OrganDysfunction",
+      "name": "Neurologic dysfunction: acute encephalopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_coagulation_thrombocytopenia",
+      "node_type": "OrganDysfunction",
+      "name": "Coagulation dysfunction: thrombocytopenia or coagulopathy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_hepatic_bilirubin",
+      "node_type": "OrganDysfunction",
+      "name": "Hepatic dysfunction: hyperbilirubinemia or liver injury",
+      "synonyms": [
+        "hyperbilirubinemia",
+        "bilirubin elevated",
+        "elevated bilirubin",
+        "liver dysfunction",
+        "hepatic dysfunction"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_metabolic_lactate",
+      "node_type": "OrganDysfunction",
+      "name": "Metabolic dysfunction: elevated lactate",
+      "synonyms": [
+        "elevated lactate",
+        "high lactate",
+        "lactate high",
+        "lactic acidosis",
+        "hyperlactatemia"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "organ_dysfunction_multi_organ",
+      "node_type": "OrganDysfunction",
+      "name": "Multiple organ dysfunction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_age_elderly",
+      "node_type": "RiskFactor",
+      "name": "Older age",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_immunosuppression",
+      "node_type": "RiskFactor",
+      "name": "Immunosuppression",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_diabetes",
+      "node_type": "RiskFactor",
+      "name": "Diabetes mellitus",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_chronic_kidney_disease",
+      "node_type": "RiskFactor",
+      "name": "Chronic kidney disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_chronic_liver_disease",
+      "node_type": "RiskFactor",
+      "name": "Chronic liver disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_surgery",
+      "node_type": "RiskFactor",
+      "name": "Recent surgery or invasive procedure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_indwelling_device",
+      "node_type": "RiskFactor",
+      "name": "Indwelling vascular or urinary device",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_asplenia",
+      "node_type": "RiskFactor",
+      "name": "Asplenia or hyposplenia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_vital_signs",
+      "node_type": "DiagnosticData",
+      "name": "Complete vital signs",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_news2",
+      "node_type": "DiagnosticData",
+      "name": "NEWS2 or validated early warning score",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_cbc",
+      "node_type": "LaboratoryTest",
+      "name": "Complete blood count with platelets",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_creatinine",
+      "node_type": "LaboratoryTest",
+      "name": "Creatinine and renal function",
+      "synonyms": [
+        "acute kidney injury",
+        "AKI",
+        "renal dysfunction",
+        "kidney injury",
+        "creatinine elevated",
+        "elevated creatinine",
+        "rising creatinine"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_liver_tests",
+      "node_type": "LaboratoryTest",
+      "name": "Bilirubin and liver tests",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_coagulation",
+      "node_type": "LaboratoryTest",
+      "name": "Coagulation profile",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_lactate",
+      "node_type": "LaboratoryTest",
+      "name": "Serum lactate",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_blood_cultures",
+      "node_type": "MicrobiologyTest",
+      "name": "Blood cultures before antimicrobials when this does not cause substantial delay",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_site_cultures",
+      "node_type": "MicrobiologyTest",
+      "name": "Source-directed cultures",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_urinalysis_culture",
+      "node_type": "MicrobiologyTest",
+      "name": "Urinalysis and urine culture when urinary source suspected",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_chest_imaging",
+      "node_type": "ImagingTest",
+      "name": "Chest imaging when respiratory source suspected",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_abdominal_imaging",
+      "node_type": "ImagingTest",
+      "name": "Abdominal imaging when intra-abdominal source suspected",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_source_control_assessment",
+      "node_type": "Assessment",
+      "name": "Source control assessment",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_urgent_clinician_review",
+      "node_type": "ManagementAction",
+      "name": "Urgent senior clinician review",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_sepsis_protocol",
+      "node_type": "ManagementAction",
+      "name": "Activate local sepsis or acute deterioration protocol",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_early_antimicrobials",
+      "node_type": "ManagementAction",
+      "name": "Early empiric antimicrobials when severe infection or sepsis is likely",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_iv_fluids_if_hypoperfusion",
+      "node_type": "ManagementAction",
+      "name": "Intravenous crystalloid fluid resuscitation if hypoperfusion or shock physiology is present",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_oxygen_support",
+      "node_type": "ManagementAction",
+      "name": "Oxygen and respiratory support if hypoxemic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_escalate_care",
+      "node_type": "ManagementAction",
+      "name": "Escalate to critical care or high-dependency assessment when organ dysfunction is significant or worsening",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_source_control",
+      "node_type": "ManagementAction",
+      "name": "Early source control when an anatomical infectious focus requires drainage, removal, or procedure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_dehydration_hypovolemia",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Dehydration or noninfectious hypovolemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_cardiogenic_shock",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Cardiogenic shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pulmonary_embolism",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pulmonary embolism",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_anaphylaxis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Anaphylaxis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_dka_hhs",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Diabetic ketoacidosis or hyperosmolar hyperglycemic state",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pancreatitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Acute pancreatitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_drug_toxicity",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Drug toxicity or medication effect",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_autoimmune_inflammatory",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Autoimmune or inflammatory syndrome",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "condition_suspected_infection",
+      "relation": "required_context_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "critical",
+      "weight": 1.0,
+      "clinical_note": "The candidate should only be strongly activated when infection is suspected or confirmed.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "condition_new_organ_dysfunction",
+      "relation": "required_context_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "critical",
+      "weight": 1.0,
+      "clinical_note": "New or worsening organ dysfunction is the key differentiator from uncomplicated infection.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "overlaps_with_concept",
+      "target": "condition_sepsis3_overlap",
+      "strength": "strong",
+      "weight": 0.95,
+      "clinical_note": "This working category should trigger formal sepsis verification.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "distinguished_from",
+      "target": "condition_not_yet_shock",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "Absence of documented vasopressor requirement and post-fluid lactate criteria prevents classification as confirmed septic shock, but does not reduce urgency.",
+      "evidence_id": "evidence_septic_shock_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "symptom_fever",
+      "relation": "suggests_infection_context_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.5,
+      "clinical_note": "Fever supports infection but is not specific and may be absent.",
+      "evidence_id": "evidence_cdc_about_sepsis",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "symptom_hypothermia",
+      "relation": "red_flag_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.75,
+      "clinical_note": "Hypothermia in a suspected infection should increase concern for severe illness.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "symptom_rigors",
+      "relation": "supports_infection_context_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "Rigors may support systemic infection but cannot alone indicate organ dysfunction.",
+      "evidence_id": "evidence_cdc_about_sepsis",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "sign_altered_mental_status",
+      "relation": "indicates_possible_organ_dysfunction_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Acute confusion or reduced consciousness may represent sepsis-associated encephalopathy or hypoperfusion.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "sign_tachypnea",
+      "relation": "physiologic_deterioration_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.75,
+      "clinical_note": "Tachypnea can reflect respiratory dysfunction, metabolic acidosis, or systemic deterioration.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "sign_tachycardia",
+      "relation": "physiologic_deterioration_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "Tachycardia is supportive but nonspecific.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "sign_hypotension",
+      "relation": "red_flag_for_hypoperfusion_in",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.9,
+      "clinical_note": "Hypotension with infection suggests organ hypoperfusion and requires urgent assessment for sepsis or septic shock.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "sign_peripheral_hypoperfusion",
+      "relation": "red_flag_for_hypoperfusion_in",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Mottling, cold peripheries, or delayed capillary refill support poor perfusion.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "sign_nonblanching_rash",
+      "relation": "red_flag_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "A non-blanching rash with suspected infection should raise concern for meningococcal disease/severe sepsis.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "sign_high_news2",
+      "relation": "risk_stratifies",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.8,
+      "clinical_note": "NEWS2 or equivalent early warning score helps classify risk of severe illness in adults with suspected infection.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "organ_dysfunction_respiratory_hypoxemia",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.9,
+      "clinical_note": "New hypoxemia or oxygen requirement is a key organ dysfunction signal.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "organ_dysfunction_cardiovascular_hypotension",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.9,
+      "clinical_note": "Cardiovascular dysfunction or hypoperfusion should prompt urgent sepsis and shock assessment.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "organ_dysfunction_renal_aki",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Rising creatinine or acute kidney injury supports organ dysfunction.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "organ_dysfunction_renal_oliguria",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Reduced urine output may signal renal dysfunction or hypoperfusion.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "organ_dysfunction_neurologic_encephalopathy",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Acute encephalopathy in infection is an organ dysfunction signal.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "organ_dysfunction_coagulation_thrombocytopenia",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.8,
+      "clinical_note": "Thrombocytopenia or coagulopathy can represent sepsis-associated organ dysfunction.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "organ_dysfunction_hepatic_bilirubin",
+      "relation": "supports_candidate",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.75,
+      "clinical_note": "Hyperbilirubinemia or acute liver dysfunction can contribute to organ dysfunction scoring.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "organ_dysfunction_metabolic_lactate",
+      "relation": "supports_hypoperfusion_or_metabolic_stress_in",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Elevated lactate supports tissue hypoperfusion or severe illness but should not be interpreted in isolation.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "organ_dysfunction_multi_organ",
+      "relation": "high_priority_feature_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "critical",
+      "weight": 0.95,
+      "clinical_note": "Multiple organ dysfunction in suspected infection should be treated as very high risk.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_age_elderly",
+      "relation": "increases_vulnerability_to",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "Older adults may present atypically and deteriorate rapidly.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_immunosuppression",
+      "relation": "increases_vulnerability_to",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.7,
+      "clinical_note": "Immunosuppressed patients may have muted inflammatory signs despite severe infection.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_diabetes",
+      "relation": "risk_factor_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "Diabetes increases vulnerability to severe infection and complications.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_chronic_kidney_disease",
+      "relation": "risk_factor_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "Baseline organ dysfunction complicates interpretation and increases risk.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_chronic_liver_disease",
+      "relation": "risk_factor_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "Chronic liver disease increases infection-related risk and complicates organ dysfunction interpretation.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_recent_surgery",
+      "relation": "risk_factor_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.5,
+      "clinical_note": "Recent procedures may provide an infectious source or complication context.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_indwelling_device",
+      "relation": "risk_factor_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "moderate",
+      "weight": 0.5,
+      "clinical_note": "Indwelling devices may be infection sources.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "risk_asplenia",
+      "relation": "high_risk_context_for",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "strong",
+      "weight": 0.65,
+      "clinical_note": "Asplenia/hyposplenia increases risk of severe bacterial infection.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_initial_data",
+      "target": "test_vital_signs",
+      "strength": "critical",
+      "weight": 1.0,
+      "clinical_note": "Complete vital signs are essential for single-pass risk assessment.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "risk_stratified_by",
+      "target": "test_news2",
+      "strength": "strong",
+      "weight": 0.8,
+      "clinical_note": "NEWS2 helps stratify risk in acute hospital adults with suspected infection.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_evaluation_with",
+      "target": "test_cbc",
+      "strength": "important",
+      "weight": 0.55,
+      "clinical_note": "CBC may show leukocytosis, leukopenia, anemia, or thrombocytopenia.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_evaluation_with",
+      "target": "test_creatinine",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "Renal function is required to identify AKI and guide antimicrobial dosing.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_evaluation_with",
+      "target": "test_liver_tests",
+      "strength": "important",
+      "weight": 0.5,
+      "clinical_note": "Bilirubin and liver tests help assess hepatic dysfunction and source clues.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_evaluation_with",
+      "target": "test_coagulation",
+      "strength": "important",
+      "weight": 0.5,
+      "clinical_note": "Coagulation testing helps identify coagulation dysfunction or DIC risk.",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_evaluation_with",
+      "target": "test_lactate",
+      "strength": "strong",
+      "weight": 0.8,
+      "clinical_note": "Lactate helps identify hypoperfusion and risk, but should not be interpreted as a standalone diagnostic test.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "microbiology_recommended_when_appropriate",
+      "target": "test_blood_cultures",
+      "strength": "important",
+      "weight": 0.6,
+      "clinical_note": "Cultures should be obtained before antimicrobials when this does not substantially delay treatment.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "microbiology_recommended_when_appropriate",
+      "target": "test_site_cultures",
+      "strength": "important",
+      "weight": 0.55,
+      "clinical_note": "Source-directed cultures support diagnosis and antimicrobial de-escalation.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "source_urinary",
+      "relation": "evaluated_by",
+      "target": "test_urinalysis_culture",
+      "strength": "important",
+      "weight": 0.6,
+      "clinical_note": "Urinary source requires urine testing and culture when clinically appropriate.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "source_lung",
+      "relation": "evaluated_by",
+      "target": "test_chest_imaging",
+      "strength": "important",
+      "weight": 0.55,
+      "clinical_note": "Respiratory source may require chest imaging and respiratory sampling.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "source_abdominal",
+      "relation": "evaluated_by",
+      "target": "test_abdominal_imaging",
+      "strength": "important",
+      "weight": 0.6,
+      "clinical_note": "Abdominal source may require urgent imaging and source control planning.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "requires_assessment_for",
+      "target": "test_source_control_assessment",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "An anatomical infection focus requiring drainage, removal, or procedure should be identified early.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "guideline_recommends",
+      "target": "action_urgent_clinician_review",
+      "strength": "critical",
+      "weight": 1.0,
+      "clinical_note": "Severe infection with organ dysfunction requires urgent clinical assessment.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "guideline_recommends",
+      "target": "action_sepsis_protocol",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Local sepsis or acute deterioration pathways should be activated when criteria are met.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_severe_infection_with_organ_dysfunction",
+      "relation": "guideline_recommends_when_likely_or_high_risk",
+      "target": "action_early_antimicrobials",
+      "strength": "critical",
+      "weight": 0.95,
+      "clinical_note": "Empiric antimicrobials should not be delayed when severe infection or sepsis is likely.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "sign_hypotension",
+      "relation": "may_require",
+      "target": "action_iv_fluids_if_hypoperfusion",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Hypotension or hypoperfusion may require prompt IV crystalloid and reassessment.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "organ_dysfunction_respiratory_hypoxemia",
+      "relation": "may_require",
+      "target": "action_oxygen_support",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "Hypoxemia requires oxygen and respiratory support assessment.",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "organ_dysfunction_multi_organ",
+      "relation": "may_require",
+      "target": "action_escalate_care",
+      "strength": "critical",
+      "weight": 0.95,
+      "clinical_note": "Multiple or worsening organ dysfunction requires escalation and possible critical care involvement.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "test_source_control_assessment",
+      "relation": "may_lead_to",
+      "target": "action_source_control",
+      "strength": "strong",
+      "weight": 0.9,
+      "clinical_note": "Source control is central when an infection focus requires procedural management.",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "ddx_dehydration_hypovolemia",
+      "relation": "can_mimic",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.4,
+      "clinical_note": "Hypovolemia can cause tachycardia, hypotension, AKI, and elevated lactate without infection.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "ddx_cardiogenic_shock",
+      "relation": "can_mimic",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.45,
+      "clinical_note": "Cardiogenic shock can cause hypoperfusion and organ dysfunction; ECG, troponin, echo, and cardiac history may distinguish.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e054",
+      "source": "ddx_pulmonary_embolism",
+      "relation": "can_mimic",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.45,
+      "clinical_note": "Pulmonary embolism can cause tachycardia, tachypnea, hypoxemia, hypotension, and elevated lactate.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e055",
+      "source": "ddx_anaphylaxis",
+      "relation": "can_mimic",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.45,
+      "clinical_note": "Anaphylaxis can cause hypotension and respiratory compromise; exposure history, urticaria, angioedema, and bronchospasm help distinguish.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e056",
+      "source": "ddx_dka_hhs",
+      "relation": "can_mimic_or_coexist_with",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.4,
+      "clinical_note": "DKA/HHS can mimic infection and may be precipitated by infection.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e057",
+      "source": "ddx_pancreatitis",
+      "relation": "can_mimic_or_coexist_with",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.35,
+      "clinical_note": "Acute pancreatitis can cause systemic inflammation and organ dysfunction, with or without infection.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e058",
+      "source": "ddx_drug_toxicity",
+      "relation": "can_mimic",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.35,
+      "clinical_note": "Sedatives, opioids, beta blockers, anticholinergics, or other toxicities may mimic mental status or vital sign abnormalities.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "edge_id": "e059",
+      "source": "ddx_autoimmune_inflammatory",
+      "relation": "can_mimic",
+      "target": "disease_severe_infection_with_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.35,
+      "clinical_note": "Autoimmune or inflammatory syndromes can produce fever, organ injury, and high inflammatory markers without infection.",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "suspected_or_confirmed_infection plus at least one organ dysfunction node OR high-risk physiology node",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "P1_infection_plus_mental_status",
+            "case_features": [
+              "suspected_infection",
+              "acute_confusion_or_reduced_consciousness"
+            ],
+            "candidate_priority": "high",
+            "reason": "Possible infection-associated neurologic organ dysfunction."
+          },
+          {
+            "pattern_id": "P2_infection_plus_hypoxemia",
+            "case_features": [
+              "suspected_infection",
+              "new_hypoxemia_or_increased_oxygen_need"
+            ],
+            "candidate_priority": "high",
+            "reason": "Possible respiratory organ dysfunction in infection."
+          },
+          {
+            "pattern_id": "P3_infection_plus_hypotension_or_hypoperfusion",
+            "case_features": [
+              "suspected_infection",
+              "hypotension_or_hypoperfusion"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Possible severe infection with cardiovascular organ dysfunction; verify septic shock criteria."
+          },
+          {
+            "pattern_id": "P4_infection_plus_renal_dysfunction",
+            "case_features": [
+              "suspected_infection",
+              "oliguria_or_acute_kidney_injury"
+            ],
+            "candidate_priority": "high",
+            "reason": "Possible renal organ dysfunction."
+          },
+          {
+            "pattern_id": "P5_systemic_infection_plus_high_news2",
+            "case_features": [
+              "suspected_infection",
+              "high_NEWS2_or_equivalent_early_warning_score"
+            ],
+            "candidate_priority": "high",
+            "reason": "High physiological deterioration risk in suspected infection."
+          },
+          {
+            "pattern_id": "P6_unknown_source_plus_multiorgan_dysfunction",
+            "case_features": [
+              "possible_infection_source_unknown",
+              "two_or_more_organ_dysfunction_nodes"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Occult infection with multi-organ dysfunction must be considered."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "W1_fever_only",
+            "case_features": [
+              "fever_without_organ_dysfunction"
+            ],
+            "candidate_priority": "low",
+            "reason": "Fever alone supports infection but not severe infection with organ dysfunction."
+          },
+          {
+            "pattern_id": "W2_tachycardia_only",
+            "case_features": [
+              "tachycardia_without_infection_source_or_organ_dysfunction"
+            ],
+            "candidate_priority": "low",
+            "reason": "Tachycardia is nonspecific."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "infection_context": {
+          "weight": 0.3,
+          "features": [
+            "suspected_or_confirmed_infection",
+            "localizing_infection_source",
+            "positive_microbiology",
+            "recent_infection"
+          ]
+        },
+        "organ_dysfunction": {
+          "weight": 0.45,
+          "features": [
+            "hypoxemia",
+            "hypotension",
+            "AKI",
+            "oliguria",
+            "altered_mental_status",
+            "thrombocytopenia",
+            "hyperbilirubinemia",
+            "elevated_lactate",
+            "multi_organ_dysfunction"
+          ]
+        },
+        "physiological_deterioration": {
+          "weight": 0.15,
+          "features": [
+            "high_NEWS2",
+            "tachypnea",
+            "tachycardia",
+            "hypothermia",
+            "mottled_skin"
+          ]
+        },
+        "risk_context": {
+          "weight": 0.1,
+          "features": [
+            "older_age",
+            "immunosuppression",
+            "diabetes",
+            "CKD",
+            "liver_disease",
+            "recent_surgery",
+            "indwelling_device",
+            "asplenia"
+          ]
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_confirm_infection_context",
+      "step_type": "clinical_context_check",
+      "step_name": "",
+      "check": "Is there suspected or confirmed infection, or a plausible infectious source?",
+      "required_case_fields": [
+        "symptoms",
+        "suspected_infection_source",
+        "microbiology",
+        "imaging",
+        "history"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Continue severe infection with organ dysfunction verification.",
+      "negative_result": "Lower priority, but keep infection in differential if organ dysfunction is unexplained.",
+      "if_missing": "Mark infection source as uncertain; do not exclude severe infection solely because source is not yet identified.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_identify_organ_dysfunction",
+      "step_type": "organ_dysfunction_check",
+      "step_name": "",
+      "check": "Is there new or worsening dysfunction in respiratory, cardiovascular, renal, neurologic, coagulation, hepatic, metabolic, or multiple organ systems?",
+      "required_case_fields": [
+        "vital_signs",
+        "oxygen_requirement",
+        "mental_status",
+        "urine_output",
+        "creatinine",
+        "platelets",
+        "bilirubin",
+        "coagulation",
+        "lactate"
+      ],
+      "positive_criteria": [],
+      "positive_result": "High-priority candidate. Trigger formal sepsis verification.",
+      "negative_result": "Severe infection with organ dysfunction not established from current data; consider uncomplicated infection or missing data.",
+      "if_missing": "Mark organ dysfunction assessment incomplete; list missing organ-system data.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_risk_stratify_physiology",
+      "step_type": "early_warning_score_check",
+      "step_name": "",
+      "check": "What is the NEWS2 or equivalent early warning score, and are there single-parameter red flags?",
+      "required_case_fields": [
+        "respiratory_rate",
+        "oxygen_saturation",
+        "supplemental_oxygen",
+        "temperature",
+        "systolic_bp",
+        "heart_rate",
+        "consciousness",
+        "NEWS2"
+      ],
+      "positive_criteria": [],
+      "positive_result": "If high risk, escalate urgency and activate local acute deterioration/sepsis pathway.",
+      "negative_result": "Lower risk category does not exclude severe infection if organ dysfunction or clinical concern exists.",
+      "if_missing": "Report that risk stratification is incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_nice_ng253",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_assess_hypoperfusion_and_shock_boundary",
+      "step_type": "shock_boundary_check",
+      "step_name": "",
+      "check": "Is there hypotension, hypoperfusion, elevated lactate, fluid resuscitation status, or vasopressor requirement?",
+      "required_case_fields": [
+        "blood_pressure",
+        "MAP",
+        "capillary_refill",
+        "skin_perfusion",
+        "lactate",
+        "fluids_given",
+        "vasopressors"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Escalate and evaluate for septic shock using a separate septic shock graph.",
+      "negative_result": "Septic shock not demonstrated, but severe infection with organ dysfunction can still be present.",
+      "if_missing": "Cannot determine shock boundary; mark MAP/lactate/fluids/vasopressors as missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_septic_shock_definition",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_collect_core_labs_and_cultures",
+      "step_type": "diagnostic_workup_check",
+      "step_name": "",
+      "check": "Have key labs and appropriate microbiology samples been obtained or planned without delaying urgent treatment?",
+      "required_case_fields": [
+        "CBC",
+        "creatinine",
+        "bilirubin",
+        "coagulation",
+        "lactate",
+        "blood_cultures",
+        "site_cultures"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use data to map organ dysfunction and guide antimicrobial strategy.",
+      "negative_result": "Mark missing verification data; do not delay urgent treatment when high risk.",
+      "if_missing": "List missing labs/cultures and expected impact on verification.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_localize_infection_source",
+      "step_type": "source_identification_check",
+      "step_name": "",
+      "check": "Is the likely infection source lung, urinary, abdominal, skin/soft tissue, CNS, device-related, or unknown?",
+      "required_case_fields": [
+        "symptoms",
+        "physical_exam",
+        "urinalysis",
+        "chest_imaging",
+        "abdominal_imaging",
+        "device_history",
+        "CNS_symptoms"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Select source-specific diagnostics and consider source control.",
+      "negative_result": "Source unknown; continue broad evaluation and reassessment.",
+      "if_missing": "State that source localization is incomplete and identify missing source-specific tests.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_assess_need_for_early_antimicrobials",
+      "step_type": "management_verification",
+      "step_name": "",
+      "check": "Does the case meet severe infection or sepsis-likely criteria requiring early empiric antimicrobials?",
+      "required_case_fields": [
+        "infection_likelihood",
+        "organ_dysfunction",
+        "shock_features",
+        "time_zero",
+        "antibiotic_time"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Recommend urgent clinician-led empiric antimicrobial pathway per local policy and stewardship principles.",
+      "negative_result": "If infection probability is low, continue diagnostic evaluation and avoid unnecessary antimicrobial overuse.",
+      "if_missing": "Cannot judge antimicrobial timing; flag as critical missing management information.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_08_assess_fluid_and_organ_support_needs",
+      "step_type": "supportive_care_verification",
+      "step_name": "",
+      "check": "Is there hypoperfusion, hypoxemia, AKI, altered consciousness, or other organ support requirement?",
+      "required_case_fields": [
+        "BP",
+        "MAP",
+        "lactate",
+        "oxygen_requirement",
+        "urine_output",
+        "mental_status",
+        "organ_support"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Recommend escalation and organ-support assessment according to local protocol.",
+      "negative_result": "Continue monitoring and reassessment.",
+      "if_missing": "Support needs cannot be determined; list missing physiological data.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_09_assess_source_control",
+      "step_type": "source_control_verification",
+      "step_name": "",
+      "check": "Is there an infection focus requiring drainage, debridement, device removal, obstruction relief, or procedural control?",
+      "required_case_fields": [
+        "suspected_source",
+        "imaging",
+        "device_status",
+        "surgical_history",
+        "abdominal_findings",
+        "soft_tissue_findings"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Recommend urgent clinician-led source control assessment.",
+      "negative_result": "Continue source evaluation; absence of known source control need does not exclude severe infection.",
+      "if_missing": "Source control assessment incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_ssc_2026",
+      "attributes": []
+    },
+    {
+      "step_id": "step_10_differentiate_noninfectious_mimics",
+      "step_type": "differential_diagnosis_check",
+      "step_name": "",
+      "check": "Could the organ dysfunction be better explained by noninfectious hypovolemia, cardiogenic shock, PE, anaphylaxis, DKA/HHS, pancreatitis, drug toxicity, or inflammatory disease?",
+      "required_case_fields": [
+        "cardiac_history",
+        "ECG",
+        "troponin",
+        "glucose",
+        "ketones",
+        "lipase",
+        "exposure_history",
+        "medication_history",
+        "imaging"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing diagnoses and recommend concurrent evaluation.",
+      "negative_result": "Severe infection remains higher priority if infection plus organ dysfunction persists.",
+      "if_missing": "State differential diagnosis evaluation is incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "attributes": []
+    },
+    {
+      "step_id": "step_11_final_classification",
+      "step_type": "final_candidate_classification",
+      "step_name": "",
+      "check": "Based on available data, classify the case as high, moderate, low, or insufficient-information candidate for severe infection with organ dysfunction.",
+      "required_case_fields": [
+        "infection_context",
+        "organ_dysfunction",
+        "physiology",
+        "labs",
+        "differential_diagnosis"
+      ],
+      "positive_criteria": [],
+      "positive_result": "",
+      "negative_result": "",
+      "if_missing": "",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_sepsis3_definition",
+      "attributes": [
+        {
+          "key": "classification_rules",
+          "value": [
+            {
+              "classification": "very_high_priority_candidate",
+              "criteria": "Suspected/confirmed infection plus hypotension/hypoperfusion or multi-organ dysfunction, especially with elevated lactate or high NEWS2."
+            },
+            {
+              "classification": "high_priority_candidate",
+              "criteria": "Suspected/confirmed infection plus one organ dysfunction signal."
+            },
+            {
+              "classification": "moderate_priority_candidate",
+              "criteria": "Suspected infection with physiological deterioration but organ dysfunction not yet documented."
+            },
+            {
+              "classification": "low_priority_candidate",
+              "criteria": "Infection symptoms without organ dysfunction or significant physiological deterioration."
+            },
+            {
+              "classification": "insufficient_information",
+              "criteria": "Infection or organ dysfunction data missing to the extent that verification cannot be performed."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "DEHYDRATION_OR_NONINFECTIOUS_HYPOVOLEMIA",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Volume loss history such as vomiting, diarrhea, bleeding, or poor intake without infection source",
+        "Improvement with fluids without persistent inflammatory or infectious evidence",
+        "Absence of localizing infection signs does not exclude infection but lowers certainty"
+      ],
+      "critical_tests_or_data": [
+        "fluid balance",
+        "hemoglobin",
+        "electrolytes",
+        "infection source evaluation"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "CARDIOGENIC_SHOCK_OR_ACUTE_HEART_FAILURE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Chest pain, ischemic ECG changes, elevated troponin, pulmonary edema, reduced cardiac output",
+        "May coexist with infection; infection can precipitate heart failure"
+      ],
+      "critical_tests_or_data": [
+        "ECG",
+        "troponin",
+        "BNP/NT-proBNP when relevant",
+        "echocardiography",
+        "chest imaging"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PULMONARY_EMBOLISM",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Sudden dyspnea, pleuritic chest pain, syncope, hypoxemia, tachycardia",
+        "May produce elevated lactate and shock physiology without infection"
+      ],
+      "critical_tests_or_data": [
+        "VTE risk factors",
+        "D-dimer when appropriate",
+        "CTPA",
+        "leg ultrasound"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ANAPHYLAXIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Abrupt exposure-related onset",
+        "Urticaria, angioedema, bronchospasm, gastrointestinal symptoms",
+        "Rapid hypotension without infection prodrome"
+      ],
+      "critical_tests_or_data": [
+        "allergen exposure history",
+        "skin findings",
+        "airway exam",
+        "tryptase when relevant"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "DIABETIC_KETOACIDOSIS_OR_HYPEROSMOLAR_STATE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Hyperglycemia, ketones, metabolic acidosis, dehydration",
+        "Infection may be a trigger and can coexist"
+      ],
+      "critical_tests_or_data": [
+        "glucose",
+        "ketones",
+        "blood gas",
+        "anion gap",
+        "infection evaluation"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ACUTE_PANCREATITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Epigastric pain radiating to back, elevated lipase/amylase",
+        "Can produce SIRS and organ dysfunction without infection"
+      ],
+      "critical_tests_or_data": [
+        "lipase",
+        "abdominal imaging",
+        "gallstone/alcohol history"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "MENINGITIS_OR_ENCEPHALITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Fever with headache, neck stiffness, photophobia, rash, seizures, or altered mental status",
+        "This is an infectious source category requiring disease-specific urgent pathway"
+      ],
+      "critical_tests_or_data": [
+        "neurologic exam",
+        "blood cultures",
+        "CT head when indicated",
+        "lumbar puncture when safe",
+        "empiric therapy timing"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "NECROTIZING_SOFT_TISSUE_INFECTION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Pain out of proportion, rapidly progressive soft tissue findings, systemic toxicity",
+        "Requires urgent surgical source control consideration"
+      ],
+      "critical_tests_or_data": [
+        "skin/soft tissue exam",
+        "surgical review",
+        "imaging if it does not delay surgery",
+        "cultures"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_infection_context": [],
+      "extracted_symptoms": [],
+      "extracted_vital_signs": {},
+      "extracted_organ_dysfunction_signals": [],
+      "extracted_risk_factors": [],
+      "available_labs_and_tests": [],
+      "available_management_data": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "SEVERE_INFECTION_WITH_ORGAN_DYSFUNCTION",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "infection_source_assessment": "",
+      "organ_dysfunction_assessment": "",
+      "shock_boundary_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "does_this_meet_sepsis_overlap": "yes | no | possible | cannot_determine",
+      "does_this_meet_septic_shock_boundary": "yes | no | possible | cannot_determine",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required for suspected severe infection with organ dysfunction."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_sepsis3_definition",
+      "source_type": "consensus_definition",
+      "title": "The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3)",
+      "publisher": "JAMA / International consensus task force",
+      "publication_date": "",
+      "publication_year": "2016",
+      "url": "https://jamanetwork.com/journals/jama/fullarticle/2492881",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Sepsis is life-threatening organ dysfunction caused by a dysregulated host response to infection.",
+        "Organ dysfunction can be operationalized as an acute SOFA score increase of 2 points or more consequent to infection."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "definition",
+        "organ dysfunction verification",
+        "sepsis overlap"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_septic_shock_definition",
+      "source_type": "consensus_definition",
+      "title": "Sepsis-3 definition of septic shock",
+      "publisher": "JAMA / International consensus task force",
+      "publication_date": "",
+      "publication_year": "2016",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4968574/",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Septic shock is a subset of sepsis with profound circulatory, cellular, and metabolic abnormalities.",
+        "Clinical identification includes vasopressor requirement to maintain MAP of 65 mmHg or greater and lactate greater than 2 mmol/L despite adequate fluid resuscitation."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "shock boundary",
+        "distinction from septic shock"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_ssc_2026",
+      "source_type": "guideline",
+      "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026",
+      "publisher": "Society of Critical Care Medicine / European Society of Intensive Care Medicine",
+      "publication_date": "2026-03-23",
+      "publication_year": "",
+      "url": "https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Supports timely recognition, antimicrobial stewardship, diagnostic strategies, de-escalation, hemodynamic support, and source control principles for adult sepsis care.",
+        "Used here for early management and verification pathway elements, not to generate autonomous orders."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "antimicrobials",
+        "cultures",
+        "lactate",
+        "fluids",
+        "source control",
+        "escalation"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_nice_ng253",
+      "source_type": "guideline",
+      "title": "NICE NG253: Suspected sepsis in people aged 16 or over: recognition, diagnosis and early management",
+      "publisher": "National Institute for Health and Care Excellence",
+      "publication_date": "",
+      "publication_year": "",
+      "url": "https://www.nice.org.uk/guidance/ng253",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Provides adult suspected sepsis recognition and risk stratification guidance.",
+        "Uses NEWS2 and clinical features to classify risk of severe illness or death from sepsis in acute hospital settings."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "NEWS2",
+        "risk stratification",
+        "red flags",
+        "single-pass missing data handling"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": [
+        {
+          "key": "latest_accessed_context_date",
+          "value": "2026-06-17"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence_cdc_about_sepsis",
+      "source_type": "public_health_reference",
+      "title": "About Sepsis",
+      "publisher": "Centers for Disease Control and Prevention",
+      "publication_date": "",
+      "publication_year": "",
+      "url": "https://www.cdc.gov/sepsis/about/index.html",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Sepsis is a life-threatening medical emergency triggered by infection and can lead to tissue damage, organ failure, and death without fast treatment.",
+        "Common infection sources include gastrointestinal, lung, skin, and urinary tract sources."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "basic_info",
+        "infection source context",
+        "high-risk framing"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_safety_clinical_reasoning",
+      "source_type": "clinical_safety_logic",
+      "title": "Internal safety logic for differential diagnosis and non-autonomous clinical decision support",
+      "publisher": "Project-specific knowledge engineering rule",
+      "publication_date": "",
+      "publication_year": "",
+      "url": "",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Physiological deterioration and organ dysfunction may be caused by infectious or noninfectious conditions.",
+        "The graph should report competing diagnoses and missing information rather than force a single diagnosis."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [
+        "differential diagnosis",
+        "safety constraints",
+        "output limitations"
+      ],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not diagnose severe infection, sepsis, or septic shock from fever alone.",
+      "Do not exclude severe infection because fever is absent.",
+      "Do not exclude severe infection from a normal white blood cell count alone.",
+      "Do not use qSOFA, NEWS2, lactate, CRP, procalcitonin, or any single marker as a standalone rule-in or rule-out tool.",
+      "Do not classify as septic shock unless shock boundary data support it or explicitly mark as possible/cannot determine.",
+      "Do not recommend delaying urgent antimicrobials in a high-risk case solely to obtain cultures.",
+      "Do not provide patient-facing reassurance when organ dysfunction data are missing."
+    ],
+    "must_do": [
+      "Always separate infection evidence from organ dysfunction evidence.",
+      "Always list critical missing data when verification cannot be completed.",
+      "Always state whether the case overlaps with sepsis and whether septic shock criteria are met, possible, or cannot be determined.",
+      "Always include differential diagnoses that can mimic infection-associated organ dysfunction.",
+      "Always include source traceability for guideline-based claims.",
+      "Always mark output as clinical decision support requiring clinician review."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "emergency physician",
+        "critical care physician",
+        "infectious diseases physician",
+        "clinical informatician",
+        "local antimicrobial stewardship lead"
+      ],
+      "localization_required": [
+        "local sepsis protocol",
+        "local antimicrobial formulary",
+        "local NEWS2/early warning score policy",
+        "local blood culture and microbiology workflow",
+        "local critical care escalation criteria"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 16,
+    "preserved_graph_nodes": 76,
+    "preserved_graph_edges": 59
+  }
+}

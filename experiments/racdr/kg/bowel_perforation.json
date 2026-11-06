@@ -1,0 +1,2317 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_BOWEL_PERFORATION_ADULT",
+  "file_name": "bowel_perforation.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Bowel Perforation.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "BOWEL_PERFORATION",
+  "disease_name_en": "Bowel Perforation",
+  "aliases": [
+    "Gastrointestinal perforation",
+    "Perforated viscus",
+    "Hollow viscus perforation",
+    "Perforated bowel"
+  ],
+  "disease_category": "abdominal_surgical_emergency",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "COMPLICATED_INTRA_ABDOMINAL_INFECTION",
+      "SEPSIS",
+      "PERITONITIS"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [],
+    "boundary_note": "This graph targets suspected bowel/hollow viscus perforation. Etiology-specific pathways such as perforated peptic ulcer, diverticulitis, appendicitis, ischemic bowel, trauma, or iatrogenic perforation should be loaded when identified.",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Bowel perforation is a full-thickness breach of the gastrointestinal wall allowing gas, enteric contents, or infection to enter the peritoneal or adjacent spaces.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Early symptoms may be nonspecific, especially in older, immunosuppressed, or steroid-treated patients.",
+      "Free air may be absent depending on location, sealed perforation, or imaging timing.",
+      "Perforation can mimic gastroenteritis, pancreatitis, biliary disease, renal colic, obstruction, mesenteric ischemia, or sepsis of unclear source.",
+      "Delayed source control can lead to peritonitis, sepsis, shock, and death."
+    ],
+    "clinical_priority": "emergency",
+    "time_sensitivity": "Suspected perforated viscus with peritonitis, sepsis, free air, or hemodynamic instability requires urgent surgical evaluation, broad-spectrum antimicrobial pathway, resuscitation, and source-control assessment.",
+    "do_not_use_as": [
+      "a surgical consent tool",
+      "a substitute for CT interpretation",
+      "an antibiotic order generator"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_sudden_severe_abdominal_pain",
+        "input_terms": [
+          "sudden severe abdominal pain",
+          "acute severe abdominal pain",
+          "severe abd pain",
+          "acute abdomen",
+          "sharp abdominal pain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "sudden_severe_abdominal_pain",
+        "normalized_node_id": "symptom_sudden_severe_abdominal_pain",
+        "normalized_node": "Sudden severe abdominal pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_diffuse_abdominal_pain",
+        "input_terms": [
+          "diffuse abdominal pain",
+          "generalized abdominal pain",
+          "whole abdomen pain",
+          "abdominal pain throughout"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "diffuse_abdominal_pain",
+        "normalized_node_id": "symptom_diffuse_abdominal_pain",
+        "normalized_node": "Diffuse abdominal pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_peritonitis",
+        "input_terms": [
+          "peritonitis",
+          "peritoneal signs",
+          "acute abdomen",
+          "surgical abdomen"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "peritonitis_suspected",
+        "normalized_node_id": "context_peritonitis_suspected",
+        "normalized_node": "Peritonitis suspected",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_guarding",
+        "input_terms": [
+          "guarding",
+          "abdominal guarding",
+          "involuntary guarding"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "guarding",
+        "normalized_node_id": "sign_guarding",
+        "normalized_node": "Guarding",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_rigidity",
+        "input_terms": [
+          "rigidity",
+          "board-like abdomen",
+          "rigid abdomen",
+          "abdominal rigidity"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "rigidity",
+        "normalized_node_id": "sign_rigidity",
+        "normalized_node": "Rigidity",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_rebound_tenderness",
+        "input_terms": [
+          "rebound tenderness",
+          "rebound",
+          "peritoneal rebound"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "rebound_tenderness",
+        "normalized_node_id": "sign_rebound_tenderness",
+        "normalized_node": "Rebound tenderness",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_free_air_pneumoperitoneum",
+        "input_terms": [
+          "free air",
+          "pneumoperitoneum",
+          "free intraperitoneal air",
+          "air under diaphragm",
+          "extraluminal air"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "pneumoperitoneum",
+        "normalized_node_id": "test_upright_chest_radiograph_or_abdominal_radiograph_for_free_air_when_ct_delayed_un",
+        "normalized_node": "Upright chest radiograph or abdominal radiograph for free air when CT delayed/unavailable",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_bowel_wall_defect",
+        "input_terms": [
+          "bowel wall defect",
+          "focal bowel wall defect",
+          "perforation seen",
+          "contrast leak",
+          "extraluminal contrast"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "bowel_wall_defect",
+        "normalized_node_id": "finding_focal_bowel_wall_defect",
+        "normalized_node": "Focal bowel wall defect",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_sepsis_physiology",
+        "input_terms": [
+          "tachycardia",
+          "tachycardic",
+          "fast heart rate",
+          "rapid heart rate",
+          "elevated heart rate",
+          "high heart rate",
+          "HR high",
+          "pulse high",
+          "hypotension",
+          "hypotensive",
+          "low blood pressure",
+          "low BP",
+          "SBP low",
+          "MAP low",
+          "shock",
+          "hemodynamic instability",
+          "hemodynamically unstable",
+          "fever",
+          "febrile",
+          "pyrexia",
+          "high temperature",
+          "chills",
+          "rigors",
+          "shaking chills"
+        ],
+        "input_variants": [
+          "HR >100",
+          "heart rate >100",
+          "pulse >100",
+          "HR 100",
+          "HR 110",
+          "HR 120",
+          "pulse 110",
+          "pulse 120",
+          "SBP <90",
+          "systolic BP <90",
+          "MAP <65",
+          "BP 82/48",
+          "BP 80/40",
+          "blood pressure 82/48",
+          "T >38",
+          "temperature >38",
+          "temp 38",
+          "temp 39",
+          "temperature 101",
+          "temperature 102",
+          "febrile to"
+        ],
+        "normalized_case_fact": "sepsis_physiology",
+        "normalized_node_id": "sign_sepsis_physiology",
+        "normalized_node": "Sepsis physiology",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_elevated_lactate",
+        "input_terms": [
+          "elevated lactate",
+          "high lactate",
+          "lactate high",
+          "lactic acidosis",
+          "hyperlactatemia",
+          "metabolic acidosis",
+          "acidemia",
+          "low pH",
+          "anion gap metabolic acidosis"
+        ],
+        "input_variants": [
+          "lactate >2",
+          "lactate greater than 2",
+          "lactate 3",
+          "lactate 4",
+          "lactate 4.5",
+          "lactate >=4",
+          "pH <7.35",
+          "pH 7.2",
+          "bicarbonate low",
+          "HCO3 low"
+        ],
+        "normalized_case_fact": "elevated_lactate",
+        "normalized_node_id": "finding_elevated_lactate_or_metabolic_acidosis",
+        "normalized_node": "Elevated lactate or metabolic acidosis",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_recent_endoscopy_or_procedure",
+        "input_terms": [
+          "recent colonoscopy",
+          "recent endoscopy",
+          "post colonoscopy",
+          "post endoscopy",
+          "recent abdominal procedure",
+          "recent surgery"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "recent_abdominal_procedure",
+        "normalized_node_id": "symptom_recent_endoscopy_or_abdominal_procedure",
+        "normalized_node": "Recent endoscopy or abdominal procedure",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_steroid_or_immunosuppression",
+        "input_terms": [
+          "steroid use",
+          "corticosteroids",
+          "prednisone",
+          "immunosuppressed",
+          "immunocompromised"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "immunosuppression_or_steroid_use",
+        "normalized_node_id": "risk_corticosteroid_use",
+        "normalized_node": "Corticosteroid use",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_bowel_perforation",
+      "node_type": "DiseaseCandidate",
+      "name": "Bowel Perforation",
+      "synonyms": [
+        "Gastrointestinal perforation",
+        "Perforated viscus",
+        "Hollow viscus perforation",
+        "Perforated bowel"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_acute_abdomen",
+      "node_type": "ClinicalContext",
+      "name": "Acute abdomen",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_peritonitis_suspected",
+      "node_type": "ClinicalContext",
+      "name": "Peritonitis suspected",
+      "synonyms": [
+        "peritonitis",
+        "peritoneal signs",
+        "acute abdomen",
+        "surgical abdomen"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_intra_abdominal_sepsis",
+      "node_type": "ClinicalContext",
+      "name": "Intra-abdominal sepsis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_possible_surgical_source_control_required",
+      "node_type": "ClinicalContext",
+      "name": "Possible surgical source control required",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_sudden_severe_abdominal_pain",
+      "node_type": "Symptom",
+      "name": "Sudden severe abdominal pain",
+      "synonyms": [
+        "sudden severe abdominal pain",
+        "acute severe abdominal pain",
+        "severe abd pain",
+        "acute abdomen",
+        "sharp abdominal pain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_diffuse_abdominal_pain",
+      "node_type": "Symptom",
+      "name": "Diffuse abdominal pain",
+      "synonyms": [
+        "diffuse abdominal pain",
+        "generalized abdominal pain",
+        "whole abdomen pain",
+        "abdominal pain throughout"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_pain_worsening_with_movement",
+      "node_type": "Symptom",
+      "name": "Pain worsening with movement",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_vomiting",
+      "node_type": "Symptom",
+      "name": "Vomiting",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_abdominal_distension",
+      "node_type": "Symptom",
+      "name": "Abdominal distension",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_fever_or_rigors",
+      "node_type": "Symptom",
+      "name": "Fever or rigors",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_anorexia",
+      "node_type": "Symptom",
+      "name": "Anorexia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_shoulder_tip_pain",
+      "node_type": "Symptom",
+      "name": "Shoulder tip pain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_recent_endoscopy_or_abdominal_procedure",
+      "node_type": "Symptom",
+      "name": "Recent endoscopy or abdominal procedure",
+      "synonyms": [
+        "recent colonoscopy",
+        "recent endoscopy",
+        "post colonoscopy",
+        "post endoscopy",
+        "recent abdominal procedure",
+        "recent surgery"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_change_in_bowel_habits_or_obstruction_symptoms",
+      "node_type": "Symptom",
+      "name": "Change in bowel habits or obstruction symptoms",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_guarding",
+      "node_type": "Sign",
+      "name": "Guarding",
+      "synonyms": [
+        "guarding",
+        "abdominal guarding",
+        "involuntary guarding"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_rigidity",
+      "node_type": "Sign",
+      "name": "Rigidity",
+      "synonyms": [
+        "rigidity",
+        "board-like abdomen",
+        "rigid abdomen",
+        "abdominal rigidity"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_rebound_tenderness",
+      "node_type": "Sign",
+      "name": "Rebound tenderness",
+      "synonyms": [
+        "rebound tenderness",
+        "rebound",
+        "peritoneal rebound"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_generalized_peritonitis",
+      "node_type": "Sign",
+      "name": "Generalized peritonitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_tachycardia",
+      "node_type": "Sign",
+      "name": "Tachycardia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypotension_or_shock",
+      "node_type": "Sign",
+      "name": "Hypotension or shock",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_fever_or_hypothermia",
+      "node_type": "Sign",
+      "name": "Fever or hypothermia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_absent_bowel_sounds",
+      "node_type": "Sign",
+      "name": "Absent bowel sounds",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_sepsis_physiology",
+      "node_type": "Sign",
+      "name": "Sepsis physiology",
+      "synonyms": [
+        "tachycardia",
+        "tachycardic",
+        "fast heart rate",
+        "rapid heart rate",
+        "elevated heart rate",
+        "high heart rate",
+        "HR high",
+        "pulse high",
+        "hypotension",
+        "hypotensive"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_abdominal_tenderness_out_of_proportion",
+      "node_type": "Sign",
+      "name": "Abdominal tenderness out of proportion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_diverticulitis",
+      "node_type": "RiskFactor",
+      "name": "Known diverticulitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_peptic_ulcer_disease",
+      "node_type": "RiskFactor",
+      "name": "Peptic ulcer disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_nsaid_use",
+      "node_type": "RiskFactor",
+      "name": "NSAID use",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_corticosteroid_use",
+      "node_type": "RiskFactor",
+      "name": "Corticosteroid use",
+      "synonyms": [
+        "steroid use",
+        "corticosteroids",
+        "prednisone",
+        "immunosuppressed",
+        "immunocompromised"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_chemotherapy_or_immunosuppression",
+      "node_type": "RiskFactor",
+      "name": "Chemotherapy or immunosuppression",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_inflammatory_bowel_disease",
+      "node_type": "RiskFactor",
+      "name": "Inflammatory bowel disease",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_bowel_obstruction",
+      "node_type": "RiskFactor",
+      "name": "Bowel obstruction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_foreign_body_ingestion_or_insertion",
+      "node_type": "RiskFactor",
+      "name": "Foreign body ingestion or insertion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_abdominal_trauma",
+      "node_type": "RiskFactor",
+      "name": "Abdominal trauma",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_colonoscopy_or_endoscopy",
+      "node_type": "RiskFactor",
+      "name": "Recent colonoscopy or endoscopy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_or_suspected_malignancy",
+      "node_type": "RiskFactor",
+      "name": "Known or suspected malignancy",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_bowel_ischemia_risk",
+      "node_type": "RiskFactor",
+      "name": "Bowel ischemia risk",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ct_abdomen_and_pelvis_with_iv_contrast_when_appropriate",
+      "node_type": "DiagnosticData",
+      "name": "CT abdomen and pelvis with IV contrast when appropriate",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_upright_chest_radiograph_or_abdominal_radiograph_for_free_air_when_ct_delayed_un",
+      "node_type": "DiagnosticData",
+      "name": "Upright chest radiograph or abdominal radiograph for free air when CT delayed/unavailable",
+      "synonyms": [
+        "free air",
+        "pneumoperitoneum",
+        "free intraperitoneal air",
+        "air under diaphragm",
+        "extraluminal air"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_complete_blood_count",
+      "node_type": "DiagnosticData",
+      "name": "Complete blood count",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_electrolytes_and_renal_function",
+      "node_type": "DiagnosticData",
+      "name": "Electrolytes and renal function",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_serum_lactate",
+      "node_type": "DiagnosticData",
+      "name": "Serum lactate",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_blood_cultures_when_septic",
+      "node_type": "DiagnosticData",
+      "name": "Blood cultures when septic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_pregnancy_test_when_applicable",
+      "node_type": "DiagnosticData",
+      "name": "Pregnancy test when applicable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_lipase_and_liver_tests_for_mimics",
+      "node_type": "DiagnosticData",
+      "name": "Lipase and liver tests for mimics",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_surgical_consultation",
+      "node_type": "DiagnosticData",
+      "name": "Surgical consultation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_sepsis_assessment",
+      "node_type": "DiagnosticData",
+      "name": "Sepsis assessment",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_free_intraperitoneal_air",
+      "node_type": "Finding",
+      "name": "Free intraperitoneal air",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_extraluminal_contrast",
+      "node_type": "Finding",
+      "name": "Extraluminal contrast",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_focal_bowel_wall_defect",
+      "node_type": "Finding",
+      "name": "Focal bowel wall defect",
+      "synonyms": [
+        "bowel wall defect",
+        "focal bowel wall defect",
+        "perforation seen",
+        "contrast leak",
+        "extraluminal contrast"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_localized_abscess_or_phlegmon",
+      "node_type": "Finding",
+      "name": "Localized abscess or phlegmon",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_diffuse_peritonitis",
+      "node_type": "Finding",
+      "name": "Diffuse peritonitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_pneumoretroperitoneum",
+      "node_type": "Finding",
+      "name": "Pneumoretroperitoneum",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_portal_venous_gas_or_pneumatosis_in_ischemic_context",
+      "node_type": "Finding",
+      "name": "Portal venous gas or pneumatosis in ischemic context",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_elevated_lactate_or_metabolic_acidosis",
+      "node_type": "Finding",
+      "name": "Elevated lactate or metabolic acidosis",
+      "synonyms": [
+        "elevated lactate",
+        "high lactate",
+        "lactate high",
+        "lactic acidosis",
+        "hyperlactatemia",
+        "metabolic acidosis",
+        "acidemia",
+        "low pH",
+        "anion gap metabolic acidosis"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_leukocytosis_or_leukopenia",
+      "node_type": "Finding",
+      "name": "Leukocytosis or leukopenia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_septic_shock_physiology",
+      "node_type": "Finding",
+      "name": "Septic shock physiology",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_acute_surgical_abdomen_pathway",
+      "node_type": "ManagementAction",
+      "name": "Activate acute surgical abdomen pathway",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_urgent_surgical_consultation",
+      "node_type": "ManagementAction",
+      "name": "Urgent surgical consultation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_broad_spectrum_antimicrobial_pathway_for_suspected_complicated_intra_abdominal_i",
+      "node_type": "ManagementAction",
+      "name": "Broad-spectrum antimicrobial pathway for suspected complicated intra-abdominal infection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_fluid_resuscitation_for_sepsis_or_hypoperfusion",
+      "node_type": "ManagementAction",
+      "name": "Fluid resuscitation for sepsis or hypoperfusion",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_source_control_assessment",
+      "node_type": "ManagementAction",
+      "name": "Source control assessment",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_nil_per_os_and_supportive_care_per_local_protocol",
+      "node_type": "ManagementAction",
+      "name": "Nil per os and supportive care per local protocol",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_critical_care_escalation_if_shock_or_organ_dysfunction",
+      "node_type": "ManagementAction",
+      "name": "Critical care escalation if shock or organ dysfunction",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_do_not_delay_surgery_source_control_in_unstable_peritonitis",
+      "node_type": "ManagementAction",
+      "name": "Do not delay surgery/source control in unstable peritonitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_mesenteric_ischemia",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Mesenteric ischemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_bowel_obstruction_without_perforation",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Bowel obstruction without perforation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_acute_pancreatitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Acute pancreatitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_acute_cholecystitis_or_cholangitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Acute cholecystitis or cholangitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_appendicitis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Appendicitis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_diverticulitis_without_free_perforation",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Diverticulitis without free perforation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_abdominal_aortic_aneurysm_rupture",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Abdominal aortic aneurysm rupture",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_renal_colic",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Renal colic",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_diabetic_ketoacidosis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Diabetic ketoacidosis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_gastroenteritis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Gastroenteritis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_bowel_perforation",
+      "relation": "has_clinical_context",
+      "target": "context_acute_abdomen",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_bowel_perforation",
+      "relation": "has_clinical_context",
+      "target": "context_peritonitis_suspected",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_bowel_perforation",
+      "relation": "has_clinical_context",
+      "target": "context_intra_abdominal_sepsis",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_bowel_perforation",
+      "relation": "has_clinical_context",
+      "target": "context_possible_surgical_source_control_required",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_sudden_severe_abdominal_pain",
+      "strength": "strong",
+      "weight": 0.85,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_diffuse_abdominal_pain",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_pain_worsening_with_movement",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_vomiting",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_abdominal_distension",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_fever_or_rigors",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_anorexia",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_shoulder_tip_pain",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_recent_endoscopy_or_abdominal_procedure",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_bowel_perforation",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_change_in_bowel_habits_or_obstruction_symptoms",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Bowel Perforation, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_guarding",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_rigidity",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_rebound_tenderness",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_generalized_peritonitis",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_tachycardia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hypotension_or_shock",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_fever_or_hypothermia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_absent_bowel_sounds",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_sepsis_physiology",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_abdominal_tenderness_out_of_proportion",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Bowel Perforation or severity.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_known_diverticulitis",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_peptic_ulcer_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_nsaid_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_corticosteroid_use",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_chemotherapy_or_immunosuppression",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_inflammatory_bowel_disease",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "risk_bowel_obstruction",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "risk_foreign_body_ingestion_or_insertion",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "risk_abdominal_trauma",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "risk_recent_colonoscopy_or_endoscopy",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "risk_known_or_suspected_malignancy",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "risk_bowel_ischemia_risk",
+      "relation": "increases_suspicion_for",
+      "target": "disease_bowel_perforation",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Bowel Perforation in the appropriate clinical context.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ct_abdomen_and_pelvis_with_iv_contrast_when_appropriate",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_upright_chest_radiograph_or_abdominal_radiograph_for_free_air_when_ct_delayed_un",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_complete_blood_count",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_electrolytes_and_renal_function",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_serum_lactate",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_blood_cultures_when_septic",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_pregnancy_test_when_applicable",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_lipase_and_liver_tests_for_mimics",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_surgical_consultation",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_bowel_perforation",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_sepsis_assessment",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Bowel Perforation.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_free_intraperitoneal_air",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_extraluminal_contrast",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_focal_bowel_wall_defect",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_localized_abscess_or_phlegmon",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_diffuse_peritonitis",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_pneumoretroperitoneum",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_portal_venous_gas_or_pneumatosis_in_ischemic_context",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e054",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_elevated_lactate_or_metabolic_acidosis",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e055",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_leukocytosis_or_leukopenia",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e056",
+      "source": "disease_bowel_perforation",
+      "relation": "has_supporting_finding",
+      "target": "finding_septic_shock_physiology",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Bowel Perforation or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e057",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_acute_surgical_abdomen_pathway",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e058",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_urgent_surgical_consultation",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e059",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_broad_spectrum_antimicrobial_pathway_for_suspected_complicated_intra_abdominal_i",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e060",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_fluid_resuscitation_for_sepsis_or_hypoperfusion",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e061",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_source_control_assessment",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e062",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_nil_per_os_and_supportive_care_per_local_protocol",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e063",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_critical_care_escalation_if_shock_or_organ_dysfunction",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "edge_id": "e064",
+      "source": "disease_bowel_perforation",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_do_not_delay_surgery_source_control_in_unstable_peritonitis",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Bowel Perforation is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Acute severe abdominal pain, peritonitis, sepsis with abdominal source, free air/extraluminal gas, or high-risk perforation context.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "BP_P1_peritonitis",
+            "case_features": [
+              "severe abdominal pain",
+              "guarding/rigidity/rebound"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Peritonitis pattern suggesting perforation or surgical abdomen."
+          },
+          {
+            "pattern_id": "BP_P2_free_air",
+            "case_features": [
+              "free intraperitoneal air",
+              "abdominal pain"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Imaging evidence strongly supports perforated viscus until proven otherwise."
+          },
+          {
+            "pattern_id": "BP_P3_sepsis_abdomen",
+            "case_features": [
+              "sepsis physiology",
+              "abdominal tenderness/distension"
+            ],
+            "candidate_priority": "high",
+            "reason": "Possible intra-abdominal source requiring source control."
+          },
+          {
+            "pattern_id": "BP_P4_procedure_risk",
+            "case_features": [
+              "recent endoscopy/procedure/trauma",
+              "abdominal pain"
+            ],
+            "candidate_priority": "high",
+            "reason": "Iatrogenic or traumatic perforation risk."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "BP_W1_abdominal_pain_only",
+            "case_features": [
+              "abdominal pain without peritonitis, sepsis, risk factors, or imaging"
+            ],
+            "candidate_priority": "low_to_moderate",
+            "reason": "Abdominal pain is nonspecific."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_recognize_surgical_abdomen",
+      "step_type": "presentation_check",
+      "step_name": "",
+      "check": "Are acute abdomen, peritonitis, sepsis, or perforation risk factors present?",
+      "required_case_fields": [
+        "pain_onset",
+        "abdominal_exam",
+        "vitals",
+        "risk_factors"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Urgent surgical/perforation pathway.",
+      "negative_result": "Lower priority but continue if high-risk context.",
+      "if_missing": "Abdominal exam/vitals missing; cannot safely down-rank.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_assess_instability_sepsis",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "Are hypotension, tachycardia, fever/hypothermia, elevated lactate, organ dysfunction, or shock present?",
+      "required_case_fields": [
+        "vitals",
+        "lactate",
+        "organ_function",
+        "mental_status",
+        "urine_output"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Escalate resuscitation, sepsis, and surgical source-control urgency.",
+      "negative_result": "Continue diagnostic pathway.",
+      "if_missing": "Severity incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_imaging",
+      "step_type": "imaging_check",
+      "step_name": "",
+      "check": "Is CT abdomen/pelvis or other imaging available to evaluate free air, perforation site, abscess, obstruction, or ischemia?",
+      "required_case_fields": [
+        "CT_abdomen_pelvis",
+        "radiograph",
+        "ultrasound"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Support diagnosis and source-control planning.",
+      "negative_result": "If imaging negative but peritonitis persists, surgical assessment remains important.",
+      "if_missing": "Perforation cannot be confirmed/excluded without appropriate imaging and clinical judgment.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_iai_update",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_labs_microbiology",
+      "step_type": "diagnostic_workup_check",
+      "step_name": "",
+      "check": "Are labs and cultures available to evaluate infection, organ dysfunction, and operative risk?",
+      "required_case_fields": [
+        "CBC",
+        "renal_function",
+        "electrolytes",
+        "lactate",
+        "cultures_if_septic"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use data for severity and antimicrobial/source control planning.",
+      "negative_result": "Normal labs do not exclude early perforation.",
+      "if_missing": "Labs missing; severity incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_idsa_iai_update",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_source_control_assessment",
+      "step_type": "source_control_check",
+      "step_name": "",
+      "check": "Is there a source requiring surgery, drainage, repair, resection, or device/foreign body management?",
+      "required_case_fields": [
+        "imaging",
+        "exam",
+        "surgical_history",
+        "hemodynamics"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Flag urgent source-control consultation.",
+      "negative_result": "Nonoperative management may be considered only in selected stable contained cases by specialists.",
+      "if_missing": "Source-control need cannot be determined.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_antimicrobial_pathway",
+      "step_type": "management_check",
+      "step_name": "",
+      "check": "Is complicated intra-abdominal infection likely requiring broad-spectrum antimicrobial pathway?",
+      "required_case_fields": [
+        "perforation_likelihood",
+        "sepsis",
+        "source",
+        "antibiotic_time"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Recommend clinician-led antimicrobial pathway.",
+      "negative_result": "Avoid unnecessary broad treatment if perforation/infection unlikely.",
+      "if_missing": "Antimicrobial status missing.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    },
+    {
+      "step_id": "step_07_etiology_and_location",
+      "step_type": "etiology_check",
+      "step_name": "",
+      "check": "Can the likely cause/location be identified: peptic ulcer, diverticulitis, appendicitis, ischemia, obstruction, IBD, malignancy, trauma, or iatrogenic?",
+      "required_case_fields": [
+        "history",
+        "CT_findings",
+        "procedure_history",
+        "medications"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Load etiology-specific graph/pathway if available.",
+      "negative_result": "Etiology unknown; continue surgical evaluation.",
+      "if_missing": "Etiology incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_statpearls_bowel_2025",
+      "attributes": []
+    },
+    {
+      "step_id": "step_08_differential_check",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Could mesenteric ischemia, pancreatitis, obstruction, AAA rupture, renal colic, DKA, or gastroenteritis explain the presentation?",
+      "required_case_fields": [
+        "lactate",
+        "lipase",
+        "CTA",
+        "urinalysis",
+        "glucose",
+        "imaging"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing diagnoses; some require equally urgent action.",
+      "negative_result": "Perforation remains likely if peritonitis/free air/source evidence present.",
+      "if_missing": "Differential incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_wses_iai_2017",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "MESENTERIC_ISCHEMIA",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Pain out of proportion, atrial fibrillation/vascular risk, elevated lactate; can progress to perforation."
+      ],
+      "critical_tests_or_data": [
+        "CTA abdomen",
+        "lactate",
+        "surgical consult"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "BOWEL_OBSTRUCTION_WITHOUT_PERFORATION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Distension, vomiting, obstipation; perforation risk if strangulated/closed-loop."
+      ],
+      "critical_tests_or_data": [
+        "CT abdomen",
+        "lactate"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ACUTE_PANCREATITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Epigastric pain radiating to back, high lipase; can cause SIRS without perforation."
+      ],
+      "critical_tests_or_data": [
+        "lipase",
+        "CT/US"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "CHOLECYSTITIS_OR_CHOLANGITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "RUQ pain, jaundice, fever, abnormal LFTs."
+      ],
+      "critical_tests_or_data": [
+        "LFTs",
+        "RUQ ultrasound",
+        "CT/MRCP"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "APPENDICITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "RLQ pain, fever, leukocytosis; perforated appendicitis is a source subtype."
+      ],
+      "critical_tests_or_data": [
+        "CT/US",
+        "surgical review"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ABDOMINAL_AORTIC_ANEURYSM_RUPTURE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Back/abdominal pain, shock, pulsatile mass; catastrophic vascular mimic."
+      ],
+      "critical_tests_or_data": [
+        "bedside ultrasound",
+        "CTA"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "RENAL_COLIC_OR_PYELONEPHRITIS",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Flank pain, urinary symptoms; sepsis possible in infected obstruction."
+      ],
+      "critical_tests_or_data": [
+        "urinalysis",
+        "CT KUB/abdomen",
+        "renal ultrasound"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "BOWEL_PERFORATION",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_wses_iai_2017",
+      "source_type": "guideline",
+      "title": "2017 WSES guidelines for management of intra-abdominal infections",
+      "publisher": "World Society of Emergency Surgery",
+      "publication_date": "2017",
+      "publication_year": "",
+      "url": "https://link.springer.com/article/10.1186/s13017-017-0141-6",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Management of complicated intra-abdominal infections involves source control and antibiotic therapy.",
+        "Used here for bowel perforation-related peritonitis, urgent surgical assessment, antimicrobial therapy, and source control principles."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_idsa_iai_update",
+      "source_type": "guideline_update",
+      "title": "IDSA guideline update on complicated intra-abdominal infections: risk assessment, diagnostic imaging, and microbiological evaluation",
+      "publisher": "Infectious Diseases Society of America",
+      "publication_date": "2024/2025 update context",
+      "publication_year": "",
+      "url": "https://www.idsociety.org/practice-guideline/intra-abdominal-infections/",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Updated recommendations span risk assessment, diagnostic imaging, and microbiological evaluation for complicated intra-abdominal infections.",
+        "Used here for imaging, microbiology, and risk-assessment elements related to suspected bowel perforation and intra-abdominal sepsis."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    },
+    {
+      "evidence_id": "evidence_statpearls_bowel_2025",
+      "source_type": "clinical_reference",
+      "title": "Bowel Perforation",
+      "publisher": "StatPearls / NCBI Bookshelf",
+      "publication_date": "2025",
+      "publication_year": "",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK537224/",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Risk history includes obstruction, malignancy, foreign body, abdominal trauma, NSAIDs, corticosteroids, and chemotherapy.",
+        "Used for broad risk-factor and presentation nodes, supplemented by surgical/infectious disease guidelines."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not exclude perforation because free air is absent on plain radiograph.",
+      "Do not delay surgical consultation in unstable peritonitis while waiting for complete labs.",
+      "Do not label severe abdominal pain with peritonitis as gastroenteritis without imaging/surgical assessment."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always assess peritonitis, sepsis/shock, imaging status, and source-control need.",
+      "Always list medication/procedure risk factors such as NSAIDs, steroids, chemo, endoscopy, or trauma."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 12,
+    "preserved_graph_nodes": 75,
+    "preserved_graph_edges": 64
+  }
+}

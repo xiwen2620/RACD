@@ -1,0 +1,2127 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_graph_id": "KG_PULMONARY_EMBOLISM_ADULT",
+  "file_name": "pulmonary_embolism.json",
+  "language": "en",
+  "generated_at_utc": "2026-06-17T13:22:27.993103+00:00",
+  "clinical_scope": {
+    "population": "Adults and young people aged 16 years or older unless otherwise specified by local protocol",
+    "setting": [
+      "emergency department",
+      "urgent care",
+      "inpatient deterioration",
+      "prehospital triage"
+    ],
+    "excluded_populations": [
+      "neonates",
+      "pediatric specialty pathways unless explicitly validated",
+      "pregnancy-specific pathways unless explicitly validated"
+    ],
+    "diagnostic_mode": "single_pass_case_analysis_no_multi_turn_questioning",
+    "intended_use": "High-risk candidate retrieval and guideline-based verification for suspected Pulmonary Embolism.",
+    "important_boundary": "This graph supports clinical reasoning and missed-diagnosis risk reduction; it is not an autonomous diagnostic system.",
+    "attributes": []
+  },
+  "disease_id": "PULMONARY_EMBOLISM",
+  "disease_name_en": "Pulmonary Embolism",
+  "aliases": [
+    "PE",
+    "Acute pulmonary embolism",
+    "Venous thromboembolism pulmonary embolism"
+  ],
+  "disease_category": "vascular",
+  "relationship_to_other_graphs": {
+    "includes": [],
+    "subset_of": [],
+    "part_of": [],
+    "overlaps_with": [
+      "DEEP_VEIN_THROMBOSIS",
+      "SHOCK",
+      "ACUTE_CORONARY_SYNDROME"
+    ],
+    "commonly_mimics": [],
+    "upstream_of": [],
+    "distinctions": [
+      {
+        "target_graph": "AMI",
+        "description": "PE may cause chest pain and troponin elevation due to right ventricular strain; evaluate VTE risk, hypoxemia, imaging, and hemodynamic profile."
+      }
+    ],
+    "boundary_note": "",
+    "safety_notes": [],
+    "attributes": []
+  },
+  "basic_info": {
+    "working_definition": "Pulmonary embolism is obstruction of the pulmonary arterial circulation, most commonly by thrombus from venous thromboembolism.",
+    "why_high_risk_for_missed_diagnosis": [
+      "Symptoms are nonspecific and may mimic pneumonia, ACS, anxiety, asthma/COPD, heart failure, pneumothorax, or aortic disease.",
+      "Syncope, unexplained tachycardia, hypoxemia, or pleuritic pain may be the only clues.",
+      "D-dimer can be misused if clinical probability is not considered.",
+      "Hemodynamic instability suggests high-risk PE requiring urgent imaging or bedside pathway."
+    ],
+    "clinical_priority": "emergency_or_urgent",
+    "time_sensitivity": "Hemodynamically unstable PE is immediately life-threatening; stable cases still require structured probability-based diagnosis.",
+    "do_not_use_as": [
+      "a D-dimer-only rule",
+      "a symptom-only diagnosis",
+      "an anticoagulation order generator"
+    ],
+    "attributes": []
+  },
+  "case_input_normalization": {
+    "recognized_case_fields": [
+      "age",
+      "sex",
+      "presenting_complaints",
+      "symptoms",
+      "symptom_onset",
+      "vital_signs",
+      "physical_exam",
+      "past_medical_history",
+      "medications",
+      "risk_factors",
+      "laboratory_results",
+      "imaging",
+      "procedures",
+      "treatments_already_given"
+    ],
+    "normalization_rules": [
+      {
+        "rule_id": "norm_001_acute_dyspnea",
+        "input_terms": [
+          "dyspnea",
+          "dyspnoea",
+          "shortness of breath",
+          "short of breath",
+          "SOB",
+          "breathless",
+          "difficulty breathing",
+          "acute dyspnea",
+          "sudden shortness of breath"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "dyspnea",
+        "normalized_node_id": "symptom_acute_dyspnea",
+        "normalized_node": "Acute dyspnea",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_002_pleuritic_chest_pain",
+        "input_terms": [
+          "pleuritic chest pain",
+          "pleuritic pain",
+          "pain worse with inspiration",
+          "sharp chest pain with breathing"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "pleuritic_chest_pain",
+        "normalized_node_id": "symptom_pleuritic_chest_pain",
+        "normalized_node": "Pleuritic chest pain",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_003_syncope_presyncope",
+        "input_terms": [
+          "syncope",
+          "presyncope",
+          "near syncope",
+          "passed out",
+          "fainted"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "syncope_or_presyncope",
+        "normalized_node_id": "symptom_syncope_or_presyncope",
+        "normalized_node": "Syncope or presyncope",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_004_hemoptysis",
+        "input_terms": [
+          "hemoptysis",
+          "coughing blood",
+          "blood-streaked sputum"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "hemoptysis",
+        "normalized_node_id": "symptom_hemoptysis",
+        "normalized_node": "Hemoptysis",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_005_unilateral_leg_pain_swelling",
+        "input_terms": [
+          "unilateral leg swelling",
+          "one leg swollen",
+          "calf pain",
+          "leg pain and swelling",
+          "DVT symptoms"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "unilateral_leg_pain_or_swelling",
+        "normalized_node_id": "symptom_unilateral_leg_pain_or_swelling",
+        "normalized_node": "Unilateral leg pain or swelling",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_006_tachycardia",
+        "input_terms": [
+          "tachycardia",
+          "tachycardic",
+          "fast heart rate",
+          "rapid heart rate",
+          "elevated heart rate",
+          "high heart rate",
+          "HR high",
+          "pulse high"
+        ],
+        "input_variants": [
+          "HR >100",
+          "heart rate >100",
+          "pulse >100",
+          "HR 100",
+          "HR 110",
+          "HR 120",
+          "pulse 110",
+          "pulse 120"
+        ],
+        "normalized_case_fact": "tachycardia",
+        "normalized_node_id": "sign_tachycardia",
+        "normalized_node": "Tachycardia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_007_tachypnea",
+        "input_terms": [
+          "tachypnea",
+          "tachypneic",
+          "rapid respirations",
+          "rapid respiratory rate",
+          "increased work of breathing",
+          "RR high",
+          "respiratory rate high"
+        ],
+        "input_variants": [
+          "RR >20",
+          "RR >22",
+          "respiratory rate >20",
+          "respiratory rate >22",
+          "RR 24",
+          "RR 28",
+          "RR 30"
+        ],
+        "normalized_case_fact": "tachypnea",
+        "normalized_node_id": "sign_tachypnea",
+        "normalized_node": "Tachypnea",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_008_hypoxemia",
+        "input_terms": [
+          "hypoxemia",
+          "hypoxaemia",
+          "hypoxic",
+          "low oxygen saturation",
+          "low O2 sat",
+          "low SpO2",
+          "oxygen desaturation",
+          "desaturation",
+          "requires oxygen",
+          "new oxygen requirement"
+        ],
+        "input_variants": [
+          "SpO2 <90",
+          "SpO2 <92",
+          "O2 sat <90",
+          "O2 sat <92",
+          "oxygen saturation 88",
+          "sat 88",
+          "satting 88"
+        ],
+        "normalized_case_fact": "hypoxemia",
+        "normalized_node_id": "sign_hypoxemia",
+        "normalized_node": "Hypoxemia",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_009_hypotension_or_shock",
+        "input_terms": [
+          "hypotension",
+          "hypotensive",
+          "low blood pressure",
+          "low BP",
+          "SBP low",
+          "MAP low",
+          "shock",
+          "hemodynamic instability",
+          "hemodynamically unstable"
+        ],
+        "input_variants": [
+          "SBP <90",
+          "systolic BP <90",
+          "MAP <65",
+          "BP 82/48",
+          "BP 80/40",
+          "blood pressure 82/48"
+        ],
+        "normalized_case_fact": "hypotension",
+        "normalized_node_id": "sign_hypotension_or_shock",
+        "normalized_node": "Hypotension or shock",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "vital_sign_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_010_recent_surgery_immobilization",
+        "input_terms": [
+          "recent surgery",
+          "post-op",
+          "postoperative",
+          "recent operation"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "recent_surgery",
+        "normalized_node_id": "risk_recent_surgery",
+        "normalized_node": "Recent surgery",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_011_immobilization_hospitalization",
+        "input_terms": [
+          "immobilization",
+          "bedbound",
+          "recent hospitalization",
+          "long bed rest",
+          "cast immobilization"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "recent_immobilization",
+        "normalized_node_id": "risk_recent_immobilization_or_hospitalization",
+        "normalized_node": "Recent immobilization or hospitalization",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_012_active_cancer",
+        "input_terms": [
+          "active cancer",
+          "malignancy",
+          "chemotherapy",
+          "metastatic cancer"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "active_cancer",
+        "normalized_node_id": "risk_active_cancer",
+        "normalized_node": "Active cancer",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_013_prior_vte",
+        "input_terms": [
+          "prior VTE",
+          "history of DVT",
+          "history of PE",
+          "previous clot",
+          "prior pulmonary embolism"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "prior_vte",
+        "normalized_node_id": "risk_prior_vte",
+        "normalized_node": "Prior VTE",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_014_d_dimer_positive",
+        "input_terms": [
+          "D-dimer elevated",
+          "positive D-dimer",
+          "D dimer positive",
+          "high D-dimer"
+        ],
+        "input_variants": [
+          "d-dimer >500",
+          "D-dimer 1000"
+        ],
+        "normalized_case_fact": "elevated_d_dimer",
+        "normalized_node_id": "test_d_dimer_when_clinical_probability_allows",
+        "normalized_node": "D-dimer when clinical probability allows",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "lab_numeric_compatible",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_015_ctpa_positive",
+        "input_terms": [
+          "positive CTPA",
+          "pulmonary arterial filling defect",
+          "filling defect on CTPA",
+          "PE on CTA",
+          "CTPA shows PE"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "positive_ctpa",
+        "normalized_node_id": "finding_positive_ctpa_pulmonary_arterial_filling_defect",
+        "normalized_node": "Positive CTPA pulmonary arterial filling defect",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_016_rv_strain",
+        "input_terms": [
+          "RV strain",
+          "right ventricular strain",
+          "RV dilation",
+          "right heart strain",
+          "right ventricular dysfunction"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "right_ventricular_strain",
+        "normalized_node_id": "finding_right_ventricular_dilation_or_dysfunction",
+        "normalized_node": "Right ventricular dilation or dysfunction",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "imaging_finding",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      },
+      {
+        "rule_id": "norm_017_s1q3t3",
+        "input_terms": [
+          "S1Q3T3",
+          "right heart strain ECG",
+          "T wave inversions V1-V4",
+          "RBBB with strain"
+        ],
+        "input_variants": [],
+        "normalized_case_fact": "right_heart_strain_ecg",
+        "normalized_node_id": "finding_s1q3t3_or_right_heart_strain_ecg_pattern",
+        "normalized_node": "S1Q3T3 or right heart strain ECG pattern",
+        "attributes": [
+          {
+            "source": "kg_normalization_patch_2026_06_28",
+            "category": "clinical_text",
+            "notes": "Added to improve KG retrieval recall for textual abbreviations and extracted clinical facts."
+          }
+        ]
+      }
+    ],
+    "single_pass_missing_information_policy": "Do not ask follow-up questions. Mark missing critical information explicitly and state how missingness affects verification.",
+    "attributes": [],
+    "normalization_patch_note": "Normalization rules were systematized on 2026-06-28 to support retrieval from textual triggers, abbreviations, and numeric clinical facts. Rules map common case expressions to graph node ids where available. They are retrieval signals, not autonomous diagnostic criteria."
+  },
+  "graph_nodes": [
+    {
+      "node_id": "disease_pulmonary_embolism",
+      "node_type": "DiseaseCandidate",
+      "name": "Pulmonary Embolism",
+      "synonyms": [
+        "PE",
+        "Acute pulmonary embolism",
+        "Venous thromboembolism pulmonary embolism"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_suspected_venous_thromboembolism",
+      "node_type": "ClinicalContext",
+      "name": "Suspected venous thromboembolism",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_hemodynamically_stable_suspected_pe",
+      "node_type": "ClinicalContext",
+      "name": "Hemodynamically stable suspected PE",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_hemodynamically_unstable_suspected_pe",
+      "node_type": "ClinicalContext",
+      "name": "Hemodynamically unstable suspected PE",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "context_pregnancy_or_postpartum_pe_pathway_requires_local_adaptation",
+      "node_type": "ClinicalContext",
+      "name": "Pregnancy or postpartum PE pathway requires local adaptation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_acute_dyspnea",
+      "node_type": "Symptom",
+      "name": "Acute dyspnea",
+      "synonyms": [
+        "dyspnea",
+        "dyspnoea",
+        "shortness of breath",
+        "short of breath",
+        "SOB",
+        "breathless",
+        "difficulty breathing",
+        "acute dyspnea",
+        "sudden shortness of breath"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_pleuritic_chest_pain",
+      "node_type": "Symptom",
+      "name": "Pleuritic chest pain",
+      "synonyms": [
+        "pleuritic chest pain",
+        "pleuritic pain",
+        "pain worse with inspiration",
+        "sharp chest pain with breathing"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_syncope_or_presyncope",
+      "node_type": "Symptom",
+      "name": "Syncope or presyncope",
+      "synonyms": [
+        "syncope",
+        "presyncope",
+        "near syncope",
+        "passed out",
+        "fainted"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_hemoptysis",
+      "node_type": "Symptom",
+      "name": "Hemoptysis",
+      "synonyms": [
+        "hemoptysis",
+        "coughing blood",
+        "blood-streaked sputum"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_cough",
+      "node_type": "Symptom",
+      "name": "Cough",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_unilateral_leg_pain_or_swelling",
+      "node_type": "Symptom",
+      "name": "Unilateral leg pain or swelling",
+      "synonyms": [
+        "unilateral leg swelling",
+        "one leg swollen",
+        "calf pain",
+        "leg pain and swelling",
+        "DVT symptoms"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_palpitations",
+      "node_type": "Symptom",
+      "name": "Palpitations",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "symptom_anxiety_or_sense_of_impending_doom",
+      "node_type": "Symptom",
+      "name": "Anxiety or sense of impending doom",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_tachycardia",
+      "node_type": "Sign",
+      "name": "Tachycardia",
+      "synonyms": [
+        "tachycardia",
+        "tachycardic",
+        "fast heart rate",
+        "rapid heart rate",
+        "elevated heart rate",
+        "high heart rate",
+        "HR high",
+        "pulse high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_tachypnea",
+      "node_type": "Sign",
+      "name": "Tachypnea",
+      "synonyms": [
+        "tachypnea",
+        "tachypneic",
+        "rapid respirations",
+        "rapid respiratory rate",
+        "increased work of breathing",
+        "RR high",
+        "respiratory rate high"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypoxemia",
+      "node_type": "Sign",
+      "name": "Hypoxemia",
+      "synonyms": [
+        "hypoxemia",
+        "hypoxaemia",
+        "hypoxic",
+        "low oxygen saturation",
+        "oxygen desaturation",
+        "desaturation",
+        "requires oxygen",
+        "new oxygen requirement"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_hypotension_or_shock",
+      "node_type": "Sign",
+      "name": "Hypotension or shock",
+      "synonyms": [
+        "hypotension",
+        "hypotensive",
+        "low blood pressure",
+        "low BP",
+        "SBP low",
+        "MAP low",
+        "shock",
+        "hemodynamic instability",
+        "hemodynamically unstable"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_unilateral_leg_swelling",
+      "node_type": "Sign",
+      "name": "Unilateral leg swelling",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_signs_of_right_ventricular_strain",
+      "node_type": "Sign",
+      "name": "Signs of right ventricular strain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_jugular_venous_distention",
+      "node_type": "Sign",
+      "name": "Jugular venous distention",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "sign_low_grade_fever",
+      "node_type": "Sign",
+      "name": "Low-grade fever",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_surgery",
+      "node_type": "RiskFactor",
+      "name": "Recent surgery",
+      "synonyms": [
+        "recent surgery",
+        "post-op",
+        "postoperative",
+        "recent operation"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_recent_immobilization_or_hospitalization",
+      "node_type": "RiskFactor",
+      "name": "Recent immobilization or hospitalization",
+      "synonyms": [
+        "immobilization",
+        "bedbound",
+        "recent hospitalization",
+        "long bed rest",
+        "cast immobilization"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_active_cancer",
+      "node_type": "RiskFactor",
+      "name": "Active cancer",
+      "synonyms": [
+        "active cancer",
+        "malignancy",
+        "chemotherapy",
+        "metastatic cancer"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_prior_vte",
+      "node_type": "RiskFactor",
+      "name": "Prior VTE",
+      "synonyms": [
+        "prior VTE",
+        "history of DVT",
+        "history of PE",
+        "previous clot",
+        "prior pulmonary embolism"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_known_thrombophilia",
+      "node_type": "RiskFactor",
+      "name": "Known thrombophilia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_pregnancy_or_postpartum_state",
+      "node_type": "RiskFactor",
+      "name": "Pregnancy or postpartum state",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_estrogen_therapy_or_oral_contraceptives",
+      "node_type": "RiskFactor",
+      "name": "Estrogen therapy or oral contraceptives",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_major_trauma",
+      "node_type": "RiskFactor",
+      "name": "Major trauma",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_long_haul_travel",
+      "node_type": "RiskFactor",
+      "name": "Long-haul travel",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "risk_central_venous_catheter",
+      "node_type": "RiskFactor",
+      "name": "Central venous catheter",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_clinical_pretest_probability_using_wells_geneva_or_local_pathway",
+      "node_type": "DiagnosticData",
+      "name": "Clinical pretest probability using Wells/Geneva or local pathway",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_perc_rule_only_in_low_risk_appropriate_patients",
+      "node_type": "DiagnosticData",
+      "name": "PERC rule only in low-risk appropriate patients",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_d_dimer_when_clinical_probability_allows",
+      "node_type": "DiagnosticData",
+      "name": "D-dimer when clinical probability allows",
+      "synonyms": [
+        "D-dimer elevated",
+        "positive D-dimer",
+        "D dimer positive",
+        "high D-dimer"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ct_pulmonary_angiography",
+      "node_type": "DiagnosticData",
+      "name": "CT pulmonary angiography",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ventilation_perfusion_scan_when_ctpa_unsuitable",
+      "node_type": "DiagnosticData",
+      "name": "Ventilation-perfusion scan when CTPA unsuitable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_compression_ultrasound_for_dvt",
+      "node_type": "DiagnosticData",
+      "name": "Compression ultrasound for DVT",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_bedside_echocardiography_in_unstable_patients",
+      "node_type": "DiagnosticData",
+      "name": "Bedside echocardiography in unstable patients",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_ecg",
+      "node_type": "DiagnosticData",
+      "name": "ECG",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_troponin_and_bnp_for_risk_stratification",
+      "node_type": "DiagnosticData",
+      "name": "Troponin and BNP for risk stratification",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "test_arterial_or_venous_blood_gas_when_needed",
+      "node_type": "DiagnosticData",
+      "name": "Arterial or venous blood gas when needed",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_positive_ctpa_pulmonary_arterial_filling_defect",
+      "node_type": "Finding",
+      "name": "Positive CTPA pulmonary arterial filling defect",
+      "synonyms": [
+        "positive CTPA",
+        "pulmonary arterial filling defect",
+        "filling defect on CTPA",
+        "PE on CTA",
+        "CTPA shows PE"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_high_probability_v_q_scan",
+      "node_type": "Finding",
+      "name": "High-probability V/Q scan",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_proximal_dvt_on_compression_ultrasound_in_suspected_pe",
+      "node_type": "Finding",
+      "name": "Proximal DVT on compression ultrasound in suspected PE",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_right_ventricular_dilation_or_dysfunction",
+      "node_type": "Finding",
+      "name": "Right ventricular dilation or dysfunction",
+      "synonyms": [
+        "RV strain",
+        "right ventricular strain",
+        "RV dilation",
+        "right heart strain",
+        "right ventricular dysfunction"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_elevated_cardiac_biomarkers_indicating_rv_strain",
+      "node_type": "Finding",
+      "name": "Elevated cardiac biomarkers indicating RV strain",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_s1q3t3_or_right_heart_strain_ecg_pattern",
+      "node_type": "Finding",
+      "name": "S1Q3T3 or right heart strain ECG pattern",
+      "synonyms": [
+        "right heart strain ECG",
+        "RBBB with strain"
+      ],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "finding_unexplained_hypoxemia",
+      "node_type": "Finding",
+      "name": "Unexplained hypoxemia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_activate_pe_response_or_high_risk_pe_pathway_when_unstable",
+      "node_type": "ManagementAction",
+      "name": "Activate PE response or high-risk PE pathway when unstable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_anticoagulation_assessment_when_pe_likely_and_bleeding_risk_acceptable",
+      "node_type": "ManagementAction",
+      "name": "Anticoagulation assessment when PE likely and bleeding risk acceptable",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_risk_stratify_confirmed_pe",
+      "node_type": "ManagementAction",
+      "name": "Risk stratify confirmed PE",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_consider_reperfusion_strategy_for_high_risk_pe",
+      "node_type": "ManagementAction",
+      "name": "Consider reperfusion strategy for high-risk PE",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_evaluate_contraindications_to_anticoagulation_or_thrombolysis",
+      "node_type": "ManagementAction",
+      "name": "Evaluate contraindications to anticoagulation or thrombolysis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "action_assess_for_alternative_diagnoses",
+      "node_type": "ManagementAction",
+      "name": "Assess for alternative diagnoses",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_acute_coronary_syndrome",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Acute coronary syndrome",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_aortic_dissection",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Aortic dissection",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pneumonia",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pneumonia",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pneumothorax",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pneumothorax",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_asthma_or_copd_exacerbation",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Asthma or COPD exacerbation",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_heart_failure",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Heart failure",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_pericarditis",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Pericarditis",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    },
+    {
+      "node_id": "ddx_anxiety_panic_attack",
+      "node_type": "DifferentialDiagnosis",
+      "name": "Anxiety/panic attack",
+      "synonyms": [],
+      "standard_codes": {},
+      "attributes": []
+    }
+  ],
+  "graph_edges": [
+    {
+      "edge_id": "e001",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_clinical_context",
+      "target": "context_suspected_venous_thromboembolism",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e002",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_clinical_context",
+      "target": "context_hemodynamically_stable_suspected_pe",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e003",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_clinical_context",
+      "target": "context_hemodynamically_unstable_suspected_pe",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e004",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_clinical_context",
+      "target": "context_pregnancy_or_postpartum_pe_pathway_requires_local_adaptation",
+      "strength": "important",
+      "weight": 0.65,
+      "clinical_note": "This context helps define the candidate boundary for Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e005",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_acute_dyspnea",
+      "strength": "strong",
+      "weight": 0.8,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e006",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_pleuritic_chest_pain",
+      "strength": "strong",
+      "weight": 0.75,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e007",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_syncope_or_presyncope",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e008",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_hemoptysis",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e009",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_cough",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e010",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_unilateral_leg_pain_or_swelling",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e011",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_palpitations",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e012",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_common_or_red_flag_symptom",
+      "target": "symptom_anxiety_or_sense_of_impending_doom",
+      "strength": "moderate",
+      "weight": 0.55,
+      "clinical_note": "This symptom can support retrieval of Pulmonary Embolism, but must be interpreted with the whole case.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e013",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_tachycardia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e014",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_tachypnea",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e015",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hypoxemia",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e016",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_hypotension_or_shock",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e017",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_unilateral_leg_swelling",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e018",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_signs_of_right_ventricular_strain",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e019",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_jugular_venous_distention",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e020",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_or_red_flag_sign",
+      "target": "sign_low_grade_fever",
+      "strength": "moderate",
+      "weight": 0.6,
+      "clinical_note": "This sign can support verification of Pulmonary Embolism or severity.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e021",
+      "source": "risk_recent_surgery",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e022",
+      "source": "risk_recent_immobilization_or_hospitalization",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e023",
+      "source": "risk_active_cancer",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e024",
+      "source": "risk_prior_vte",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e025",
+      "source": "risk_known_thrombophilia",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e026",
+      "source": "risk_pregnancy_or_postpartum_state",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e027",
+      "source": "risk_estrogen_therapy_or_oral_contraceptives",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e028",
+      "source": "risk_major_trauma",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e029",
+      "source": "risk_long_haul_travel",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e030",
+      "source": "risk_central_venous_catheter",
+      "relation": "increases_suspicion_for",
+      "target": "disease_pulmonary_embolism",
+      "strength": "moderate",
+      "weight": 0.45,
+      "clinical_note": "This risk factor increases pre-test concern for Pulmonary Embolism in the appropriate clinical context.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e031",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_clinical_pretest_probability_using_wells_geneva_or_local_pathway",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e032",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_perc_rule_only_in_low_risk_appropriate_patients",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e033",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_d_dimer_when_clinical_probability_allows",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e034",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ct_pulmonary_angiography",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e035",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ventilation_perfusion_scan_when_ctpa_unsuitable",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e036",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_compression_ultrasound_for_dvt",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e037",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_bedside_echocardiography_in_unstable_patients",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e038",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_ecg",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e039",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_troponin_and_bnp_for_risk_stratification",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e040",
+      "source": "disease_pulmonary_embolism",
+      "relation": "requires_or_uses_diagnostic_data",
+      "target": "test_arterial_or_venous_blood_gas_when_needed",
+      "strength": "important",
+      "weight": 0.7,
+      "clinical_note": "This diagnostic data element is used to verify, classify, or risk-stratify suspected Pulmonary Embolism.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e041",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_positive_ctpa_pulmonary_arterial_filling_defect",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e042",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_high_probability_v_q_scan",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e043",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_proximal_dvt_on_compression_ultrasound_in_suspected_pe",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e044",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_right_ventricular_dilation_or_dysfunction",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e045",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_elevated_cardiac_biomarkers_indicating_rv_strain",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e046",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_s1q3t3_or_right_heart_strain_ecg_pattern",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e047",
+      "source": "disease_pulmonary_embolism",
+      "relation": "has_supporting_finding",
+      "target": "finding_unexplained_hypoxemia",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This finding supports Pulmonary Embolism or a subtype when consistent with the clinical scenario.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e048",
+      "source": "disease_pulmonary_embolism",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_activate_pe_response_or_high_risk_pe_pathway_when_unstable",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Pulmonary Embolism is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e049",
+      "source": "disease_pulmonary_embolism",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_anticoagulation_assessment_when_pe_likely_and_bleeding_risk_acceptable",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Pulmonary Embolism is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e050",
+      "source": "disease_pulmonary_embolism",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_risk_stratify_confirmed_pe",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Pulmonary Embolism is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e051",
+      "source": "disease_pulmonary_embolism",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_consider_reperfusion_strategy_for_high_risk_pe",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Pulmonary Embolism is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e052",
+      "source": "disease_pulmonary_embolism",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_evaluate_contraindications_to_anticoagulation_or_thrombolysis",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Pulmonary Embolism is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "edge_id": "e053",
+      "source": "disease_pulmonary_embolism",
+      "relation": "guideline_recommends_when_indicated",
+      "target": "action_assess_for_alternative_diagnoses",
+      "strength": "important",
+      "weight": 0.75,
+      "clinical_note": "This action is guideline-relevant when Pulmonary Embolism is suspected or confirmed and local protocols apply.",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    }
+  ],
+  "symptom_to_candidate_retrieval": {
+    "activation_logic": [
+      {
+        "minimum_activation": "Dyspnea, pleuritic chest pain, syncope, hemoptysis, unexplained hypoxemia/tachycardia, or DVT symptoms plus VTE risk context or objective cardiopulmonary abnormality.",
+        "strong_activation_patterns": [
+          {
+            "pattern_id": "PE_P1_dyspnea_pleuritic",
+            "case_features": [
+              "acute dyspnea",
+              "pleuritic chest pain"
+            ],
+            "candidate_priority": "high",
+            "reason": "Common PE presentation pattern."
+          },
+          {
+            "pattern_id": "PE_P2_syncope_shock",
+            "case_features": [
+              "syncope or hypotension",
+              "dyspnea or hypoxemia"
+            ],
+            "candidate_priority": "very_high",
+            "reason": "Possible high-risk PE."
+          },
+          {
+            "pattern_id": "PE_P3_vte_risk",
+            "case_features": [
+              "VTE risk factor",
+              "unexplained tachycardia/hypoxemia"
+            ],
+            "candidate_priority": "high",
+            "reason": "Risk context plus objective abnormality."
+          },
+          {
+            "pattern_id": "PE_P4_dvt_plus_respiratory",
+            "case_features": [
+              "unilateral leg swelling",
+              "acute dyspnea/chest pain"
+            ],
+            "candidate_priority": "high",
+            "reason": "DVT features with pulmonary symptoms."
+          }
+        ],
+        "weak_activation_patterns": [
+          {
+            "pattern_id": "PE_W1_d_dimer_without_context",
+            "case_features": [
+              "positive D-dimer alone"
+            ],
+            "candidate_priority": "low_to_moderate",
+            "reason": "D-dimer is nonspecific without probability context."
+          }
+        ]
+      }
+    ],
+    "candidate_scoring_features": [
+      {
+        "compatible_presenting_features": {
+          "weight": 0.35,
+          "features": []
+        },
+        "objective_signs_or_findings": {
+          "weight": 0.3,
+          "features": []
+        },
+        "risk_context": {
+          "weight": 0.15,
+          "features": []
+        },
+        "diagnostic_confirmation_data": {
+          "weight": 0.2,
+          "features": []
+        }
+      }
+    ],
+    "scoring_warning": "Weights are for retrieval and explanation only. They are not calibrated probabilities and must not be used as a diagnostic score.",
+    "attributes": []
+  },
+  "guideline_verification_pathway": [
+    {
+      "step_id": "step_01_assess_hemodynamic_stability",
+      "step_type": "severity_check",
+      "step_name": "",
+      "check": "Is the patient hypotensive, in shock, or hemodynamically unstable?",
+      "required_case_fields": [
+        "blood_pressure",
+        "MAP",
+        "heart_rate",
+        "oxygen_saturation",
+        "mental_status"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use high-risk PE pathway; consider bedside echo/urgent CTPA if feasible.",
+      "negative_result": "Proceed with stable PE diagnostic algorithm.",
+      "if_missing": "Cannot determine high-risk boundary without vitals.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "step_id": "step_02_estimate_pretest_probability",
+      "step_type": "probability_check",
+      "step_name": "",
+      "check": "What is the clinical pretest probability using a validated or local pathway?",
+      "required_case_fields": [
+        "symptoms",
+        "VTE_risk_factors",
+        "exam",
+        "alternative_diagnosis"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Use probability to guide D-dimer or imaging.",
+      "negative_result": "If low and PERC negative in appropriate setting, PE may be unlikely.",
+      "if_missing": "Probability assessment incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "step_id": "step_03_d_dimer_when_appropriate",
+      "step_type": "biomarker_check",
+      "step_name": "",
+      "check": "Is D-dimer indicated and interpretable for this probability group?",
+      "required_case_fields": [
+        "pretest_probability",
+        "D-dimer",
+        "age",
+        "pregnancy/cancer/recent_surgery"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Negative appropriate D-dimer may help exclude PE in low/intermediate probability.",
+      "negative_result": "Positive D-dimer requires imaging context; it does not confirm PE.",
+      "if_missing": "D-dimer missing or not appropriate.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "step_id": "step_04_imaging_confirmation",
+      "step_type": "imaging_check",
+      "step_name": "",
+      "check": "Is definitive imaging available: CTPA, V/Q scan, or DVT ultrasound when applicable?",
+      "required_case_fields": [
+        "CTPA",
+        "VQ_scan",
+        "compression_ultrasound"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Confirm or refute PE and define clot burden/RV strain.",
+      "negative_result": "If negative and high suspicion persists, reassess quality and alternatives.",
+      "if_missing": "Imaging missing; PE cannot be confirmed/excluded.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "step_id": "step_05_risk_stratify_confirmed_or_likely_pe",
+      "step_type": "risk_stratification",
+      "step_name": "",
+      "check": "Are RV dysfunction, biomarkers, or shock present?",
+      "required_case_fields": [
+        "echo/CT_RV",
+        "troponin",
+        "BNP",
+        "vitals"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Classify severity and escalation needs.",
+      "negative_result": "Low-risk pathway if stable and no RV strain.",
+      "if_missing": "Risk stratification incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    },
+    {
+      "step_id": "step_06_evaluate_mimics",
+      "step_type": "differential_check",
+      "step_name": "",
+      "check": "Could ACS, dissection, pneumonia, pneumothorax, heart failure, or asthma/COPD explain the presentation?",
+      "required_case_fields": [
+        "ECG",
+        "troponin",
+        "CXR",
+        "CTA_aorta_when_indicated",
+        "infection_data"
+      ],
+      "positive_criteria": [],
+      "positive_result": "Report competing diagnoses.",
+      "negative_result": "PE remains favored if imaging/probability support it.",
+      "if_missing": "Mimic evaluation incomplete.",
+      "if_positive": "",
+      "if_negative": "",
+      "if_uncertain": "",
+      "evidence_id": "evidence_esc_pe_2019",
+      "attributes": []
+    }
+  ],
+  "differential_diagnosis": [
+    {
+      "disease_id": "ACUTE_CORONARY_SYNDROME",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Chest pain, dyspnea, troponin elevation can overlap; ACS more often has ischemic ECG pattern and coronary risk context."
+      ],
+      "critical_tests_or_data": [
+        "ECG",
+        "serial troponin"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "AORTIC_DISSECTION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Abrupt tearing pain, pulse/BP differential, neurologic deficit, mediastinal findings."
+      ],
+      "critical_tests_or_data": [
+        "CTA aorta",
+        "pulse/BP exam"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PNEUMONIA",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Fever, cough, infiltrate, inflammatory markers; PE may have low-grade fever and pleuritic pain."
+      ],
+      "critical_tests_or_data": [
+        "CXR",
+        "CT",
+        "cultures when indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "PNEUMOTHORAX",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Sudden pleuritic pain and dyspnea with unilateral breath-sound changes."
+      ],
+      "critical_tests_or_data": [
+        "CXR",
+        "lung ultrasound"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "HEART_FAILURE",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Orthopnea, edema, pulmonary edema, elevated natriuretic peptides; may coexist with PE."
+      ],
+      "critical_tests_or_data": [
+        "BNP",
+        "CXR",
+        "echo"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    },
+    {
+      "disease_id": "ASTHMA_OR_COPD_EXACERBATION",
+      "disease_name": "",
+      "why_confusable": "",
+      "why_confused": "",
+      "distinguishing_features": [
+        "Wheezing and obstructive history; PE should be considered if sudden, hypoxemic, pleuritic, or VTE risk."
+      ],
+      "critical_tests_or_data": [
+        "spirometry history",
+        "CXR",
+        "CTPA if indicated"
+      ],
+      "required_case_fields": [],
+      "features_supporting_alternative": [],
+      "features_supporting_index_disease": [],
+      "attributes": []
+    }
+  ],
+  "case_analysis_output_schema": {
+    "case_summary": {
+      "extracted_presenting_features": [],
+      "extracted_symptoms": [],
+      "extracted_signs": [],
+      "extracted_risk_factors": [],
+      "available_tests": [],
+      "critical_missing_information": []
+    },
+    "candidate_retrieval": {
+      "disease_id": "PULMONARY_EMBOLISM",
+      "triggered_by": [],
+      "retrieval_priority": "very_high | high | moderate | low | insufficient_information",
+      "reason_for_retrieval": ""
+    },
+    "knowledge_graph_verification": {
+      "matched_nodes": [],
+      "matched_edges": [],
+      "unmatched_but_important_nodes": [],
+      "severity_or_subtype_assessment": "",
+      "differential_diagnosis_assessment": []
+    },
+    "guideline_pathway_result": [
+      {
+        "step_id": "",
+        "result": "met | partially_met | not_met | unavailable | contraindicated_or_not_applicable",
+        "case_evidence": [],
+        "missing_information": [],
+        "impact_on_assessment": ""
+      }
+    ],
+    "final_assessment": {
+      "classification": "very_high_priority_candidate | high_priority_candidate | moderate_priority_candidate | low_priority_candidate | insufficient_information",
+      "supporting_evidence": [],
+      "evidence_against_or_lowering_priority": [],
+      "cannot_exclude_conditions": [],
+      "recommended_next_verification": [],
+      "safety_statement": "Clinical decision support only; urgent clinician assessment is required when a high-risk condition is suspected."
+    },
+    "source_traceability": [
+      {
+        "claim": "",
+        "evidence_id": "",
+        "source_title": "",
+        "source_section": ""
+      }
+    ],
+    "attributes": []
+  },
+  "evidence_sources": [
+    {
+      "evidence_id": "evidence_esc_pe_2019",
+      "source_type": "guideline",
+      "title": "2019 ESC Guidelines for the diagnosis and management of acute pulmonary embolism",
+      "publisher": "European Society of Cardiology / European Respiratory Society",
+      "publication_date": "2019",
+      "publication_year": "",
+      "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+      "review_status": "requires_local_clinician_review",
+      "key_points": [
+        "Acute pulmonary embolism symptoms are nonspecific and include dyspnea, chest pain, presyncope/syncope, and hemoptysis.",
+        "Diagnostic strategy depends on hemodynamic stability, clinical probability, D-dimer, CTPA/VQ imaging, and risk stratification."
+      ],
+      "summary": "",
+      "applies_to": [],
+      "linked_graph_elements": [],
+      "evidence_level": "",
+      "recommendation_strength": "",
+      "certainty": "",
+      "attributes": []
+    }
+  ],
+  "safety_constraints": {
+    "must_not": [
+      "Do not make an autonomous definitive diagnosis.",
+      "Do not use a single symptom, sign, laboratory result, score, or imaging clue as a standalone rule-in or rule-out criterion.",
+      "Do not provide patient-facing reassurance when critical red-flag data are missing.",
+      "Do not ignore competing high-risk differential diagnoses.",
+      "Do not replace local emergency, specialty, or hospital protocols.",
+      "Do not generate medication orders; recommend clinician-led pathway activation instead.",
+      "Do not diagnose PE from D-dimer alone.",
+      "Do not exclude high-probability PE with an inappropriate D-dimer strategy.",
+      "Do not overlook PE in syncope or unexplained hypoxemia."
+    ],
+    "must_do": [
+      "Use this graph for candidate retrieval, missed-diagnosis risk reduction, and guideline-based verification.",
+      "Separate supporting evidence, evidence against, and missing critical information.",
+      "State whether verification is complete, partial, impossible from available data, or contradicted.",
+      "Include differential diagnoses that can mimic the condition.",
+      "Trace guideline-dependent claims to evidence IDs.",
+      "Mark output as clinical decision support requiring qualified clinician review.",
+      "Always separate hemodynamic stability from stable diagnostic probability pathway.",
+      "Always report whether imaging confirmation is available."
+    ],
+    "human_review": {
+      "required_before_clinical_deployment": true,
+      "review_roles": [
+        "relevant specialty physician",
+        "emergency physician",
+        "clinical informatician",
+        "quality and safety lead"
+      ],
+      "localization_required": [
+        "local emergency pathway",
+        "local imaging availability",
+        "local laboratory turnaround",
+        "local transfer criteria",
+        "local medication and procedure protocols"
+      ]
+    },
+    "final_output_disclaimer": "",
+    "deployment_requirements": [],
+    "attributes": []
+  },
+  "normalization_patch_metadata": {
+    "patched_at": "2026-06-28",
+    "patch_scope": "All KG normalization_rules standardized and enriched for retrieval.",
+    "rule_count": 17,
+    "preserved_graph_nodes": 62,
+    "preserved_graph_edges": 53
+  }
+}
